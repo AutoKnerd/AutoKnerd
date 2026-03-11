@@ -117,6 +117,25 @@ export const siteContent = {
     ],
     footerLine: "AutoKnerd focuses on stabilizing behavior first. When behavior becomes consistent, performance improves."
   },
+  philosophy: {
+    pillars: [
+      {
+        icon: "shield",
+        title: "Trust is Systemic, Not Accidental",
+        description: "Consistency across the customer journey isn't built on wishful thinking; it's engineered through structured behavioral checkpoints.",
+      },
+      {
+        icon: "eye",
+        title: "Invisible Architecture",
+        description: "The best systems are invisible to the customer but provide an unshakeable framework for your sales and management teams.",
+      },
+      {
+        icon: "refresh",
+        title: "Continuous Telemetry",
+        description: "We don't just train; we measure, adapt, and refine behaviors through real-time feedback loops to guarantee long-term stability.",
+      }
+    ]
+  },
   team: {
     title: "Meet the Architect",
     founder: {
