@@ -6,12 +6,12 @@ import { ArrowRight } from "lucide-react";
 
 const journeySteps = [
     "Customer Arrival",
-    "Greeting Behavior",
-    "Discovery Conversation",
+    "Greeting",
+    "Discovery",
     "Vehicle Experience",
     "Decision Guidance",
-    "Delivery Experience",
-    "Follow-Up System",
+    "Delivery",
+    "Customer Trust",
 ];
 
 const resultItems = [
@@ -42,13 +42,13 @@ export const CXOperatingMap = () => {
                             Manager Reinforcement System
                         </p>
                         <p className="text-base md:text-lg text-slate/65 tracking-tight">
-                            weekly coaching, behavior tracking, execution scorecards
+                            weekly coaching and behavior tracking
                         </p>
                     </div>
 
-                    <div className="luxury-card rounded-[2rem] md:rounded-[2.6rem] p-6 md:p-8 overflow-x-auto">
-                        <div className="min-w-[1100px]">
-                            <div className="flex items-center gap-3 md:gap-4">
+                    <div className="luxury-card rounded-[2rem] md:rounded-[2.6rem] p-4 md:p-5 overflow-x-auto">
+                        <div className="min-w-[980px]">
+                            <div className="flex items-center gap-2 md:gap-3">
                                 {journeySteps.map((step, index) => (
                                     <React.Fragment key={step}>
                                         <motion.div
@@ -56,7 +56,7 @@ export const CXOperatingMap = () => {
                                             whileInView={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.5, delay: index * 0.06 }}
                                             viewport={{ once: true }}
-                                            className="rounded-2xl border border-white/10 bg-white/[0.02] px-4 md:px-5 py-4 md:py-5 text-center min-w-[140px] md:min-w-[150px]"
+                                            className="rounded-2xl border border-white/10 bg-white/[0.02] px-3 md:px-4 py-3 md:py-4 text-center min-w-[118px] md:min-w-[126px]"
                                         >
                                             <span className="text-sm md:text-base text-white/85 leading-snug tracking-tight block">
                                                 {step}
@@ -68,7 +68,7 @@ export const CXOperatingMap = () => {
                                     </React.Fragment>
                                 ))}
                                 <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-primary/70 shrink-0" />
-                                <div className="rounded-2xl border border-primary/30 bg-primary/[0.06] px-5 py-5 min-w-[220px]">
+                                <div className="rounded-2xl border border-primary/30 bg-primary/[0.06] px-4 py-4 min-w-[206px]">
                                     <p className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] font-bold font-mono text-primary mb-3">
                                         Result
                                     </p>
@@ -89,7 +89,7 @@ export const CXOperatingMap = () => {
                             AutoDriveCX Skill Development
                         </p>
                         <p className="text-base md:text-lg text-slate/65 tracking-tight">
-                            consultant drills, behavioral habit building, scenario training
+                            consultant drills and conversation training
                         </p>
                     </div>
                 </div>

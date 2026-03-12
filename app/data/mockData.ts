@@ -2,6 +2,7 @@ export const siteContent = {
   navigation: {
     links: [
       { label: "Methodology", href: "/methodology" },
+      { label: "Podcast", href: "/podcast" },
       { label: "Systems", href: "/#systems" },
       { label: "Process", href: "/#process" },
       { label: "Impact", href: "/#impact" },
