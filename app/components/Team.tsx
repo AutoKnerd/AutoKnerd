@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export const Team = () => {
     return (
-        <section id="architect" className="py-32 lg:py-64 bg-background relative overflow-hidden border-t border-white/5">
+        <section id="architect" className="py-32 md:py-[140px] bg-background relative overflow-hidden border-t border-white/5">
             {/* Structural Geometry */}
             <div className="bg-blueprint absolute inset-0 opacity-[0.03] pointer-events-none" />
             <div className="bg-dot-grid absolute inset-0 opacity-[0.05] pointer-events-none" />
@@ -18,7 +18,7 @@ export const Team = () => {
                     <div className="lg:col-span-12 mb-32">
                         <div className="flex items-center gap-6 text-primary mb-12 group/header cursor-default">
                             <div className="h-px w-48 bg-primary/20 group-hover:w-64 transition-all duration-1000" />
-                            <span className="text-[11px] font-extrabold uppercase tracking-[0.8em] font-mono group-hover:text-white transition-colors">Strategic_Leadership_Architect</span>
+                            <span className="text-[11px] font-extrabold uppercase tracking-[0.8em] font-mono group-hover:text-white transition-colors">Strategic Leadership Architecture</span>
                             <div className="h-px w-20 bg-primary/20" />
                         </div>
                     </div>
@@ -58,7 +58,7 @@ export const Team = () => {
                         <div className="space-y-12">
                             <div className="relative group/text">
                                 <div className="absolute -left-12 top-0 h-full w-px bg-gradient-to-b from-primary/40 to-transparent group-hover/text:from-primary transition-all duration-700" />
-                                <p className="text-3xl text-slate/80 leading-relaxed font-light font-outfit tracking-tight opacity-80 pl-4 group-hover/text:opacity-100 transition-opacity duration-700">
+                                <p className="text-3xl text-slate/80 leading-relaxed font-light font-outfit tracking-tight opacity-80 pl-4 group-hover/text:opacity-100 transition-opacity duration-700 whitespace-pre-wrap">
                                     {siteContent.team.founder.description}
                                 </p>
                             </div>

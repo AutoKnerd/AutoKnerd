@@ -10,74 +10,200 @@ export const siteContent = {
     cta: "Book Strategy Call",
   },
   hero: {
-    headline: "Dealership Customer Experience, Engineered for Trust",
-    subheadline: "AutoKnerd installs behavioral systems that help sales teams and managers create consistent, trust-driven customer experiences.",
-    explanation: "Traditional sales training fades. AutoKnerd builds manager-led behavioral infrastructure that stabilizes performance and improves CSI.",
-    telemetryTitle: "Showroom Behavior Insights",
+    headline: "Dealerships Don't Have a Training Problem.|They Have a Behavioral Stability Problem.",
+    subheadline: "AutoKnerd installs manager-led behavioral systems that make trust-driven CX repeatable.",
+    explanation: "Training events create short-term lift. We install weekly reinforcement systems that stabilize behavior, strengthen coaching, and protect CSI performance.",
+    telemetryTitle: "Typical Stabilization Benchmarks Within 90 Days",
     telemetryDescription: "Live indicators showing how consistently teams execute the AutoKnerd CX framework.",
     primaryBtn: "Book Strategy Call",
     secondaryBtn: "Explore Methodology",
   },
-  problem: {
-    title: "The Stability Deficit",
-    headline: "Dealerships don’t have a training problem. They have a stability deficit.",
-    description: "Traditional training is a temporary patch. Behavior returns to old patterns once the training event ends. We install systems that stay in place.",
+  dealerPainMirror: {
+    title: "Why Dealership Training Keeps Failing",
+    headline: "Most dealerships invest in training events, not behavioral systems.",
+    introParas: [
+        "For a few weeks after a training session, performance improves.",
+        "Then behavior slowly drifts back to old habits.",
+        "Not because the team is lazy.",
+        "Because the dealership never installed a system to reinforce the behavior."
+    ],
     issues: [
       {
-        label: "Inconsistent client-facing logic",
-        description: "Salespeople approach customers differently every time."
+        label: "Inconsistent Greetings",
+        description: "Salespeople greet customers differently every time"
       },
       {
-        label: "Fragmented needs assessment",
-        description: "Consultants rush to vehicles before understanding the customer."
+        label: "Skipped Discovery",
+        description: "Needs assessments are rushed or skipped"
       },
       {
-        label: "Reactive closing behaviors",
-        description: "Sales teams chase deals instead of guiding decisions."
+        label: "Premature Showing",
+        description: "Consultants jump to vehicles instead of understanding the customer"
       },
       {
-        label: "Manager coaching gaps",
-        description: "Managers lack structured CX coaching tools."
+        label: "Inconsistent Coaching",
+        description: "Managers coach inconsistently"
       },
       {
-        label: "Unsynchronized follow-up systems",
-        description: "Leads and customers receive inconsistent communication."
+        label: "Process Breakdown",
+        description: "Follow-up processes break down under pressure"
       }
     ],
+    closingHead: "Training creates awareness. Systems create consistency.",
+    closingSub: "AutoKnerd installs the systems that make great behavior repeatable."
+  },
+  behaviorEngine: {
+    title: "The AutoKnerd Behavior Engine",
+    introParas: [
+      "AutoKnerd installs a simple behavioral engine inside the dealership.",
+      "Managers reinforce behavior.",
+      "Consultants practice behavior.",
+      "Systems track behavior.",
+      "Over time, performance stabilizes."
+    ],
+    diagramNodes: [
+      {
+        title: "Manager Coaching System",
+        items: [
+          "Weekly CX leadership protocols",
+          "Behavior reinforcement",
+          "Execution tracking"
+        ],
+        caption: "Managers create behavioral consistency through structured coaching."
+      },
+      {
+        title: "Consultant Behavioral Development",
+        items: [
+          "Scenario based drills",
+          "Trust driven conversation habits",
+          "Needs assessment mastery"
+        ],
+        caption: "Consultants build habits that reduce customer anxiety."
+      },
+      {
+        title: "Customer Trust Experience",
+        items: [
+          "Lower customer anxiety",
+          "Clear decision guidance",
+          "Higher buyer confidence"
+        ],
+        caption: "Customers experience clarity instead of pressure."
+      },
+      {
+        title: "Dealership Performance Stability",
+        items: [
+          "Higher CSI scores",
+          "More consistent consultant performance",
+          "Referral and retention growth"
+        ],
+        caption: "Stable behavior produces predictable business results."
+      }
+    ],
+    captionHead: "When behavior becomes consistent, trust becomes predictable.",
+    captionSub: "When trust becomes predictable, performance becomes stable."
+  },
+  transformation: {
+    title: "Dealership Transformation",
+    subtitle: "What Happens When Behavior Becomes a System",
+    before: {
+      title: "Before AutoKnerd",
+      list: [
+        "Sales consultants greet customers differently every time",
+        "Needs assessments are rushed or skipped",
+        "Managers coach reactively instead of systematically",
+        "Follow-up communication is inconsistent",
+        "Customer experiences depend on the individual salesperson",
+        "CSI results fluctuate month to month"
+      ]
+    },
+    after: {
+      title: "After AutoKnerd",
+      list: [
+        "Consultants follow a structured discovery conversation",
+        "Managers run weekly behavioral coaching cycles",
+        "Customer interactions follow a trust-driven framework",
+        "Follow-up communication becomes consistent",
+        "Customers feel guided instead of pressured",
+        "CSI performance stabilizes over time"
+      ]
+    },
+    results: {
+      title: "Result",
+      items: [
+        "More confident consultants",
+        "Stronger customer trust",
+        "Higher CSI stability",
+        "Improved long-term dealership reputation"
+      ]
+    },
+    conclusion: {
+      lines: [
+        "AutoKnerd works because it stabilizes behavior.",
+        "When behavior stabilizes, customer experience becomes predictable.",
+        "When customer experience becomes predictable, dealership performance improves."
+      ]
+    }
+  },
+  csiRepair: {
+    title: "How AutoKnerd Improves CSI",
+    introParas: [
+      "Customer satisfaction problems rarely start with the customer.",
+      "They start with inconsistent behavior inside the dealership.",
+      "When consultants follow different processes, customer experiences become unpredictable.",
+      "AutoKnerd stabilizes behavior first.",
+      "When behavior becomes consistent:"
+    ],
+    benefits: [
+      "Customers feel guided instead of pressured",
+      "Consultants ask better questions",
+      "Managers coach more effectively",
+      "Follow-up becomes reliable"
+    ],
+    outcomesTitle: "Over time this creates measurable improvements in:",
+    outcomes: [
+      "Customer trust",
+      "CSI scores",
+      "Referral rates",
+      "Consultant confidence"
+    ],
+    closingHead: "Better behavior creates better experiences.",
+    closingSub: "Better experiences create better business."
   },
   whyTrainingFails: {
     title: "Why Traditional Training Fails",
-    content: "Training events create temporary enthusiasm. Without consistent reinforcement, behavior returns to old patterns within weeks. AutoKnerd replaces training cycles with permanent behavioral systems managers execute every week.",
-    keyLine: "Training is a temporary patch. Systems are the foundation."
+    problem: "Dealerships often see a short spike after training, then performance slides back to inconsistency.",
+    whyFails: "Training improves awareness, not operating behavior. Without weekly manager reinforcement, old habits always return.",
+    installInstead: "AutoKnerd installs behavioral systems: manager coaching cadences, execution scorecards, and process reinforcement loops that run every week.",
+    keyLine: "Systems create stability. Stability creates trust. Trust drives performance."
   },
   products: [
     {
       id: "autoforge",
       tagline: "Manager System",
       title: "AutoForge",
-      description: "A weekly CX leadership framework that gives managers structured tools to coach behavior and stabilize team performance.",
+      description: "AutoForge is the manager operating system for dealership CX. It gives managers a structured weekly framework for coaching behavior and reinforcing customer experience standards. Instead of hoping training sticks, managers run consistent behavioral reinforcement cycles.",
       outcome: "Stabilizes team behavior and installs consistent CX coaching.",
       features: [
-        "Weekly manager protocols",
-        "Coaching frameworks",
-        "Culture diagnostics",
-        "Behavioral reinforcement tools",
+        "Weekly CX leadership protocols",
+        "Behavior coaching tools",
+        "Team culture diagnostics",
+        "Execution scorecards",
       ],
-      cta: "Explore AutoForge",
+      cta: "Deploy AutoForge",
     },
     {
       id: "autodrivecx",
       tagline: "Consultant System",
       title: "AutoDriveCX",
-      description: "A behavior-driven CX development platform that helps sales consultants build trust and confidently guide customers through decisions.",
+      description: "AutoDriveCX helps consultants develop the habits that create customer trust. Instead of memorizing scripts, consultants practice behavioral scenarios that build confidence in real showroom conversations.",
       outcome: "Builds consultant confidence and trust-driven selling habits.",
       features: [
         "Scenario-based training",
-        "Behavioral drills",
-        "CX psychology modules",
+        "Trust-driven sales psychology",
+        "Conversation drills",
         "Performance telemetry",
       ],
-      cta: "Explore AutoDriveCX",
+      cta: "Deploy AutoDriveCX",
     }
   ],
   process: {
@@ -141,7 +267,7 @@ export const siteContent = {
     founder: {
       name: "Andrew Sardone",
       title: "Founder, AutoKnerd",
-      description: "Automotive CX strategist and creator of the AutoKnerd Podcast. Andrew specializes in behavioral psychology, trust-driven selling, and dealership culture engineering. His mission is to replace inconsistent dealership training with structured systems managers can execute every week.",
+      description: "CX strategist focused on behavioral psychology and dealership performance systems.\n\nCreator of the AutoKnerd Podcast and architect of the AutoForge behavioral infrastructure model designed to stabilize dealership customer experience.",
     }
   },
   podcast: {
@@ -151,8 +277,8 @@ export const siteContent = {
     cta: "Access Insights",
   },
   footer: {
-    ctaHeadline: "The Dealership Landscape Has Evolved",
-    supportText: "Customers expect trust, clarity, and consistency. AutoKnerd installs the behavioral systems that make that possible.",
+    ctaHeadline: "The Dealership Landscape Has Changed",
+    supportText: "Customers expect transparency, clarity, and trust. Dealerships that rely on inconsistent sales behavior struggle to meet those expectations. AutoKnerd installs the behavioral systems that make trust consistent.",
     primaryBtn: "Book Strategy Call",
     secondaryBtn: "Explore Methodology",
   },

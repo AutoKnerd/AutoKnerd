@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 export const Footer = () => {
     return (
-        <footer className="bg-background pt-20 md:pt-32 pb-8 md:pb-12 relative overflow-hidden border-t border-white/5">
+        <footer className="bg-background pt-32 md:pt-[140px] pb-8 md:pb-12 relative overflow-hidden border-t border-white/5">
             {/* Background Motifs */}
             <div className="absolute inset-0 bg-dot-grid opacity-[0.03] pointer-events-none" />
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none" />
@@ -18,9 +18,9 @@ export const Footer = () => {
             <div className="container mx-auto px-6 md:px-12 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-16 md:mb-32">
                     <div className="lg:col-span-6">
-                        <div className="relative mb-12 md:mb-20 inline-block group">
+                        <Link href="/" className="relative mb-12 md:mb-20 inline-block group">
                             <div className="absolute -inset-4 bg-primary/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                            <div className="relative w-40 h-10 md:w-48 md:h-12 grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 flex items-center gap-4 md:gap-6">
+                            <div className="relative w-60 h-[60px] md:w-72 md:h-[72px] grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 flex items-center">
                                 <Image
                                     src="/logo.png"
                                     alt="AutoKnerd"
@@ -28,9 +28,8 @@ export const Footer = () => {
                                     className="object-contain"
                                     onError={(e: any) => e.target.style.display = 'none'}
                                 />
-                                <span className="text-2xl md:text-3xl font-black tracking-tighter text-white uppercase italic group-hover:text-primary transition-colors">AutoKnerd</span>
                             </div>
-                        </div>
+                        </Link>
 
                         <h2 className="text-4xl md:text-6xl lg:text-7xl font-light text-white mb-6 md:mb-8 font-outfit leading-tight tracking-tighter shadow-glow-green">
                             {siteContent.footer.ctaHeadline}
@@ -102,9 +101,9 @@ export const Footer = () => {
                 <div className="border-t border-white/5 pt-12 md:pt-16 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-10 text-center md:text-left">
                     <div className="flex flex-col gap-4 items-center md:items-start">
                         <div className="flex items-center gap-6 md:gap-8 text-[9px] md:text-[10px] text-slate/30 font-mono tracking-widest uppercase">
-                            <span>SYS_STATUS: 200_OK</span>
+                            <span>System Status: Active</span>
                             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-glow-green" />
-                            <span>LOC_NODE: STABILIZED</span>
+                            <span>CX Performance: Stabilized</span>
                         </div>
                         <p className="text-[9px] md:text-[10px] text-slate/20 uppercase tracking-[0.3em] md:tracking-[0.5em] font-bold">
                             © {new Date().getFullYear()} AutoKnerd Collective. All Systems Operational.
@@ -114,7 +113,7 @@ export const Footer = () => {
                     <div className="flex items-center gap-8 md:gap-12 group/architect text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-slate/30 cursor-default uppercase">
                         <span className="group-hover/architect:text-primary transition-colors duration-700">Architected by Andrew Sardone</span>
                         <div className="w-12 h-12 md:w-16 md:h-16 rounded-[1.5rem] md:rounded-[2rem] glass-green flex items-center justify-center opacity-40 group-hover:opacity-100 transition-all duration-1000 shadow-[inset_0_0_20px_rgba(124,255,27,0.2)]">
-                            <span className="text-primary font-bold text-[9px] md:text-[10px]">AS_NODE</span>
+                            <span className="text-primary font-bold text-[9px] md:text-[10px]">Architect</span>
                         </div>
                     </div>
                 </div>

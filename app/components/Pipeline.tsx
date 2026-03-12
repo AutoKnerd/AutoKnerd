@@ -3,13 +3,13 @@
 import React from "react";
 import { siteContent } from "@/app/data/mockData";
 import { motion } from "framer-motion";
-import { Settings, CheckCircle2, Layout, Database, Search, Rocket, Calendar, TrendingUp } from "lucide-react";
+import { Search, Rocket, Calendar, TrendingUp } from "lucide-react";
 
 const stepIcons = [Search, Rocket, Calendar, TrendingUp];
 
 export const Pipeline = () => {
     return (
-        <section id="process" className="py-24 md:py-40 lg:py-64 bg-background relative border-y border-white/5 overflow-hidden">
+        <section id="process" className="py-[140px] bg-background relative border-y border-white/5 overflow-hidden">
             {/* Advanced Premium Background Depth */}
             <div className="absolute inset-0 bg-mesh-gradient opacity-30 pointer-events-none" />
             <div className="absolute inset-0 parallax-grid-2 pointer-events-none opacity-50" />
@@ -28,8 +28,8 @@ export const Pipeline = () => {
                         <div className="h-px w-12 md:w-20 bg-primary/30 group-hover:w-48 transition-all duration-1000 shadow-glow-green" />
                         <span className="text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.5em] md:tracking-[1em] font-mono shadow-glow-green whitespace-nowrap">{siteContent.process.title}</span>
                     </motion.div>
-                    <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-light mb-8 md:mb-16 font-outfit tracking-tighter leading-[1.1] md:leading-[1.05] text-white">
-                        From Diagnostic to <br /><span className="text-primary italic shadow-glow-green">Stabilization.</span>
+                    <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-light mb-[60px] font-outfit tracking-tighter leading-[1.1] md:leading-[1.05] text-white">
+                        From Diagnostic to <br /><span className="text-primary italic">Stabilization.</span>
                     </h2>
                 </div>
 
@@ -77,7 +77,7 @@ export const Pipeline = () => {
                     <div className="absolute -top-32 -left-32 w-64 h-64 bg-primary/20 blur-[100px] rounded-full group-hover/matrix:bg-primary/30 transition-colors duration-1000" />
                     <div className="absolute -bottom-32 -right-32 w-64 h-64 bg-primary/10 blur-[100px] rounded-full" />
                     <div className="flex flex-col items-center justify-center gap-8 md:gap-12 relative z-10 p-12 md:p-24 lg:p-32">
-                        <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.5em] md:tracking-[1em] text-primary/60 group-hover/matrix:text-primary transition-colors duration-700 font-mono shadow-glow-green">Infrastructure_Impact</span>
+                        <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.5em] md:tracking-[1em] text-primary/60 group-hover/matrix:text-primary transition-colors duration-700 font-mono shadow-glow-green">Infrastructure Impact</span>
                         <h4 className="text-3xl md:text-5xl lg:text-7xl font-light text-white font-outfit tracking-tighter leading-tight max-w-5xl">
                             Engineered to Replace Inconsistent Training with <span className="text-primary italic shadow-glow-green font-medium">Permanent Systems.</span>
                         </h4>

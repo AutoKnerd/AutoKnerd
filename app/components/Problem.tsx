@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export const Problem = () => {
     return (
-        <section id="methodology" className="py-24 md:py-40 lg:py-64 relative overflow-hidden bg-background">
+        <section id="methodology" className="py-36 md:py-[170px] relative overflow-hidden bg-background">
             {/* Advanced Premium Background Depth */}
             <div className="absolute inset-0 bg-mesh-gradient opacity-40 pointer-events-none" />
             <div className="absolute inset-0 parallax-grid-1 pointer-events-none" />
@@ -15,7 +15,7 @@ export const Problem = () => {
 
             <div className="container mx-auto px-6 md:px-12 relative z-20">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-                    <div className="lg:col-span-12 mb-12 md:mb-20">
+                    <div className="lg:col-span-12 mb-14 md:mb-24">
                         <motion.div 
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -24,23 +24,25 @@ export const Problem = () => {
                         >
                             <div className="h-px w-12 md:w-32 bg-primary/30" />
                             <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.5em] md:tracking-[0.7em] font-mono whitespace-nowrap shadow-glow-green">
-                                {siteContent.problem.title}
+                                {siteContent.dealerPainMirror.title}
                             </span>
                             <div className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse shadow-glow-green" />
                             <div className="h-px w-8 md:w-10 bg-primary/30" />
                         </motion.div>
-                        <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-light mb-8 md:mb-12 max-w-6xl leading-[1.1] md:leading-[1.05] font-outfit tracking-tighter text-white">
-                            {siteContent.problem.headline}
+                        <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-light mb-10 md:mb-14 max-w-6xl leading-[1.08] md:leading-[1.02] font-outfit tracking-tighter text-white">
+                            {siteContent.dealerPainMirror.headline}
                         </h2>
                     </div>
 
                     <div className="lg:col-span-5 relative">
-                        <p className="text-xl md:text-2xl lg:text-3xl text-slate/70 leading-relaxed mb-12 md:mb-24 font-light tracking-tight">
-                            {siteContent.problem.description}
-                        </p>
+                        <div className="text-xl md:text-2xl lg:text-3xl text-slate/70 leading-relaxed mb-[72px] font-light tracking-tight space-y-9">
+                            {siteContent.dealerPainMirror.introParas.map((para, i) => (
+                                <p key={i} className={i === 3 ? "text-white font-medium" : ""}>{para}</p>
+                            ))}
+                        </div>
 
-                        <div className="space-y-10 md:space-y-16 md:pr-12 relative border-l border-white/10 pl-8 md:pl-12">
-                            {siteContent.problem.issues.map((issue, i) => (
+                        <div className="space-y-[32px] md:pr-12 relative border-l border-white/10 pl-8 md:pl-12">
+                            {siteContent.dealerPainMirror.issues.map((issue, i) => (
                                 <motion.div 
                                     key={i} 
                                     initial={{ opacity: 0, x: -30 }}
@@ -63,6 +65,11 @@ export const Problem = () => {
                                 </motion.div>
                             ))}
                         </div>
+                        
+                        <div className="mt-16 md:mt-24 pt-12 md:pt-16 border-t border-white/10 font-outfit relative z-20">
+                            <h3 className="text-2xl md:text-3xl font-light text-slate/50 mb-2">{siteContent.dealerPainMirror.closingHead}</h3>
+                            <p className="text-3xl md:text-4xl text-white font-medium shadow-glow-green">{siteContent.dealerPainMirror.closingSub}</p>
+                        </div>
                     </div>
 
                     <div className="lg:col-span-7">
@@ -82,8 +89,8 @@ export const Problem = () => {
                                         <Target className="w-6 h-6 md:w-8 md:h-8 text-primary shadow-glow-green" />
                                     </div>
                                     <div>
-                                        <h3 className="text-xl md:text-3xl font-medium tracking-tight font-outfit uppercase text-white shadow-glow-green">System Telemetry</h3>
-                                        <p className="text-[10px] md:text-xs font-mono text-slate/40 uppercase tracking-widest mt-1">Live Architectural Readout</p>
+                                        <h3 className="text-xl md:text-3xl font-medium tracking-tight font-outfit uppercase text-white shadow-glow-green">Typical Stabilization Benchmarks Within 90 Days</h3>
+                                        <p className="text-[10px] md:text-xs font-mono text-slate/40 uppercase tracking-widest mt-1">System Telemetry Snapshot</p>
                                     </div>
                                 </div>
 
@@ -94,9 +101,9 @@ export const Problem = () => {
                                         <div className="flex items-center justify-between mb-8 md:mb-12 relative z-10">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-glow-green" />
-                                                <div className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.3em] md:tracking-[0.5em] text-primary/80 font-mono">Behavioral_Consistency</div>
+                                                <div className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.3em] md:tracking-[0.5em] text-primary/80 font-mono">Behavior Consistency Index</div>
                                             </div>
-                                            <div className="text-4xl md:text-6xl font-light text-white font-outfit tracking-tighter">98.4<span className="text-sm md:text-xl ml-2 md:ml-3 font-mono opacity-50 text-primary">μ/CX</span></div>
+                                            <div className="text-4xl md:text-7xl font-light text-white font-outfit tracking-tighter shadow-glow-green">98.4<span className="text-sm md:text-xl ml-2 md:ml-3 font-mono text-primary">%</span></div>
                                         </div>
 
                                         <div className="flex items-end gap-1 md:gap-3 h-32 md:h-48 relative z-10">
@@ -115,23 +122,23 @@ export const Problem = () => {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 pl-4 md:pl-8 border-l border-primary/20">
-                                        <div className="space-y-4 md:space-y-6">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 pl-4 md:pl-8 border-l border-primary/20">
+                                        <div className="space-y-4 md:space-y-6 rounded-[1.5rem] border border-white/10 bg-white/[0.02] p-6 md:p-8">
                                             <div className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.3em] md:tracking-[0.4em] text-slate/50 font-mono flex items-center gap-3">
                                                 <Cpu className="w-3 h-3 text-primary" />
-                                                Culture Protocol
+                                                Manager Coaching Cadence
                                             </div>
-                                            <div className="text-3xl md:text-5xl font-light text-white font-outfit tracking-tighter">95<span className="text-primary/60 text-sm md:text-lg ml-2 md:ml-3 tracking-widest font-mono uppercase">Tier_A</span></div>
+                                            <div className="text-4xl md:text-6xl font-medium text-white font-outfit tracking-tighter">95<span className="text-primary/60 text-sm md:text-lg ml-2 md:ml-3 tracking-widest font-mono uppercase">%</span></div>
                                             <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
                                                 <motion.div initial={{ width: 0 }} whileInView={{ width: "95%" }} transition={{ duration: 2.5 }} className="h-full bg-primary shadow-glow-green" />
                                             </div>
                                         </div>
-                                        <div className="space-y-4 md:space-y-6">
+                                        <div className="space-y-4 md:space-y-6 rounded-[1.5rem] border border-white/10 bg-white/[0.02] p-6 md:p-8">
                                             <div className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.3em] md:tracking-[0.4em] text-slate/50 font-mono flex items-center gap-3">
                                                 <TrendingUp className="w-3 h-3 text-primary" />
-                                                Process Adherence
+                                                Process Adherence Score
                                             </div>
-                                            <div className="text-3xl md:text-5xl font-light text-white font-outfit tracking-tighter">92<span className="text-primary/60 text-sm md:text-lg ml-2 md:ml-3 tracking-widest font-mono uppercase">Node_B</span></div>
+                                            <div className="text-4xl md:text-6xl font-medium text-white font-outfit tracking-tighter">92<span className="text-primary/60 text-sm md:text-lg ml-2 md:ml-3 tracking-widest font-mono uppercase">%</span></div>
                                             <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
                                                 <motion.div initial={{ width: 0 }} whileInView={{ width: "92%" }} transition={{ duration: 2.5 }} className="h-full bg-primary shadow-glow-green" />
                                             </div>

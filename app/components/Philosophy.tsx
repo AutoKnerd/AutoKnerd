@@ -22,7 +22,7 @@ export const Philosophy = () => {
                 <div className="text-left mb-20 md:mb-32 lg:mb-48 max-w-5xl">
                     <div className="flex items-center gap-4 md:gap-6 text-primary mb-8 md:mb-12 group/header cursor-default">
                         <div className="h-px w-12 md:w-20 bg-primary/40 group-hover:w-32 transition-all duration-1000" />
-                        <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.5em] md:tracking-[0.8em] font-mono group-hover:text-white transition-colors">Foundational_logic_architectures</span>
+                        <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.5em] md:tracking-[0.8em] font-mono group-hover:text-white transition-colors">Foundational Systems</span>
                     </div>
                     <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-light mb-8 md:mb-12 font-outfit leading-[1.1] md:leading-[1.05] tracking-tighter">
                         Engineering for <br /><span className="text-white font-medium">Strategic Stability.</span>
@@ -63,10 +63,10 @@ export const Philosophy = () => {
 
                                     <div className="mt-auto pt-12 md:pt-24 flex items-center justify-between w-full opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-y-4 group-hover:translate-y-0">
                                         <div className="flex items-center gap-4 md:gap-6 text-primary">
-                                            <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] font-mono">Architecture_Active</span>
+                                            <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] font-mono">System Status: Active</span>
                                             <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-primary animate-pulse" />
                                         </div>
-                                        <div className="text-[9px] md:text-[10px] font-mono text-slate/30 uppercase tracking-widest hidden sm:block">Logic_ID: P-{i + 1}00</div>
+                                        <div className="text-[9px] md:text-[10px] font-mono text-slate/30 uppercase tracking-widest hidden sm:block">Indicator: S-{i + 1}00</div>
                                     </div>
                                 </div>
                             </motion.div>

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export const Podcast = () => {
     return (
-        <section id="insights" className="py-24 lg:py-64 bg-background relative border-t border-white/5 bg-dot-grid bg-fixed">
+        <section id="insights" className="py-32 md:py-[140px] bg-background relative border-t border-white/5 bg-dot-grid bg-fixed">
             {/* Structural Geometry */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-primary/20 via-primary/5 to-transparent pointer-events-none opacity-40 shrink-0" />
             <div className="absolute top-1/4 -right-1/4 w-[60vw] h-[60vw] bg-primary/5 blur-[200px] pointer-events-none opacity-10 animate-slow-pulse" />
@@ -17,10 +17,10 @@ export const Podcast = () => {
                     <div className="lg:col-span-12 mb-24 text-center">
                         <div className="flex items-center gap-6 text-primary justify-center mb-12 group/header cursor-default">
                             <div className="h-px w-20 bg-primary/40 group-hover:w-32 transition-all duration-1000" />
-                            <span className="text-[11px] font-extrabold uppercase tracking-[0.8em] font-mono group-hover:text-white transition-colors">Thought_Leadership_Hub</span>
+                            <span className="text-[11px] font-extrabold uppercase tracking-[0.8em] font-mono group-hover:text-white transition-colors">AutoKnerd Podcast</span>
                             <div className="h-px w-20 bg-primary/40 group-hover:w-32 transition-all duration-1000" />
                         </div>
-                        <h2 className="text-6xl lg:text-9xl font-light mb-12 font-outfit leading-[1.05] tracking-tighter shadow-glow-green">
+                        <h2 className="text-6xl lg:text-9xl font-light mb-[48px] font-outfit leading-[1.05] tracking-tighter">
                             The <span className="text-white font-medium">AutoKnerd</span> Podcast.
                         </h2>
                     </div>
@@ -51,7 +51,7 @@ export const Podcast = () => {
 
                             {/* Decorative Details */}
                             <div className="absolute bottom-16 left-16 z-20">
-                                <div className="text-[11px] font-extrabold text-primary uppercase tracking-[0.6em] font-mono opacity-50 mb-4 animate-pulse">Live_Insights_Active</div>
+                                <div className="text-[11px] font-extrabold text-primary uppercase tracking-[0.6em] font-mono opacity-50 mb-4 animate-pulse">Insights</div>
                                 <h4 className="text-5xl font-light text-white font-outfit tracking-tighter leading-snug drop-shadow-2xl">
                                     Trusted by <br /><span className="text-primary italic">Dealership Pros.</span>
                                 </h4>

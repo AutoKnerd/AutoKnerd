@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export const Impact = () => {
     return (
-        <section id="impact" className="py-32 lg:py-64 bg-background relative overflow-hidden border-t border-white/5">
+        <section id="impact" className="py-32 md:py-[140px] bg-background relative overflow-hidden border-t border-white/5">
             <div className="bg-dot-grid absolute inset-0 opacity-5 pointer-events-none" />
 
             <div className="container mx-auto px-12 relative z-10">
@@ -23,14 +23,14 @@ export const Impact = () => {
                             <div className="h-px w-20 bg-primary/40" />
                             <span className="text-[11px] font-bold uppercase tracking-[0.8em] font-mono">{siteContent.impact.title}</span>
                         </div>
-                        <h2 className="text-5xl lg:text-9xl font-light mb-16 tracking-tighter font-outfit leading-tight">
+                        <h2 className="text-5xl lg:text-9xl font-light mb-[48px] tracking-tighter font-outfit leading-tight">
                             Behavioral <span className="text-white font-medium italic">Stabilization.</span>
                         </h2>
-                        <p className="text-3xl text-slate/80 leading-relaxed font-light mb-12 tracking-tight">
+                        <p className="text-3xl text-slate/80 leading-relaxed font-light mb-[60px] tracking-tight">
                             {siteContent.impact.description}
                         </p>
 
-                        <div className="space-y-8 mb-16">
+                        <div className="space-y-[32px] mb-16">
                             {siteContent.impact.indicators.map((indicator, i) => (
                                 <div key={i} className="flex items-center gap-6 group">
                                     <div className="w-10 h-10 rounded-full glass border border-white/10 flex items-center justify-center shrink-0 group-hover:border-primary transition-all duration-700">
@@ -60,7 +60,7 @@ export const Impact = () => {
                                     <TrendingUp className="w-10 h-10 text-primary group-hover:text-black transition-colors duration-1000" />
                                 </div>
                                 <div className="space-y-4">
-                                    <div className="text-[11px] uppercase font-bold tracking-[0.6em] text-slate/40 font-mono">Collective_Performance_Growth</div>
+                                    <div className="text-[11px] uppercase font-bold tracking-[0.6em] text-slate/40 font-mono">Performance Stability</div>
                                     <div className="text-8xl font-light text-white font-outfit tracking-tighter group-hover/stat:text-primary transition-colors duration-1000">98.4<span className="text-2xl ml-3 opacity-40">%</span></div>
                                 </div>
                                 <div className="text-lg text-slate/40 font-light tracking-wide max-w-sm">
