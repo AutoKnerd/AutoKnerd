@@ -17,8 +17,8 @@ type RawItem = {
 
 type RawFeed = {
   image?: { url?: string };
-  itunesImage?: { $?: { href?: string } };
   itunes?: {
+    image?: string;
     categories?: string[];
     categoriesWithSubs?: Array<{ name?: string; subs?: Array<{ name?: string }> | null }>;
   };
@@ -46,7 +46,6 @@ export type PodcastFeedData = {
 
 const parser: Parser = new Parser({
   customFields: {
-    feed: [["itunes:image", "itunesImage"]],
     item: [
       ["itunes:image", "itunesImage"],
       ["itunes:duration", "itunesDuration"],
@@ -106,7 +105,7 @@ function extractTopics(feed: RawFeed, episodes: PodcastEpisode[]): string {
 }
 
 function getFallbackArtwork(feed: RawFeed): string | undefined {
-  return feed.itunesImage?.$?.href ?? feed.image?.url;
+  return feed.itunes?.image ?? feed.image?.url;
 }
 
 export async function getPodcastFeedData(limit = 20): Promise<PodcastFeedData> {
@@ -116,7 +115,7 @@ export async function getPodcastFeedData(limit = 20): Promise<PodcastFeedData> {
   const fallbackArtwork = getFallbackArtwork(feed);
 
   const parsed = (feed.items as RawItem[])
-    .map((item) => {
+    .map((item): PodcastEpisode | null => {
       const title = item.title?.trim() ?? "";
       const link = item.link?.trim() ?? "";
       const pubDate = item.pubDate?.trim() ?? "";
@@ -129,18 +128,20 @@ export async function getPodcastFeedData(limit = 20): Promise<PodcastFeedData> {
 
       if (!title || !link || !pubDate || !summary || !audioUrl) return null;
 
-      return {
+      const episode: PodcastEpisode = {
         title,
         link,
         pubDate,
         summary,
         audioUrl,
-        durationSeconds,
         categories,
-        imageUrl,
+        ...(durationSeconds !== undefined ? { durationSeconds } : {}),
+        ...(imageUrl ? { imageUrl } : {}),
       };
+
+      return episode;
     })
-    .filter((episode): episode is PodcastEpisode => Boolean(episode))
+    .filter((episode): episode is PodcastEpisode => episode !== null)
     .map((episode) => ({
       ...episode,
       imageUrl: episode.imageUrl ?? fallbackArtwork,
