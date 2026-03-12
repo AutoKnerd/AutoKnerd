@@ -4,6 +4,7 @@ import { Problem } from "@/app/components/Problem";
 import { TrainingFails } from "@/app/components/TrainingFails";
 import { BehavioralStabilityModel } from "@/app/components/BehavioralStabilityModel";
 import { CXOperatingMap } from "@/app/components/CXOperatingMap";
+import { CommandCenter } from "@/app/components/CommandCenter";
 import { DealershipChange } from "@/app/components/DealershipChange";
 import { BehaviorEngine } from "@/app/components/BehaviorEngine";
 import { Transformation } from "@/app/components/Transformation";
@@ -26,6 +27,7 @@ export default function Home() {
         <TrainingFails />
         <BehavioralStabilityModel />
         <CXOperatingMap />
+        <CommandCenter />
         <DealershipChange />
         <BehaviorEngine />
       </div>
