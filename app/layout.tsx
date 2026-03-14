@@ -21,6 +21,11 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "AutoKnerd | Dealership Customer Experience. Engineered.",
   description: "Building systems that help high-end dealerships create trust, clarity, and consistency through behavioral architectural engineering.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
