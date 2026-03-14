@@ -20,7 +20,7 @@ export const Footer = () => {
                     <div className="lg:col-span-6">
                         <Link href="/" className="relative mb-12 md:mb-20 inline-block group">
                             <div className="absolute -inset-4 bg-primary/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                            <div className="relative w-60 h-[60px] md:w-72 md:h-[72px] grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 flex items-center">
+                            <div className="relative w-60 h-[60px] md:w-72 md:h-[72px] opacity-100 transition-all duration-1000 flex items-center">
                                 <Image
                                     src="/logo.png"
                                     alt="AutoKnerd"
@@ -72,11 +72,11 @@ export const Footer = () => {
                         <div className="space-y-8 md:space-y-12">
                             <h4 className="text-[10px] md:text-[11px] font-bold text-primary uppercase tracking-[0.5em] md:tracking-[0.8em] font-mono opacity-60">Company</h4>
                             <ul className="space-y-6 md:space-y-8">
-                                {["Meet the Architect", "Case Studies", "Contact", "Terms", "Privacy"].map((item) => (
-                                    <li key={item}>
-                                        <a href="#" className="text-sm text-slate/40 hover:text-white transition-colors duration-500 flex items-center gap-3 md:gap-4 group uppercase tracking-widest text-[9px] md:text-[10px] font-bold">
-                                            {item}
-                                        </a>
+                                {siteContent.footer.company.map((item) => (
+                                    <li key={item.label}>
+                                        <Link href={item.href} className="text-sm text-slate/40 hover:text-white transition-colors duration-500 flex items-center gap-3 md:gap-4 group uppercase tracking-widest text-[9px] md:text-[10px] font-bold">
+                                            {item.label}
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -101,22 +101,30 @@ export const Footer = () => {
                 </div>
 
                 <div className="border-t border-white/5 pt-12 md:pt-16 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-10 text-center md:text-left">
-                    <div className="flex flex-col gap-4 items-center md:items-start">
+                    <div className="flex flex-col gap-4 items-center md:items-start order-2 md:order-1">
                         <div className="flex items-center gap-6 md:gap-8 text-[9px] md:text-[10px] text-slate/30 font-mono tracking-widest uppercase">
                             <span>System Status: Active</span>
                             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-glow-green" />
                             <span>CX Performance: Stabilized</span>
                         </div>
                         <p className="text-[9px] md:text-[10px] text-slate/20 uppercase tracking-[0.3em] md:tracking-[0.5em] font-bold">
-                            © {new Date().getFullYear()} AutoKnerd Collective. All Systems Operational.
+                            © {new Date().getFullYear()} AutoKnerd LLC. All Systems Operational.
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-8 md:gap-12 group/architect text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-slate/30 cursor-default uppercase">
-                        <span className="group-hover/architect:text-primary transition-colors duration-700">Architected by Andrew Sardone</span>
-                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-[1.5rem] md:rounded-[2rem] glass-green flex items-center justify-center opacity-40 group-hover:opacity-100 transition-all duration-1000 shadow-[inset_0_0_20px_rgba(124,255,27,0.2)]">
-                            <span className="text-primary font-bold text-[9px] md:text-[10px]">Architect</span>
+                    <div className="order-1 md:order-2 flex justify-center">
+                        <div className="relative w-40 h-10 opacity-80">
+                            <Image
+                                src="/logo.png"
+                                alt="AutoKnerd"
+                                fill
+                                className="object-contain"
+                            />
                         </div>
+                    </div>
+
+                    <div className="flex items-center gap-8 group/architect text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-slate/30 cursor-default uppercase order-3">
+                        <span className="group-hover/architect:text-primary transition-colors duration-700">Architected by Andrew Sardone</span>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { siteContent } from "@/app/data/mockData";
 import { Check, ArrowRight, Settings, Radio } from "lucide-react";
 import { motion } from "framer-motion";
@@ -127,24 +128,14 @@ export const Products = () => {
                                     ))}
                                 </div>
 
-                                {isAutoDrive ? (
-                                    <a 
-                                        href="https://autodrivecx.com" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className={`w-full py-6 md:py-9 bg-background/50 border border-white/10 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.3em] md:tracking-[0.45em] text-white hover:text-black transition-all duration-700 flex items-center justify-center gap-4 md:gap-8 group/btn relative overflow-hidden z-10 backdrop-blur-md ${btnHover}`}
-                                    >
-                                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-700 opacity-20" />
-                                        <span className="relative z-10">Deploy {product.title.split(" ")[0]}</span>
-                                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover/btn:translate-x-3 transition-transform duration-700 relative z-10" />
-                                    </a>
-                                ) : (
-                                    <button className={`w-full py-6 md:py-9 bg-background/50 border border-white/10 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.3em] md:tracking-[0.45em] text-white hover:text-black transition-all duration-700 flex items-center justify-center gap-4 md:gap-8 group/btn relative overflow-hidden z-10 backdrop-blur-md ${btnHover}`}>
-                                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-700 opacity-20" />
-                                        <span className="relative z-10">Deploy {product.title.split(" ")[0]}</span>
-                                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover/btn:translate-x-3 transition-transform duration-700 relative z-10" />
-                                    </button>
-                                )}
+                                <Link 
+                                    href="/autodrive" 
+                                    className={`w-full py-6 md:py-9 bg-background/50 border border-white/10 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.3em] md:tracking-[0.45em] text-white hover:text-black transition-all duration-700 flex items-center justify-center gap-4 md:gap-8 group/btn relative overflow-hidden z-10 backdrop-blur-md ${btnHover}`}
+                                >
+                                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-700 opacity-20" />
+                                    <span className="relative z-10">Deploy {product.title.split(" ")[0]}</span>
+                                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover/btn:translate-x-3 transition-transform duration-700 relative z-10" />
+                                </Link>
                             </motion.div>
                         );
                     })}

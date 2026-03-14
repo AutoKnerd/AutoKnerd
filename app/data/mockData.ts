@@ -2,6 +2,7 @@ export const siteContent = {
   navigation: {
     links: [
       { label: "Methodology", href: "/methodology" },
+      { label: "Platform", href: "/autodrive" },
       { label: "Podcast", href: "/podcast" },
       { label: "Systems", href: "/#systems" },
       { label: "Process", href: "/#process" },
@@ -282,5 +283,13 @@ export const siteContent = {
     supportText: "Customers expect transparency, clarity, and trust. Dealerships that rely on inconsistent sales behavior struggle to meet those expectations. AutoKnerd installs the behavioral systems that make trust consistent.",
     primaryBtn: "Book Strategy Call",
     secondaryBtn: "Explore Methodology",
+    company: [
+      { label: "Meet the Architect", href: "/architect" },
+      { label: "Platform", href: "/autodrive" },
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Contact", href: "/contact" },
+      { label: "Terms", href: "/terms" },
+      { label: "Privacy", href: "/privacy" },
+    ]
   },
 };
