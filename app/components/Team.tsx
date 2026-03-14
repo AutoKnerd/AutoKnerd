@@ -2,7 +2,8 @@
 
 import React from "react";
 import { siteContent } from "@/app/data/mockData";
-import { Users, Code, Hammer, Fingerprint, Database, Layout, Shield, User, Globe, Trophy } from "lucide-react";
+import { STRATEGY_CALL_URL } from "@/app/lib/booking";
+import { Globe, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const Team = () => {
@@ -68,7 +69,7 @@ export const Team = () => {
                                     <div className="w-8 h-8 rounded-full border border-white/5 flex items-center justify-center group-hover/item:border-primary transition-all duration-700 bg-white/[0.02]">
                                         <Trophy className="w-4 h-4 text-primary opacity-40 group-hover:opacity-100 shadow-glow-green transition-all" />
                                     </div>
-                                    <span className="text-[10px] uppercase font-bold tracking-[0.3em] font-mono text-slate/40 group-hover/item:text-white transition-colors">Behavioral Expert</span>
+                                    <span className="text-[10px] uppercase font-bold tracking-[0.3em] font-mono text-slate/40 group-hover/item:text-white transition-colors">Dealership CX SME</span>
                                 </div>
                                 <div className="flex items-center gap-6 group/item cursor-default">
                                     <div className="w-8 h-8 rounded-full border border-white/5 flex items-center justify-center group-hover/item:border-primary transition-all duration-700 bg-white/[0.02]">
@@ -79,10 +80,10 @@ export const Team = () => {
                             </div>
 
                             <div className="flex items-center gap-12 pl-8 mt-12 pb-12">
-                                <button className="bg-primary hover:bg-white text-black px-16 py-7 rounded-full font-extrabold uppercase tracking-[0.4em] text-[11px] flex items-center justify-center gap-5 transition-all duration-700 hover:shadow-[0_45px_120px_-20px_rgba(124,255,27,0.7)] shadow-2xl active:scale-95 group/btn overflow-hidden relative">
+                                <a href={STRATEGY_CALL_URL} target="_blank" rel="noreferrer" className="bg-primary hover:bg-white text-black px-16 py-7 rounded-full font-extrabold uppercase tracking-[0.4em] text-[11px] flex items-center justify-center gap-5 transition-all duration-700 hover:shadow-[0_45px_120px_-20px_rgba(124,255,27,0.7)] shadow-2xl active:scale-95 group/btn overflow-hidden relative">
                                     <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-700 opacity-20" />
                                     <span className="relative z-10">Book Strategy Call</span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </motion.div>

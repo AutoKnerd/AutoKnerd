@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { siteContent } from "@/app/data/mockData";
+import { STRATEGY_CALL_URL } from "@/app/lib/booking";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -39,9 +40,9 @@ export const Navbar = () => {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <button className="hidden sm:block bg-white/5 border border-white/10 text-white px-6 md:px-8 py-3 text-[9px] font-bold uppercase tracking-[0.4em] rounded-full hover:bg-primary hover:text-black transition-all hover:shadow-[0_0_30px_rgba(124,255,27,0.3)]">
+                    <a href={STRATEGY_CALL_URL} target="_blank" rel="noreferrer" className="hidden sm:block bg-white/5 border border-white/10 text-white px-6 md:px-8 py-3 text-[9px] font-bold uppercase tracking-[0.4em] rounded-full hover:bg-primary hover:text-black transition-all hover:shadow-[0_0_30px_rgba(124,255,27,0.3)]">
                         {siteContent.navigation.cta}
-                    </button>
+                    </a>
                     <button 
                         onClick={() => setIsOpen(!isOpen)}
                         className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:text-primary transition-colors"
@@ -69,13 +70,12 @@ export const Navbar = () => {
                                 {link.label}
                             </Link>
                         ))}
-                        <button className="bg-primary text-black px-8 py-5 text-[10px] font-bold uppercase tracking-[0.5em] rounded-full mt-4">
+                        <a href={STRATEGY_CALL_URL} target="_blank" rel="noreferrer" className="bg-primary text-black px-8 py-5 text-[10px] font-bold uppercase tracking-[0.5em] rounded-full mt-4 text-center">
                             {siteContent.navigation.cta}
-                        </button>
+                        </a>
                     </motion.div>
                 )}
             </AnimatePresence>
         </>
     );
 };
-

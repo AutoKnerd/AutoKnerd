@@ -11,6 +11,12 @@ const productIcons: Record<string, any> = {
 };
 
 export const Products = () => {
+    const orderedProducts = [...siteContent.products].sort((a, b) => {
+        if (a.id === "autodrivecx") return -1;
+        if (b.id === "autodrivecx") return 1;
+        return 0;
+    });
+
     return (
         <section id="systems" className="py-32 md:py-[140px] relative bg-background overflow-hidden border-y border-white/5 bg-fixed">
             {/* Advanced Premium Background Depth */}
@@ -40,7 +46,7 @@ export const Products = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24 items-stretch max-w-7xl mx-auto">
-                    {siteContent.products.map((product, i) => {
+                    {orderedProducts.map((product, i) => {
                         const Icon = productIcons[product.id];
                         const isAutoDrive = product.id === "autodrivecx";
                         const isAutoForge = product.id === "autoforge";

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Footer } from "@/app/components/Footer";
 import { Navbar } from "@/app/components/Navbar";
+import { STRATEGY_CALL_URL } from "@/app/lib/booking";
 import { getPodcastFeedData, getPodcastEpisodeBySlug } from "@/app/lib/podcast";
 import { getRelatedAutoKnerdTools } from "@/app/lib/podcastTools";
 import {
@@ -549,9 +550,14 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
                 <p className="text-base text-slate/75 leading-relaxed tracking-tight mb-5">
                   AutoKnerd helps dealerships replace inconsistent training outcomes with manager-led behavioral systems.
                 </p>
-                <button className="w-full bg-primary text-black px-6 py-4 rounded-full font-extrabold uppercase tracking-[0.28em] text-[10px] md:text-[11px] border border-primary hover:bg-white hover:border-white transition-all duration-500">
+                <a
+                  href={STRATEGY_CALL_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex w-full items-center justify-center bg-primary text-black px-6 py-4 rounded-full font-extrabold uppercase tracking-[0.28em] text-[10px] md:text-[11px] border border-primary hover:bg-white hover:border-white transition-all duration-500"
+                >
                   Book Strategy Call
-                </button>
+                </a>
               </div>
 
               <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.02] p-6 md:p-7">
@@ -659,9 +665,14 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
             AutoKnerd helps dealerships replace inconsistent training outcomes with manager-led behavioral systems that improve trust, coaching consistency, and CSI stability.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-5 md:gap-6">
-            <button className="bg-black text-white px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] border border-black hover:bg-white hover:text-black hover:border-white transition-all duration-500">
+            <a
+              href={STRATEGY_CALL_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center bg-black text-white px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] border border-black hover:bg-white hover:text-black hover:border-white transition-all duration-500"
+            >
               Book Strategy Call
-            </button>
+            </a>
             <Link
               href="/methodology"
               className="inline-flex items-center justify-center text-black/80 hover:text-black px-8 md:px-12 py-5 md:py-7 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all border border-black/25 hover:border-black rounded-full"

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Navbar } from "@/app/components/Navbar";
 import { Footer } from "@/app/components/Footer";
+import { STRATEGY_CALL_URL } from "@/app/lib/booking";
 import { AUTOKNERD_CX_TOOLS, getToolBySlug } from "@/app/lib/tools";
 import {
   AUTODRIVECX_INFO_URL,
@@ -169,9 +170,14 @@ export default async function ToolDetailPage({ params }: ToolPageProps) {
             AutoKnerd helps dealerships install manager-led behavioral systems that make better customer experience repeatable.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-5 md:gap-6">
-            <button className="bg-black text-white px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] border border-black hover:bg-white hover:text-black hover:border-white transition-all duration-500">
+            <a
+              href={STRATEGY_CALL_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center bg-black text-white px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] border border-black hover:bg-white hover:text-black hover:border-white transition-all duration-500"
+            >
               Book Strategy Call
-            </button>
+            </a>
             <Link
               href="/methodology"
               className="inline-flex items-center justify-center text-black/80 hover:text-black px-8 md:px-12 py-5 md:py-7 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all border border-black/25 hover:border-black rounded-full"

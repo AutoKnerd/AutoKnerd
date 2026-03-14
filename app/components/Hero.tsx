@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { siteContent } from "@/app/data/mockData";
 import Link from "next/link";
+import { STRATEGY_CALL_URL } from "@/app/lib/booking";
 import { ChevronRight, Layers } from "lucide-react";
 
 export const Hero = () => {
@@ -52,10 +53,10 @@ export const Hero = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-6 md:gap-10">
-                            <button className="bg-primary hover:bg-white text-black px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] flex items-center justify-center gap-4 md:gap-5 transition-all duration-700 shadow-2xl active:scale-95 group/main border border-primary">
+                            <a href={STRATEGY_CALL_URL} target="_blank" rel="noreferrer" className="bg-primary hover:bg-white text-black px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] flex items-center justify-center gap-4 md:gap-5 transition-all duration-700 shadow-2xl active:scale-95 group/main border border-primary">
                                 {siteContent.hero.primaryBtn}
                                 <ChevronRight className="w-4 h-4 md:w-5 md:h-5 group-hover/main:translate-x-3 transition-transform duration-700" />
-                            </button>
+                            </a>
                             <Link href="/methodology" className="flex items-center justify-center text-white/40 hover:text-white px-10 md:px-16 py-5 md:py-7 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all border border-white/10 hover:border-primary/40 rounded-full group/sec active:scale-95">
                                 {siteContent.hero.secondaryBtn}
                             </Link>

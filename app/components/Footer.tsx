@@ -3,9 +3,9 @@
 import React from "react";
 import Image from "next/image";
 import { siteContent } from "@/app/data/mockData";
+import { STRATEGY_CALL_URL } from "@/app/lib/booking";
 import Link from "next/link";
-import { ArrowRight, Youtube, Twitter, Linkedin, ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, Youtube, Twitter, Linkedin } from "lucide-react";
 
 export const Footer = () => {
     return (
@@ -26,7 +26,9 @@ export const Footer = () => {
                                     alt="AutoKnerd"
                                     fill
                                     className="object-contain"
-                                    onError={(e: any) => e.target.style.display = 'none'}
+                                    onError={(event) => {
+                                        event.currentTarget.style.display = "none";
+                                    }}
                                 />
                             </div>
                         </Link>
@@ -40,10 +42,10 @@ export const Footer = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-6 md:gap-10 group/btns">
-                            <button className="bg-primary hover:bg-white text-black px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] flex items-center justify-center gap-4 md:gap-5 transition-all duration-700 shadow-2xl active:scale-95 group/main">
+                            <a href={STRATEGY_CALL_URL} target="_blank" rel="noreferrer" className="bg-primary hover:bg-white text-black px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] flex items-center justify-center gap-4 md:gap-5 transition-all duration-700 shadow-2xl active:scale-95 group/main">
                                 {siteContent.footer.primaryBtn}
                                 <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover/main:translate-x-3 transition-transform" />
-                            </button>
+                            </a>
                             <Link href="/methodology" className="flex items-center justify-center text-white/40 hover:text-white px-8 md:px-10 py-5 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all border border-white/5 hover:border-primary/40 rounded-full group/sec active:scale-95">
                                 {siteContent.footer.secondaryBtn}
                             </Link>

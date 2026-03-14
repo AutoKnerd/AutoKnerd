@@ -3,6 +3,7 @@
 import React from "react";
 import { Navbar } from "@/app/components/Navbar";
 import { Footer } from "@/app/components/Footer";
+import { STRATEGY_CALL_URL } from "@/app/lib/booking";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Shield, Settings, Zap, Target, Rocket, BarChart2, Activity } from "lucide-react";
@@ -264,9 +265,9 @@ const MethodologyPage = () => {
                         <span className="font-medium italic">Customer Experience.</span>
                     </h2>
                     <div className="flex flex-col sm:flex-row justify-center gap-6 md:gap-10">
-                        <button className="bg-black text-white px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] flex items-center justify-center transition-all duration-700 shadow-2xl active:scale-95 border border-black hover:bg-white hover:text-black hover:border-white">
+                        <a href={STRATEGY_CALL_URL} target="_blank" rel="noreferrer" className="bg-black text-white px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] flex items-center justify-center transition-all duration-700 shadow-2xl active:scale-95 border border-black hover:bg-white hover:text-black hover:border-white">
                             Book Strategy Call
-                        </button>
+                        </a>
                         <Link href="#behavioral-model" className="flex items-center justify-center text-black/70 hover:text-black px-10 md:px-16 py-5 md:py-7 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all border border-black/20 hover:border-black rounded-full active:scale-95">
                             Explore Methodology
                         </Link>
