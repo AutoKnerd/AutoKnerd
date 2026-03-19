@@ -2,6 +2,7 @@ import Parser from "rss-parser";
 import { inferTopicsForEpisode } from "@/app/lib/podcastTopics";
 
 const PODCAST_RSS_URL = "https://feed.podbean.com/btedesign/feed.xml";
+const PODCAST_FEED_REVALIDATE_SECONDS = 300;
 
 type RawItem = {
   title?: string;
@@ -133,7 +134,7 @@ function getFallbackArtwork(feed: RawFeed): string | undefined {
 
 async function fetchPodcastFeed(): Promise<RawFeed & { items: RawItem[] }> {
   const response = await fetch(PODCAST_RSS_URL, {
-    next: { revalidate: 3600 },
+    next: { revalidate: PODCAST_FEED_REVALIDATE_SECONDS },
   });
   if (!response.ok) {
     throw new Error(`Failed to fetch podcast feed: ${response.status}`);

@@ -12,6 +12,8 @@ import PodcastArchiveClient from "@/app/podcast/PodcastArchiveClient";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export const revalidate = 300;
+
 const platformLinks = [
   {
     label: "Spotify",

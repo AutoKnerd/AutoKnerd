@@ -12,6 +12,9 @@ import {
 } from "@/app/lib/autodrivecxSkills";
 import type { Metadata } from "next";
 
+export const revalidate = 300;
+export const dynamicParams = true;
+
 type EpisodePageProps = {
   params: Promise<{ slug: string }>;
 };
