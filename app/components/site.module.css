@@ -34,6 +34,7 @@
 }
 .hamb { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 6px; }
 .hamb span { width: 20px; height: 2px; background: #0C1512; border-radius: 2px; }
+.mobileMenu { display: none; }
 
 /* ---- HERO ---- */
 .hero { padding-top: clamp(40px, 6vw, 64px); }
@@ -195,6 +196,15 @@
   .hamb { display: flex; }
   .navRight { gap: 10px; }
   .navLogin { font-size: 13px; }
+  .mobileMenu {
+    display: flex; flex-direction: column; gap: 4px; margin-top: 10px;
+    background: rgba(255,255,255,0.94); border: 1px solid #E4E9E3; border-radius: 22px;
+    padding: 12px; box-shadow: 0 16px 40px rgba(12,21,18,0.10); backdrop-filter: blur(8px);
+  }
+  .mobileMenu a {
+    padding: 12px 14px; border-radius: 14px; font-size: 15px; font-weight: 600; color: #1A2420;
+  }
+  .mobileMenu a:active { background: #F0F3EC; }
   .grid3, .grid2, .costGrid { grid-template-columns: 1fr; }
   .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .panelBody { flex-direction: column; }

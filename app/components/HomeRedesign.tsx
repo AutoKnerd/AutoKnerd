@@ -2,40 +2,15 @@ import {
   Gauge, Target, Package, Shield, MessagesSquare, TrendingDown, Database,
   ShieldCheck, DollarSign, TrendingUp, RefreshCw, Check, Play, ArrowRight, X,
 } from "lucide-react";
-import styles from "./HomeRedesign.module.css";
-
-const DEMO = "https://autoknerdapp-production.up.railway.app/demo";
-const BOOK = "https://calendar.app.google/JEqSARn8hvjPtvUy9";
-const LOGIN = "https://autoknerdapp-production.up.railway.app/";
-const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
+import styles from "./site.module.css";
+import { SiteNav } from "./SiteNav";
+import { SiteFooter } from "./SiteFooter";
+import { DEMO, BOOK, ext } from "@/app/lib/links";
 
 export function HomeRedesign() {
   return (
     <div className={styles.page}>
-      {/* NAV */}
-      <nav className={styles.nav}>
-        <div className={styles.container}>
-          <div className={styles.navInner}>
-            <a href="/" className={styles.brand}>
-              <img src="/ak-gear.png" alt="AutoKnerd" />
-              <span>AutoKnerd</span>
-            </a>
-            <div className={styles.navLinks}>
-              <a href="#system">The system</a>
-              <a href="#how">How it works</a>
-              <a href="/podcast">Podcast</a>
-              <a href="/methodology">Methodology</a>
-            </div>
-            <div className={styles.navRight}>
-              <a href={LOGIN} {...ext} className={styles.navLogin}>Log in</a>
-              <a href={BOOK} {...ext} className={styles.pillLime}>Book a call</a>
-              <button className={styles.hamb} type="button" aria-label="Menu">
-                <span /><span />
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <SiteNav />
 
       {/* HERO */}
       <header className={styles.hero}>
@@ -364,23 +339,7 @@ export function HomeRedesign() {
       </section>
 
       {/* FOOTER */}
-      <footer className={styles.footer}>
-        <div className={styles.container}>
-          <div className={styles.footerTop}>
-            <div>
-              <div className={styles.brand}><img src="/ak-gear.png" alt="AutoKnerd" /><span>AutoKnerd</span></div>
-              <p className={styles.footerBlurb}>Dealership CX development. Diagnose behavior, prescribe action, drive weekly execution.</p>
-            </div>
-            <div className={styles.footerCols}>
-              <div className={styles.footerCol}><b>Product</b><a href="#system">The system</a><a href={DEMO} {...ext}>Live demo</a><a href="#how">How it works</a></div>
-              <div className={styles.footerCol}><b>Company</b><a href="/methodology">About</a><a href="/podcast">Podcast</a><a href="/contact">Contact</a></div>
-            </div>
-          </div>
-          <div className={styles.footerBar}>
-            <span>© 2026 AutoKnerd</span><span>Weekly CX insights. No clutter.</span>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
