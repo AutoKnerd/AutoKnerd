@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
+import { Inter, JetBrains_Mono, Outfit, Manrope } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
@@ -21,6 +21,12 @@ const outfit = Outfit({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
 export const metadata: Metadata = {
   title: "AutoKnerd | Dealership Customer Experience. Engineered.",
   description: "Building systems that help high-end dealerships create trust, clarity, and consistency through behavioral architectural engineering.",
@@ -39,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} antialiased selection:bg-primary selection:text-black`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} ${manrope.variable} antialiased selection:bg-primary selection:text-black`}
       >
         <noscript>
           <iframe
