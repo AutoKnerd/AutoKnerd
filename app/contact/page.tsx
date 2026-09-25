@@ -39,8 +39,8 @@ export default function ContactPage() {
             Let&apos;s look at your store <span className={s.grad}>together.</span>
           </h1>
           <p className={s.lead}>
-            Fixing inconsistent customer experience starts with one straight conversation about where
-            your team is losing deals, gross, and CSI, across the sales floor and the service drive.
+            It starts with one honest conversation about where your team is losing deals, gross, and CSI,
+            on the sales floor and the service drive. No pitch, no obligation.
           </p>
         </div>
       </header>

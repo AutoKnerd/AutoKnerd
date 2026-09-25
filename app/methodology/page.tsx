@@ -65,9 +65,12 @@ export default function MethodologyPage() {
             Make great CX a <span className={s.grad}>system,</span> not a hope.
           </h1>
           <p className={s.lead}>
-            Traditional dealership improvement is reactive, temporary, and emotional. AutoKnerd replaces
-            individual heroics with a simple operating rhythm that keeps the behaviors driving customer
-            trust running week after week.
+            Most dealership training is reactive, temporary, and emotional. AutoKnerd replaces individual
+            heroics with a simple weekly rhythm that keeps the behaviors driving gross, CSI, and repeat
+            business running all year, not just the week after a big meeting.
+          </p>
+          <p className={s.lowLift} style={{ marginTop: 20, fontSize: 16 }}>
+            About 5 minutes a week from your managers. The system does the coaching.
           </p>
         </div>
       </header>
@@ -139,8 +142,8 @@ export default function MethodologyPage() {
             ))}
           </div>
           <p className={s.center} style={{ margin: "34px auto 0", maxWidth: 620, fontSize: 17, fontWeight: 700, color: "#2FA84A" }}>
-            Stable behavior produces stable customer experiences, and stable customer experiences produce
-            stable results.
+            Stable behavior means a consistent experience on every deal, and that is what protects your
+            gross, your CSI, and the repeat business that funds the store for years.
           </p>
         </div>
       </section>
@@ -167,7 +170,7 @@ export default function MethodologyPage() {
             ))}
           </div>
           <p className={s.center} style={{ margin: "34px auto 0", maxWidth: 560, fontSize: 15, color: "#6A736D" }}>
-            Most stores feel the difference within the first 90 days.
+            Most stores see it in their CSI and gross within the first 90 days.
           </p>
         </div>
       </section>

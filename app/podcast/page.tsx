@@ -75,8 +75,8 @@ export default async function PodcastPage() {
             Real talk from the people who <span className={s.grad}>run stores.</span>
           </h1>
           <p className={s.lead}>
-            Conversations with dealership leaders on trust, transparency, CSI, and building a customer
-            experience that stays consistent, from the sales floor to the service drive.
+            Straight conversations about trust, CSI, gross, and fixing the dealership experience, from the
+            sales floor to the service drive. Practical takes you can steal for your own store this week.
           </p>
           <div className={s.heroCtas} style={{ marginTop: 26 }}>
             {platformLinks.map((p) => (
@@ -186,9 +186,10 @@ export default async function PodcastPage() {
           <div className={s.dispatchCard}>
             <div style={{ maxWidth: 560 }}>
               <p className={`${s.mono} ${s.kicker}`}>PUT IT TO WORK</p>
-              <h3 className={s.dispatchTitle}>Hear it, then see it on your floor.</h3>
+              <h3 className={s.dispatchTitle}>Great on the ears. Better on your floor.</h3>
               <p className={s.dispatchText}>
-                The ideas on the show are the same ones AutoKnerd turns into weekly practice for your team.
+                The same ideas from the show are what AutoKnerd turns into five-minute weekly practice for
+                every rep and advisor. See it work on a live, no-login demo.
               </p>
             </div>
             <a href={DEMO} {...ext} className={s.btnPrimary} style={{ flexShrink: 0 }}>
