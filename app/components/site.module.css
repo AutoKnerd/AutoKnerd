@@ -131,7 +131,7 @@
 
 /* ---- FOUNDER NOTE ---- */
 .founderCard { background: #FFFFFF; border: 1px solid #E7ECE5; border-radius: 32px; padding: 44px; display: flex; gap: 44px; align-items: center; box-shadow: 0 20px 60px rgba(12,21,18,0.06); }
-.founderImg { width: 230px; height: 286px; flex-shrink: 0; border-radius: 24px; object-fit: cover; object-position: center; box-shadow: 0 16px 44px rgba(12,21,18,0.14); }
+.founderImg { width: 230px; height: 286px; flex-shrink: 0; border-radius: 24px; object-fit: cover; object-position: center top; box-shadow: 0 16px 44px rgba(12,21,18,0.14); }
 .founderBody { flex: 1; min-width: 0; }
 .founderQuote { margin: 18px 0 0; font-size: clamp(19px, 2.4vw, 24px); line-height: 1.5; font-weight: 600; color: #1A2420; max-width: 730px; }
 .founderSecond { margin: 16px 0 0; font-size: 16px; line-height: 1.55; color: #535D57; max-width: 730px; }

@@ -177,7 +177,7 @@ export function HomeRedesign() {
       <section className={styles.section}>
         <div className={styles.container}>
           <div className={styles.founderCard}>
-            <img src="/founder-sardone.webp" alt="Andrew Sardone, founder of AutoKnerd, in the showroom" className={styles.founderImg} />
+            <img src="/founder-andrew.webp" alt="Andrew Sardone, founder of AutoKnerd, in the showroom" className={styles.founderImg} />
             <div className={styles.founderBody}>
               <p className={`${styles.mono} ${styles.kicker}`}>WHY I BUILT AUTOKNERD</p>
               <p className={styles.founderQuote}>I built AutoKnerd because the industry is finally demanding a great experience for every customer. After years on the showroom floor, I know being nice is not the same as losing money. Being nice means lowering a customer&apos;s anxiety and lifting their motivation to buy. When people feel heard, everything gets better: gross goes up, and happy customers come back to fuel the store through service for years. Customers don&apos;t want to be sold. They want to happily buy, and hand you a great survey while they do it.</p>
