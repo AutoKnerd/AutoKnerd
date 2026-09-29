@@ -72,11 +72,11 @@ export default async function PodcastPage() {
             <span className={s.dot} />THE AUTOKNERD PODCAST
           </span>
           <h1 className={s.h1} style={{ maxWidth: 860 }}>
-            Real talk from the people who <span className={s.grad}>run stores.</span>
+            Why customers do what they <span className={s.grad}>do.</span>
           </h1>
           <p className={s.lead}>
-            Straight conversations about trust, CSI, gross, and fixing the dealership experience, from the
-            sales floor to the service drive. Practical takes you can steal for your own store this week.
+            Short, practical episodes on trust, customer anxiety, CSI, and the behavior that decides whether a
+            deal closes, from the sales floor to the service drive. Steal what works for your own store.
           </p>
           <div className={s.heroCtas} style={{ marginTop: 26 }}>
             {platformLinks.map((p) => (
@@ -174,13 +174,19 @@ export default async function PodcastPage() {
               <p className={`${s.mono} ${s.kicker}`}>YOUR HOST</p>
               <h2 className={s.h2sm} style={{ marginTop: 8 }}>Andrew Sardone</h2>
               <p className={s.founderSecond} style={{ marginTop: 14, fontSize: 17, color: "#3A443F" }}>
-                Andrew spent years on the showroom floor before founding AutoKnerd. Each week he sits down with the
-                people who actually run dealerships, owners, GMs, and top performers, to talk trust, CSI, gross, and
-                the behavior behind a customer experience that stays consistent. No theory, just what works on the
-                sales floor and the service drive.
+                A longtime automotive trainer for brands across the industry, Andrew is a subject-matter expert in
+                dealership customer experience, internal combustion and electrified vehicles, and automotive
+                technology. On the show he breaks down the psychology and behavior behind the car-buying
+                experience, why customers walk in guarded, where trust quietly slips, and the small moments that
+                make or lose a deal. Practical, no fluff, straight from the sales floor and the service drive.
+              </p>
+              <p style={{ margin: "18px 0 0", fontSize: 16, fontWeight: 700, color: "#2FA84A", lineHeight: 1.5, maxWidth: 640 }}>
+                His conviction runs through every episode: kindness and care in the sale aren&apos;t soft. They are
+                directly tied to a customer&apos;s motivation to buy, and to the profit that follows when you deliver
+                a genuinely great experience.
               </p>
               <div className={s.founderSig} style={{ marginTop: 22 }}>
-                <p className={s.founderRole} style={{ margin: 0 }}>Founder &amp; host of AutoKnerd</p>
+                <p className={s.founderRole} style={{ margin: 0 }}>Founder of AutoKnerd · automotive trainer &amp; SME</p>
                 <span className={s.tagFound}>New episodes weekly</span>
               </div>
             </div>
