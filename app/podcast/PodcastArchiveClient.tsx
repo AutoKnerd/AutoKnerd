@@ -7,14 +7,15 @@ import type { PodcastEpisode } from "@/app/lib/podcast";
 import type { TopicEpisodeMap } from "@/app/lib/intelligenceMap";
 import { inferTopicsForEpisode, PODCAST_TOPICS } from "@/app/lib/podcastTopics";
 import s from "@/app/components/site.module.css";
-import { ext } from "@/app/lib/links";
+import { Play, ArrowRight } from "lucide-react";
 
 type PodcastArchiveClientProps = {
   episodes: PodcastEpisode[];
   featuredEpisode?: PodcastEpisode;
   topicEpisodes: TopicEpisodeMap;
+  fallbackArtwork?: string;
 };
-const ITEMS_PER_PAGE = 12;
+const PAGE_SIZE = 10;
 
 function truncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
@@ -27,19 +28,14 @@ function formatDate(value: string): string {
   return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
 }
 
-export default function PodcastArchiveClient({ episodes }: PodcastArchiveClientProps) {
+export default function PodcastArchiveClient({ episodes, fallbackArtwork }: PodcastArchiveClientProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const initialTopic = searchParams.get("topic") ?? "";
-  const initialQuery = searchParams.get("q") ?? "";
-  const rawInitialPage = Number.parseInt(searchParams.get("page") ?? "1", 10);
-  const initialPage = Number.isFinite(rawInitialPage) && rawInitialPage > 0 ? rawInitialPage : 1;
-
-  const [activeTopic, setActiveTopic] = useState(initialTopic);
-  const [searchQuery, setSearchQuery] = useState(initialQuery);
-  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [activeTopic, setActiveTopic] = useState(searchParams.get("topic") ?? "");
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const episodesWithTopics = useMemo(
     () =>
@@ -60,35 +56,35 @@ export default function PodcastArchiveClient({ episodes }: PodcastArchiveClientP
     });
   }, [episodesWithTopics, activeTopic, searchQuery]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredEpisodes.length / ITEMS_PER_PAGE));
-  const activePage = Math.min(currentPage, totalPages);
-
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
     if (activeTopic) params.set("topic", activeTopic);
     else params.delete("topic");
     if (searchQuery.trim()) params.set("q", searchQuery.trim());
     else params.delete("q");
-    if (activePage > 1) params.set("page", String(activePage));
-    else params.delete("page");
+    params.delete("page");
 
     const next = params.toString() ? `${pathname}?${params.toString()}` : pathname;
     const current = searchParams.toString() ? `${pathname}?${searchParams.toString()}` : pathname;
     if (next !== current) router.replace(next, { scroll: false });
-  }, [activeTopic, searchQuery, activePage, router, pathname, searchParams]);
+  }, [activeTopic, searchQuery, router, pathname, searchParams]);
 
-  const paginatedEpisodes = useMemo(() => {
-    const start = (activePage - 1) * ITEMS_PER_PAGE;
-    return filteredEpisodes.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredEpisodes, activePage]);
-
-  const statusLine = useMemo(() => {
-    if (filteredEpisodes.length === 0) return "No matching episodes found.";
-    if (!activeTopic && !searchQuery.trim()) return `Showing ${paginatedEpisodes.length} of ${episodes.length} episodes`;
-    return `Showing ${paginatedEpisodes.length} of ${filteredEpisodes.length} episodes`;
-  }, [filteredEpisodes.length, paginatedEpisodes.length, activeTopic, searchQuery, episodes.length]);
-
+  const shown = filteredEpisodes.slice(0, visibleCount);
   const hasFilter = Boolean(activeTopic || searchQuery.trim());
+
+  const selectTopic = (topic: string) => {
+    setActiveTopic((prev) => (prev === topic ? "" : topic));
+    setVisibleCount(PAGE_SIZE);
+  };
+  const onSearch = (value: string) => {
+    setSearchQuery(value);
+    setVisibleCount(PAGE_SIZE);
+  };
+  const clearAll = () => {
+    setActiveTopic("");
+    setSearchQuery("");
+    setVisibleCount(PAGE_SIZE);
+  };
 
   return (
     <section className={s.section}>
@@ -96,12 +92,16 @@ export default function PodcastArchiveClient({ episodes }: PodcastArchiveClientP
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
           <div>
             <p className={`${s.mono} ${s.kicker}`}>THE FULL ARCHIVE</p>
-            <h2 className={s.h2sm}>Every episode.</h2>
+            <h2 className={s.h2sm}>Browse every episode.</h2>
           </div>
-          <p className={s.mono} style={{ fontSize: 12, letterSpacing: "0.1em", color: "#8A938D" }}>{statusLine}</p>
+          <p className={s.mono} style={{ fontSize: 12, letterSpacing: "0.1em", color: "#8A938D" }}>
+            {filteredEpisodes.length === 0
+              ? "No matching episodes"
+              : `${shown.length} of ${filteredEpisodes.length}${hasFilter ? " matching" : ""} episodes`}
+          </p>
         </div>
 
-        {/* Topic filter */}
+        {/* Filter by topic */}
         <div style={{ marginTop: 26, display: "flex", flexWrap: "wrap", gap: 10 }}>
           {PODCAST_TOPICS.map((topic) => {
             const active = activeTopic === topic;
@@ -109,10 +109,7 @@ export default function PodcastArchiveClient({ episodes }: PodcastArchiveClientP
               <button
                 key={topic}
                 type="button"
-                onClick={() => {
-                  setActiveTopic(active ? "" : topic);
-                  setCurrentPage(1);
-                }}
+                onClick={() => selectTopic(topic)}
                 style={{
                   padding: "9px 16px", borderRadius: 999, fontSize: 14, fontWeight: 600, cursor: "pointer",
                   fontFamily: "inherit", transition: "all 0.2s",
@@ -128,11 +125,7 @@ export default function PodcastArchiveClient({ episodes }: PodcastArchiveClientP
           {hasFilter && (
             <button
               type="button"
-              onClick={() => {
-                setActiveTopic("");
-                setSearchQuery("");
-                setCurrentPage(1);
-              }}
+              onClick={clearAll}
               style={{
                 padding: "9px 16px", borderRadius: 999, fontSize: 14, fontWeight: 600, cursor: "pointer",
                 fontFamily: "inherit", border: "1px solid #E4E9E3", background: "transparent", color: "#8A938D",
@@ -149,10 +142,7 @@ export default function PodcastArchiveClient({ episodes }: PodcastArchiveClientP
           <input
             id="podcast-search"
             value={searchQuery}
-            onChange={(event) => {
-              setSearchQuery(event.target.value);
-              setCurrentPage(1);
-            }}
+            onChange={(event) => onSearch(event.target.value)}
             placeholder="Search episodes..."
             style={{
               height: 52, width: "100%", maxWidth: 420, boxSizing: "border-box", border: "1px solid #D8DED7",
@@ -161,76 +151,49 @@ export default function PodcastArchiveClient({ episodes }: PodcastArchiveClientP
           />
         </div>
 
-        {/* Archive grid */}
+        {/* Episode list */}
         {filteredEpisodes.length === 0 ? (
           <div className={s.card} style={{ marginTop: 32, textAlign: "center", padding: 40, color: "#6A736D" }}>
             No matching episodes found.
           </div>
         ) : (
-          <div className={s.grid4} style={{ marginTop: 32 }}>
-            {paginatedEpisodes.map((episode) => (
-              <article key={episode.link} className={s.card} style={{ padding: 20, display: "flex", flexDirection: "column" }}>
-                {episode.imageUrl && (
+          <div className={s.epList}>
+            {shown.map((episode) => (
+              <Link key={episode.link} href={`/podcast/${episode.slug}`} className={s.epRow}>
+                {episode.imageUrl || fallbackArtwork ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={episode.imageUrl}
-                    alt={episode.title}
-                    style={{ width: "100%", aspectRatio: "1 / 1", borderRadius: 16, border: "1px solid #E7ECE5", objectFit: "cover", marginBottom: 16, display: "block" }}
-                  />
+                  <img className={s.epThumb} src={episode.imageUrl ?? fallbackArtwork} alt="" />
+                ) : (
+                  <span className={s.epThumb} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Play size={20} color="#8A938D" />
+                  </span>
                 )}
-                <p className={s.mono} style={{ margin: 0, fontSize: 11, letterSpacing: "0.12em", color: "#8A938D" }}>
-                  {formatDate(episode.pubDate)}
-                </p>
-                <h4 style={{ margin: "8px 0 0", fontSize: 18, fontWeight: 800, lineHeight: 1.25 }}>{episode.title}</h4>
-                {episode.matchedTopics.length > 0 && (
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 12 }}>
-                    {episode.matchedTopics.slice(0, 2).map((topic) => (
-                      <span
-                        key={topic}
-                        style={{ padding: "4px 10px", borderRadius: 999, background: "#F3FBE8", border: "1px solid #E1EFC5", fontSize: 11, fontWeight: 700, color: "#5E8A00" }}
-                      >
-                        {topic}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                <p className={s.cardText} style={{ fontSize: 14, marginTop: 12, flex: 1 }}>{truncate(episode.summary, 150)}</p>
-                <div style={{ marginTop: 16, display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-                  <Link href={`/podcast/${episode.slug}`} className={s.textLink} style={{ marginTop: 0, fontSize: 14 }}>
-                    View episode
-                  </Link>
-                  <a href="https://open.spotify.com/search/AutoKnerd%20Podcast" {...ext} style={{ fontSize: 13, fontWeight: 600, color: "#8A938D" }}>
-                    Listen
-                  </a>
+                <div className={s.epMeta}>
+                  <p className={`${s.mono} ${s.epDate}`}>
+                    {formatDate(episode.pubDate)}
+                    {episode.matchedTopics[0] ? `  ·  ${episode.matchedTopics[0]}` : ""}
+                  </p>
+                  <h3 className={s.epTitle}>{episode.title}</h3>
+                  <p className={s.epSummary}>{truncate(episode.summary, 120)}</p>
                 </div>
-              </article>
+                <span className={s.epView}>
+                  View <ArrowRight size={15} strokeWidth={2.2} />
+                </span>
+              </Link>
             ))}
           </div>
         )}
 
-        {/* Pagination */}
-        {filteredEpisodes.length > 0 && totalPages > 1 && (
-          <div style={{ marginTop: 40, display: "flex", alignItems: "center", justifyContent: "center", gap: 18 }}>
+        {/* Load more */}
+        {visibleCount < filteredEpisodes.length && (
+          <div style={{ marginTop: 28, textAlign: "center" }}>
             <button
               type="button"
-              onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
-              disabled={activePage === 1}
+              onClick={() => setVisibleCount((v) => v + PAGE_SIZE)}
               className={s.btnDark}
-              style={{ height: 46, fontSize: 14, padding: "0 22px", opacity: activePage === 1 ? 0.4 : 1, cursor: activePage === 1 ? "not-allowed" : "pointer", border: "none" }}
+              style={{ height: 50, fontSize: 15, padding: "0 30px", border: "none", cursor: "pointer" }}
             >
-              Prev
-            </button>
-            <p className={s.mono} style={{ fontSize: 12, letterSpacing: "0.1em", color: "#8A938D" }}>
-              Page {activePage} of {totalPages}
-            </p>
-            <button
-              type="button"
-              onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
-              disabled={activePage === totalPages}
-              className={s.btnDark}
-              style={{ height: 46, fontSize: 14, padding: "0 22px", opacity: activePage === totalPages ? 0.4 : 1, cursor: activePage === totalPages ? "not-allowed" : "pointer", border: "none" }}
-            >
-              Next
+              Load more episodes
             </button>
           </div>
         )}

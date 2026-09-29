@@ -176,6 +176,7 @@ export default async function PodcastPage() {
             episodes={restEpisodes}
             featuredEpisode={featuredEpisode}
             topicEpisodes={topicEpisodes}
+            fallbackArtwork={feedData?.fallbackArtwork}
           />
         </Suspense>
       )}
