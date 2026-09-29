@@ -161,6 +161,33 @@ export default async function PodcastPage() {
         </div>
       </section>
 
+      {/* HOST */}
+      <section className={s.section} style={{ paddingTop: "clamp(40px, 6vw, 64px)" }}>
+        <div className={s.container}>
+          <div className={s.founderCard}>
+            <img
+              src="/founder-andrew.webp"
+              alt="Andrew Sardone, host of the AutoKnerd Podcast, on the showroom floor"
+              className={s.founderImg}
+            />
+            <div className={s.founderBody}>
+              <p className={`${s.mono} ${s.kicker}`}>YOUR HOST</p>
+              <h2 className={s.h2sm} style={{ marginTop: 8 }}>Andrew Sardone</h2>
+              <p className={s.founderSecond} style={{ marginTop: 14, fontSize: 17, color: "#3A443F" }}>
+                Andrew spent years on the showroom floor before founding AutoKnerd. Each week he sits down with the
+                people who actually run dealerships, owners, GMs, and top performers, to talk trust, CSI, gross, and
+                the behavior behind a customer experience that stays consistent. No theory, just what works on the
+                sales floor and the service drive.
+              </p>
+              <div className={s.founderSig} style={{ marginTop: 22 }}>
+                <p className={s.founderRole} style={{ margin: 0 }}>Founder &amp; host of AutoKnerd</p>
+                <span className={s.tagFound}>New episodes weekly</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ARCHIVE */}
       {restEpisodes.length > 0 && (
         <Suspense
