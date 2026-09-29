@@ -56,8 +56,9 @@ export default function ContactPage() {
                 Built for the people who run the store.
               </h2>
               <p className={s.sectionSubLeft} style={{ maxWidth: 470 }}>
-                We work best with dealer principals, general managers, and group executives who want a
-                clear, data-driven read on their team, not another motivational seminar.
+                We work best with dealer principals, general managers, and group executives who believe
+                caring for the customer and making money are the same job, not opposites, and want a clear,
+                data-driven way to prove it on the floor.
               </p>
               <div style={{ marginTop: 26, display: "flex", flexDirection: "column", gap: 14 }}>
                 {WHO.map((t) => (

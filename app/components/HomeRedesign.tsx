@@ -191,6 +191,43 @@ export function HomeRedesign() {
         </div>
       </section>
 
+      {/* WHERE WE STAND */}
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <div className={styles.center}>
+            <p className={`${styles.mono} ${styles.kicker}`}>WHERE WE STAND</p>
+            <h2 className={styles.h2sm}>Kindness isn&apos;t the opposite of profit. It&apos;s the <span className={styles.grad}>engine</span> of it.</h2>
+            <p className={styles.sectionSub}>Most of the industry picks a lane. We reject both.</p>
+          </div>
+          <div className={styles.grid3}>
+            <div className={styles.miniCard} style={{ padding: 26 }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                <X size={18} color="#B9BFB9" strokeWidth={2.2} />
+                <p className={`${styles.mono}`} style={{ margin: 0, fontSize: 11, letterSpacing: "0.16em", color: "#9AA39D" }}>THE HARD SELL</p>
+              </div>
+              <h4 className={styles.miniTitle} style={{ marginTop: 12, fontSize: 18, color: "#6A736D" }}>&ldquo;Pressure makes profit.&rdquo;</h4>
+              <p className={styles.miniText}>Push harder, control the room, win the deal, and burn the customer&apos;s trust and your CSI doing it.</p>
+            </div>
+            <div className={styles.miniCard} style={{ padding: 26 }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                <X size={18} color="#B9BFB9" strokeWidth={2.2} />
+                <p className={`${styles.mono}`} style={{ margin: 0, fontSize: 11, letterSpacing: "0.16em", color: "#9AA39D" }}>THE APOLOGY</p>
+              </div>
+              <h4 className={styles.miniTitle} style={{ marginTop: 12, fontSize: 18, color: "#6A736D" }}>&ldquo;Caring means leaving money on the table.&rdquo;</h4>
+              <p className={styles.miniText}>Be nice, dodge the ask, hope it works out, and leave gross and units sitting on the floor.</p>
+            </div>
+            <div className={styles.card} style={{ padding: 26, background: "linear-gradient(160deg, #F3FBE8, #FFFFFF)", border: "1px solid #D6EFAE", boxShadow: "0 18px 50px rgba(120,180,0,0.10)" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                <Check size={18} color="#2FA84A" strokeWidth={2.4} />
+                <p className={`${styles.mono}`} style={{ margin: 0, fontSize: 11, letterSpacing: "0.16em", color: "#5E8A00" }}>AUTOKNERD</p>
+              </div>
+              <h4 className={styles.cardTitle} style={{ marginTop: 12, fontSize: 20 }}>Care is the profit strategy.</h4>
+              <p className={styles.cardText}>Lower a customer&apos;s anxiety, lift their motivation to buy, and the gross, CSI, and repeat business follow.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* PROBLEM */}
       <section className={styles.section}>
         <div className={styles.container}>

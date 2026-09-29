@@ -75,6 +75,19 @@ export default function MethodologyPage() {
         </div>
       </header>
 
+      {/* BELIEF */}
+      <section style={{ paddingTop: "clamp(36px, 5vw, 56px)" }}>
+        <div className={s.container}>
+          <div style={{ borderRadius: 28, background: "#F3FBE8", border: "1px solid #D6EFAE", padding: "clamp(28px, 4vw, 40px)", textAlign: "center" }}>
+            <p className={`${s.mono} ${s.kicker}`}>WHAT WE BELIEVE</p>
+            <p style={{ margin: "12px auto 0", maxWidth: 760, fontSize: "clamp(20px, 2.6vw, 27px)", fontWeight: 800, lineHeight: 1.35, letterSpacing: "-0.01em" }}>
+              Kindness and care aren&apos;t the opposite of profit. They are what raise a customer&apos;s motivation
+              to buy, and the gross, CSI, and repeat business that follow.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* PILLARS */}
       <section className={s.section}>
         <div className={s.container}>
