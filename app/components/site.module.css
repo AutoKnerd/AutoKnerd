@@ -197,7 +197,9 @@
 .footerCol { display: flex; flex-direction: column; gap: 10px; }
 .footerCol b { font-weight: 700; color: #0C1512; }
 .footerCol a { color: #6A736D; }
-.footerBar { margin-top: 34px; border-top: 1px solid #E4E9E3; padding-top: 18px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; color: #9AA39D; }
+.footerBar { margin-top: 34px; border-top: 1px solid #E4E9E3; padding-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; color: #9AA39D; }
+.footerLegal { display: flex; gap: 20px; }
+.footerLegal a:hover { color: #0C1512; }
 
 /* ---- PODCAST EPISODE LIST ---- */
 .epList { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }

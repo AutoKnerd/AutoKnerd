@@ -31,8 +31,11 @@ export function SiteFooter() {
           </div>
         </div>
         <div className={styles.footerBar}>
-          <span>© 2026 AutoKnerd</span>
-          <span>Weekly CX insights. No clutter.</span>
+          <span>© 2026 AutoKnerd. All rights reserved.</span>
+          <span className={styles.footerLegal}>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+          </span>
         </div>
       </div>
     </footer>
