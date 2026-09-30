@@ -5,6 +5,7 @@ import {
 import styles from "./site.module.css";
 import { SiteNav } from "./SiteNav";
 import { SiteFooter } from "./SiteFooter";
+import { ProductPanel } from "./ProductPanel";
 import { DEMO, BOOK, ext } from "@/app/lib/links";
 
 export function HomeRedesign() {
@@ -39,50 +40,8 @@ export function HomeRedesign() {
         </div>
       </header>
 
-      {/* DARK PRODUCT PANEL */}
-      <section className={styles.panelWrap}>
-        <div className={styles.container}>
-          <div className={styles.panel}>
-            <div className={styles.panelGlow} />
-            <div className={styles.panelTop}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                <span className={styles.mono} style={{ fontSize: 12, letterSpacing: "0.2em", color: "#8CFF57" }}>HOME</span>
-                <div className={styles.chips}>
-                  <span className={`${styles.chip} ${styles.chipOn}`}>OWNER</span>
-                  <span className={styles.chip}>GM</span>
-                  <span className={styles.chip}>SALES</span>
-                  <span className={styles.chip}>SERVICE</span>
-                </div>
-              </div>
-              <div><span className={styles.lvl}>LVL 9</span> <span className={styles.xp}>8,940 XP</span></div>
-            </div>
-            <div className={styles.panelBody}>
-              <div className={styles.panelMain}>
-                <div className={styles.bar}><div className={styles.barFill} style={{ width: "72%" }} /></div>
-                <p className={`${styles.mono} ${styles.focusKicker}`}>TODAY&apos;S FOCUS</p>
-                <h3 className={styles.focusTitle}>Product Knowledge</h3>
-                <p className={styles.focusText}>Explain the product clearly and tie details to real value. This week: warmer openings, friendlier first impression.</p>
-                <div className={styles.startBtn}>START SESSION <Play size={16} fill="#0C1512" strokeWidth={0} /></div>
-              </div>
-              <div className={styles.panelSide}>
-                <div className={styles.sideCard}>
-                  <p className={`${styles.mono} ${styles.sideKicker}`}>ALL STORES CX</p>
-                  <div style={{ display: "flex", alignItems: "flex-end", gap: 10, marginTop: 6 }}>
-                    <span className={styles.sideBig}>75%</span>
-                    <span className={styles.up} style={{ marginBottom: 12 }}>▲ +4%</span>
-                  </div>
-                </div>
-                <div className={`${styles.sideCard} ${styles.sideCardCyan}`}>
-                  <p className={styles.mono} style={{ margin: 0, fontSize: 11, letterSpacing: "0.16em", color: "#06EBF7" }}>WEAKEST SIGNAL</p>
-                  <p style={{ margin: "8px 0 0", fontSize: 20, fontWeight: 700, color: "#EAF6F7" }}>Active listening</p>
-                  <p style={{ margin: "6px 0 0", fontSize: 13, color: "#8FB6BA" }}>Coach this on the floor this week.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p className={styles.panelCaption}>This is what your reps open every day. It plays like a game, so they keep coming back, and that is what turns coaching into consistency.</p>
-        </div>
-      </section>
+      {/* DARK PRODUCT PANEL (interactive role switcher) */}
+      <ProductPanel />
 
       {/* PROOF */}
       <section>

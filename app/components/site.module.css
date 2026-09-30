@@ -71,12 +71,15 @@
 .chips { display: flex; gap: 6px; margin-left: 12px; flex-wrap: wrap; }
 .chip { padding: 5px 11px; border-radius: 999px; background: rgba(255,255,255,0.06); color: #96A09B; font-size: 11px; font-weight: 700; }
 .chipOn { background: rgba(6,235,247,0.14); color: #06EBF7; }
+.chipBtn { border: none; cursor: pointer; font-family: inherit; letter-spacing: 0.04em; transition: background 0.2s, color 0.2s; }
+.chipBtn:hover { color: #CDE8EA; background: rgba(255,255,255,0.10); }
+.chipOn.chipBtn:hover { color: #06EBF7; background: rgba(6,235,247,0.18); }
 .lvl { color: #CCFF00; font-weight: 800; font-size: 16px; }
 .xp { color: #6D766F; font-size: 13px; }
 .panelBody { position: relative; margin-top: 22px; display: flex; gap: 20px; }
 .panelMain { flex: 1; min-width: 0; }
 .bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
-.barFill { height: 100%; background: linear-gradient(90deg, #06EBF7, #46D160); }
+.barFill { height: 100%; background: linear-gradient(90deg, #06EBF7, #46D160); transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1); }
 .focusKicker { margin: 22px 0 0; font-size: 12px; letter-spacing: 0.2em; color: #7B857E; }
 .focusTitle { margin: 8px 0 0; font-size: clamp(30px, 4vw, 44px); font-weight: 800; color: #F4F7F4; letter-spacing: -0.02em; }
 .focusText { margin: 14px 0 0; font-size: 15px; line-height: 1.5; color: #9BA49E; max-width: 360px; }
@@ -88,6 +91,8 @@
 .sideBig { font-size: clamp(38px, 5vw, 46px); font-weight: 800; color: #F4F7F4; letter-spacing: -0.02em; }
 .up { padding: 3px 9px; border-radius: 999px; background: rgba(70,209,96,0.16); color: #5FE07A; font-size: 12px; font-weight: 700; }
 .panelCaption { margin: 16px 0 0; text-align: center; font-size: 14px; color: #8A938D; }
+.panelSwap { animation: panelSwap 0.35s ease; }
+@keyframes panelSwap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 /* ---- PROOF ---- */
 .proof { padding-top: 30px; display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; }
