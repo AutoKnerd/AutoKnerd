@@ -35,6 +35,8 @@ export function SiteFooter() {
           <span className={styles.footerLegal}>
             <a href="/privacy">Privacy</a>
             <a href="/terms">Terms</a>
+            <a href="/security">Security</a>
+            <a href="/legal">Legal</a>
           </span>
         </div>
       </div>

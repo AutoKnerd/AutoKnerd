@@ -209,6 +209,10 @@
 .legal ul { margin: 14px 0 0; padding-left: 22px; }
 .legal li { margin: 8px 0; font-size: 16px; line-height: 1.65; color: #3A443F; }
 .legal strong { color: #0C1512; font-weight: 700; }
+.legal a { color: #5E8A00; font-weight: 700; }
+.legal table { width: 100%; border-collapse: collapse; margin: 16px 0 0; font-size: 14px; }
+.legal th { text-align: left; padding: 10px 12px; border-bottom: 2px solid #E3E8DF; color: #0C1512; font-weight: 800; }
+.legal td { padding: 10px 12px; border-bottom: 1px solid #EDF1EA; color: #3A443F; vertical-align: top; line-height: 1.5; }
 
 /* ---- PODCAST EPISODE LIST ---- */
 .epList { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
