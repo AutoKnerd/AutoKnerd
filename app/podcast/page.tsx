@@ -222,7 +222,7 @@ export default async function PodcastPage() {
               <p className={`${s.mono} ${s.kicker}`}>PUT IT TO WORK</p>
               <h3 className={s.dispatchTitle}>Great on the ears. Better on your floor.</h3>
               <p className={s.dispatchText}>
-                The same ideas from the show are what AutoKnerd turns into five-minute weekly practice for
+                The same ideas from the show are what AutoKnerd turns into five-minute daily practice for
                 every rep and advisor. See it work on a live, no-login demo.
               </p>
             </div>

@@ -23,7 +23,7 @@ export function HomeRedesign() {
           </h1>
           <p className={styles.lead}>
             AutoKnerd pinpoints the one behavior holding each salesperson and advisor back, turns it into
-            short weekly practice they will actually do, and shows managers exactly where to coach, across
+            short daily practice they will actually do, and shows managers exactly where to coach, across
             the sales floor and the service drive.
           </p>
           <div className={styles.heroCtas}>
@@ -90,7 +90,7 @@ export function HomeRedesign() {
           <div className={styles.proof}>
             <span className={styles.proofItem}><Check size={17} color="#46D160" strokeWidth={2.3} />Sales floor and service drive</span>
             <span className={styles.proofDot} />
-            <span className={styles.proofItem}><Check size={17} color="#46D160" strokeWidth={2.3} />Weekly cadence, not once a year</span>
+            <span className={styles.proofItem}><Check size={17} color="#46D160" strokeWidth={2.3} />Daily reps, not once a year</span>
             <span className={styles.proofDot} />
             <span className={styles.proofItem}><Check size={17} color="#46D160" strokeWidth={2.3} />No app for your team to download</span>
           </div>
@@ -268,7 +268,7 @@ export function HomeRedesign() {
           <div className={styles.grid3}>
             {[
               ["01", "Audit the workflow", "We read how your team actually runs the floor and the drive, and find the gaps."],
-              ["02", "Recalibrate behavior", "Each rep’s weekly practice targets the one habit moving their numbers."],
+              ["02", "Recalibrate behavior", "Each rep’s daily practice targets the one habit moving their numbers."],
               ["03", "Lock it in", "Those wins become standards your store hits the same way every time."],
             ].map(([n, t, d]) => (
               <div key={n} style={{ padding: "8px 6px" }}>
@@ -301,7 +301,7 @@ export function HomeRedesign() {
             <div className={`${styles.compareCard} ${styles.compareAk}`}>
               <p className={styles.compareLabel} style={{ color: "#5E8A00" }}>With AutoKnerd</p>
               <div className={styles.compareList}>
-                {["Five focused minutes, every week", "Aimed at each rep’s weak spot", "Reps actually do it, it’s a game", "Managers see exactly where to coach"].map((t) => (
+                {["Five focused minutes, every day", "Aimed at each rep’s weak spot", "Reps actually do it, it’s a game", "Managers see exactly where to coach"].map((t) => (
                   <div key={t} className={styles.compareItem} style={{ fontWeight: 600, color: "#1A2420" }}><Check size={20} color="#2FA84A" strokeWidth={2.2} />{t}</div>
                 ))}
               </div>
