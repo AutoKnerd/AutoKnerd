@@ -1,93 +1,197 @@
-"use client";
+import type { Metadata } from "next";
+import { SiteNav } from "@/app/components/SiteNav";
+import { SiteFooter } from "@/app/components/SiteFooter";
+import s from "@/app/components/site.module.css";
 
-import React from "react";
-import { Navbar } from "@/app/components/Navbar";
-import { Footer } from "@/app/components/Footer";
-
-const PrivacyPage = () => {
-    return (
-        <main className="min-h-screen bg-background selection:bg-primary selection:text-black overflow-hidden relative text-slate/80">
-            <Navbar />
-
-            {/* Header */}
-            <section className="pt-44 pb-24 relative overflow-hidden">
-                <div className="bg-dot-grid absolute inset-0 opacity-[0.03] pointer-events-none" />
-                <div className="container mx-auto px-6 md:px-12 relative z-20">
-                    <div className="max-w-4xl mx-auto">
-                        <div className="flex items-center gap-4 text-primary mb-8">
-                            <span className="h-px w-8 bg-primary/40" />
-                            <span className="text-[10px] uppercase tracking-[0.4em] font-bold">Data Governance</span>
-                        </div>
-                        <h1 className="text-5xl md:text-7xl font-light text-white font-outfit tracking-tighter mb-8">Privacy Policy.</h1>
-                        <p className="text-xl font-light italic text-primary/60">Last Updated: March 2026</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Content */}
-            <section className="pb-44">
-                <div className="container mx-auto px-6 md:px-12">
-                    <div className="max-w-4xl mx-auto space-y-20">
-                        <div className="space-y-8">
-                            <h2 className="text-2xl md:text-3xl font-medium text-white font-outfit tracking-tight">Information Collected</h2>
-                            <p className="text-lg leading-relaxed font-light">
-                                We collect information necessary to provide and improve our services, including:
-                            </p>
-                            <ul className="space-y-4 list-disc pl-6 text-lg font-light">
-                                <li><strong>User Data:</strong> Names, email addresses, and professional roles of dealership staff.</li>
-                                <li><strong>Operational Data:</strong> Behavioral metrics, coaching logs, and system adherence data.</li>
-                                <li><strong>Technical Data:</strong> IP addresses, browser types, and usage patterns for platform optimization.</li>
-                            </ul>
-                        </div>
-
-                        <div className="space-y-8">
-                            <h2 className="text-2xl md:text-3xl font-medium text-white font-outfit tracking-tight">How Information is Used</h2>
-                            <p className="text-lg leading-relaxed font-light">
-                                Data is used exclusively to facilitate dealership management, provide leadership reporting, and improve the performance of our platform tools. 
-                            </p>
-                            <p className="text-white font-medium italic border-l-2 border-primary/40 pl-8">
-                                We do not sell your dealership&apos;s operational data to third parties.
-                            </p>
-                        </div>
-
-                        <div className="space-y-8">
-                            <h2 className="text-2xl md:text-3xl font-medium text-white font-outfit tracking-tight">Data Security</h2>
-                            <p className="text-lg leading-relaxed font-light">
-                                We implement industry-standard security measures, including encryption and secure servers, to protect your data from unauthorized access or disclosure.
-                            </p>
-                        </div>
-
-                        <div className="space-y-8">
-                            <h2 className="text-2xl md:text-3xl font-medium text-white font-outfit tracking-tight">Cookies & Analytics</h2>
-                            <p className="text-lg leading-relaxed font-light">
-                                We use cookies to maintain user sessions and analyze platform performance. You can manage cookie preferences through your browser settings.
-                            </p>
-                        </div>
-
-                        <div className="space-y-8">
-                            <h2 className="text-2xl md:text-3xl font-medium text-white font-outfit tracking-tight">User Rights</h2>
-                            <p className="text-lg leading-relaxed font-light">
-                                Users have the right to access, correct, or request the deletion of their personal information within the platform, subject to dealership management policies and legal requirements.
-                            </p>
-                        </div>
-
-                        <div className="space-y-8">
-                            <h2 className="text-2xl md:text-3xl font-medium text-white font-outfit tracking-tight">Privacy Requests</h2>
-                            <p className="text-lg leading-relaxed font-light">
-                                For all privacy-related inquiries, please contact: <a href="mailto:privacy@autoknerd.com" className="text-primary hover:text-white transition-colors">privacy@autoknerd.com</a>.
-                            </p>
-                        </div>
-
-                        <div className="pt-20 border-t border-white/5">
-                            <p className="text-slate/40 text-sm font-mono uppercase tracking-[0.2em]">Privacy Reference: AK-PRIVACY-2026</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <Footer />
-        </main>
-    );
+export const metadata: Metadata = {
+  title: "Privacy Policy · AutoKnerd",
+  description:
+    "How AutoKnerd collects, uses, shares, and protects personal information across autoknerd.com and the AutoKnerd application.",
 };
 
-export default PrivacyPage;
+export default function PrivacyPage() {
+  return (
+    <div className={s.page}>
+      <SiteNav />
+
+      <header className={s.hero}>
+        <div className={s.container}>
+          <span className={`${s.eyebrow} ${s.mono}`}>
+            <span className={s.dot} />PRIVACY
+          </span>
+          <h1 className={s.h1}>Privacy <span className={s.grad}>Policy.</span></h1>
+          <p className={s.lead} style={{ maxWidth: 640 }}>
+            What personal information AutoKnerd collects, how we use it, who we share it with, and the
+            choices you have — across our website and the app.
+          </p>
+          <p className={s.mono} style={{ marginTop: 16, fontSize: 13, letterSpacing: "0.08em", color: "#8A938D" }}>
+            LAST UPDATED: SEPTEMBER 2026
+          </p>
+        </div>
+      </header>
+
+      <section className={s.section} style={{ paddingTop: "clamp(32px, 5vw, 48px)" }}>
+        <div className={s.container}>
+          <div className={s.legal}>
+            <h2>1. Who we are and what this covers</h2>
+            <p>
+              AutoKnerd is a customer-experience coaching platform for car dealerships. Salespeople and
+              service advisors run short, AI-guided practice sessions; managers set a weekly coaching focus;
+              and owners and general managers see where to coach across their stores. This policy explains
+              what personal information we collect, how we use it, who we share it with, and the choices you
+              have.
+            </p>
+            <p>
+              It applies to our website (autoknerd.com) and the AutoKnerd application. It does not cover a
+              dealership&apos;s own privacy practices for content or data it manages.
+            </p>
+            <p><strong>Two kinds of people use AutoKnerd, and our role differs for each:</strong></p>
+            <ul>
+              <li>
+                <strong>Account holders</strong> (dealer principals, general managers, managers, and admins) —
+                we are the <strong>controller</strong> of their account data.
+              </li>
+              <li>
+                <strong>Team members</strong> (salespeople, service advisors, and other staff) — when a
+                dealership enrolls its team, <strong>the dealership directs what is collected</strong>, and
+                AutoKnerd acts as a <strong>service provider / processor</strong> handling that data on the
+                dealership&apos;s behalf and instructions.
+              </li>
+            </ul>
+            <p>
+              For limited purposes — security, abuse prevention, legal compliance, and operating our own
+              systems — we may also process some of this data on our own behalf. US state privacy laws use
+              terms like &ldquo;business&rdquo; and &ldquo;service provider&rdquo;; the exact role for each
+              activity should be confirmed with counsel.
+            </p>
+
+            <h2>2. Information we collect</h2>
+            <p>
+              <strong>a) Account information (leaders and admins).</strong> Name, email address, password
+              (stored hashed by our authentication provider, Google Firebase), dealership or organization,
+              role, and billing details. Payments are handled by our payment processor; we do not store full
+              card numbers.
+            </p>
+            <p>
+              <strong>b) Team-member and performance information (collected on the dealership&apos;s behalf).</strong>{" "}
+              Name and role; the responses submitted during practice sessions (roleplay messages and choices);
+              customer-experience and behavior scores, XP, streaks, and progress; and the coaching notes and
+              weekly-focus settings a manager creates.
+            </p>
+            <p>
+              <strong>c) Session and usage data.</strong> Session participation and timestamps, device and
+              browser information, IP address, and operational logs generated by our hosting and backend
+              providers.
+            </p>
+            <p>
+              <strong>d) AI-generated content.</strong> For practice sessions and coaching reports, we use
+              Google&apos;s Gemini AI to run roleplay scenarios and generate summaries. Public product demos
+              run on sample data with a simulated response, so no personal data is sent to the AI for those.
+            </p>
+            <p>
+              We do not intentionally collect Social Security numbers, government IDs, financial account
+              numbers, precise geolocation, or special-category/sensitive data, and team members should not
+              enter such information into free-text fields.
+            </p>
+
+            <h2>3. How we use information</h2>
+            <ul>
+              <li>To provide and operate the service (run practice sessions, score them, and generate reports).</li>
+              <li>To create and secure accounts, authenticate users, and prevent abuse.</li>
+              <li>To process payments and manage subscriptions.</li>
+              <li>To provide the AI coaching reports a manager or store requests.</li>
+              <li>To support customers and communicate about the service.</li>
+              <li>To improve and secure the product (diagnostics and aggregate analytics).</li>
+              <li>To comply with law and enforce our terms.</li>
+            </ul>
+            <p>
+              We do <strong>not</strong> sell personal information, and we do <strong>not</strong> use
+              dealership or team data to train third-party AI models or for cross-context behavioral
+              advertising.
+            </p>
+
+            <h2>4. How we share information</h2>
+            <p>We share personal information only as follows:</p>
+            <ul>
+              <li>
+                <strong>With the dealership or organization</strong> — for team data. Coaching results and
+                progress go to the dealership that enrolled the team; that is the point of the product.
+              </li>
+              <li>
+                <strong>With service providers / sub-processors</strong> that operate the service under
+                contract — hosting and infrastructure, database, authentication (Google Firebase), payments,
+                and AI (Google Gemini). Each is bound to protect the data and use it only to provide its
+                service to us.
+              </li>
+              <li><strong>For legal reasons</strong> — to comply with law, respond to lawful requests, or protect rights and safety.</li>
+              <li><strong>In a business transfer</strong> — as part of a merger, acquisition, or asset sale, subject to this policy.</li>
+            </ul>
+            <p>
+              We do not sell or &ldquo;share&rdquo; personal information for cross-context behavioral
+              advertising as those terms are defined under California law.
+            </p>
+
+            <h2>5. Not directed to children</h2>
+            <p>
+              AutoKnerd is a workplace tool for dealership staff and is not directed to children. We do not
+              knowingly collect personal information from anyone under 16. If you believe a minor has provided
+              us personal information, contact us and we will delete it.
+            </p>
+
+            <h2>6. Data retention</h2>
+            <p>
+              We retain personal information for as long as needed to provide the service and for legitimate
+              business and legal purposes. Account data is kept while an account is active; you may request
+              deletion of your account data by contacting us, and self-service account-deletion tooling is
+              being added. Team and session data is retained on the dealership&apos;s instructions; a
+              dealership can request export or deletion of its data.
+            </p>
+
+            <h2>7. Your choices and rights</h2>
+            <p>
+              Depending on your state (for example, <strong>California — CCPA/CPRA</strong>, and other US
+              state privacy laws), you may have the right to access, correct, delete, or obtain a copy of your
+              personal information, and to appeal a decision. To exercise a right, contact{" "}
+              <a href="mailto:privacy@autoknerd.com" style={{ color: "#5E8A00", fontWeight: 700 }}>privacy@autoknerd.com</a>.
+              We will verify your request and respond within the timeframe the law requires, and we will not
+              discriminate against you for exercising a right.
+            </p>
+            <p>
+              Because we act as a service provider for team data, if you are a team member, please direct
+              requests about your data to the dealership that enrolled you; we will assist them.
+            </p>
+
+            <h2>8. Security</h2>
+            <p>
+              We implement administrative, technical, and organizational measures to protect personal
+              information, including encryption in transit and at rest, role-based access controls, tenant
+              isolation, and least-privilege access. No method of transmission or storage is 100% secure.
+            </p>
+
+            <h2>9. International users</h2>
+            <p>
+              AutoKnerd is intended for use in the <strong>United States</strong>, and data is processed in
+              the United States. We do not currently offer the service to users in the EU or UK; if that
+              changes, this policy will be updated to address GDPR/UK-GDPR.
+            </p>
+
+            <h2>10. Changes to this policy</h2>
+            <p>
+              We may update this policy. We will post the new effective date and, for material changes,
+              provide additional notice.
+            </p>
+
+            <h2>11. Contact</h2>
+            <p>
+              <strong>AutoKnerd LLC</strong> ·{" "}
+              <a href="mailto:privacy@autoknerd.com" style={{ color: "#5E8A00", fontWeight: 700 }}>privacy@autoknerd.com</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div style={{ height: 20 }} />
+      <SiteFooter />
+    </div>
+  );
+}
