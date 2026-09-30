@@ -31,7 +31,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div className={styles.footerBar}>
-          <span>© 2026 AutoKnerd. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} AutoKnerd LLC. All rights reserved.</span>
           <span className={styles.footerLegal}>
             <a href="/privacy">Privacy</a>
             <a href="/terms">Terms</a>
