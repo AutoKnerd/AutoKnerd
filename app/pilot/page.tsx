@@ -1,0 +1,230 @@
+import type { Metadata } from "next";
+import { Space_Grotesk } from "next/font/google";
+import s from "./pilot.module.css";
+import { DEMO, BOOK, ext } from "@/app/lib/links";
+
+const grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-grotesk",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "Free Pilot · AutoKnerd",
+  description:
+    "Run AutoKnerd in one store, free. Find the one behavior holding each salesperson and advisor back, turn it into five minutes of daily practice, and show managers exactly where to coach. A 30-day look at what changes.",
+};
+
+const SCORED = ["Empathy", "Listening", "Trust", "Follow-up", "Closing"];
+
+const PROBLEMS = [
+  ["Customers feel guarded", "Low transparency creates friction the moment price comes up."],
+  ["Reps sound different", "Message drift from one consultant to the next dilutes trust."],
+  ["Coaching is reactive", "Managers chase missed numbers instead of correcting patterns early."],
+];
+
+const STEPS = [
+  ["01 · DIAGNOSE", "We find each rep's one limiting habit", "AutoKnerd baselines your team's CX behavior across the sales floor and the service drive."],
+  ["02 · COACH", "Reps practice daily. Managers steer weekly.", "Each rep gets a five-minute daily rep on their weakest habit. Managers set a light weekly focus, about five minutes of their time."],
+  ["03 · REVIEW", "You see where to coach, then decide", "Owners and GMs see which behaviors are strong and where consistency is slipping. At the end, we review it together and you decide whether to expand."],
+];
+
+const FIT_GOOD = [
+  "You are a GM, dealer principal or owner of a franchise or independent store, one rooftop or a group.",
+  "Your reps do not all sound like your best rep, on the sales floor, the service drive, or both.",
+  "CSI, gross and repeat business matter to you, and you want managers coaching before the numbers slip.",
+  "You can name one store and one manager to run the pilot with.",
+];
+
+const FIT_BAD = [
+  "You want a one-day event or a binder, not daily practice.",
+  "No manager can spare about five minutes a week to set the focus.",
+  "Your team will not spend five minutes a day on it. The practice is what makes it work.",
+];
+
+const USUAL = ["One big event, then back to normal", "Same lesson for the whole room", "You hope it sticks", "No line of sight for managers"];
+const WITH_AK = ["Five focused minutes, every day", "Aimed at each rep's weak spot", "Reps actually do it, because it plays like a game", "Managers see exactly where to coach"];
+
+export default function PilotPage() {
+  return (
+    <div className={`${s.page} ${grotesk.variable}`}>
+      {/* NAV */}
+      <div className={s.navBar}>
+        <div className={s.wrap}>
+          <nav className={s.nav}>
+            <a href="/" className={s.brand}>Auto<span>Knerd</span></a>
+            <div className={s.navRight}>
+              <a href={DEMO} {...ext} className={s.navLink}>Live demo</a>
+              <a href={BOOK} {...ext} className={s.navPill}>Book 15 minutes</a>
+            </div>
+          </nav>
+
+          {/* HERO */}
+          <section className={s.hero}>
+            <div className={s.heroCopy}>
+              <div className={s.eyebrow}>Free pilot · One store · Founding dealers</div>
+              <h1 className={s.h1}>Find the one behavior holding each rep back. Fix it in one store, free.</h1>
+              <p className={s.lead}>
+                AutoKnerd CX AI turns each salesperson&apos;s and advisor&apos;s weakest habit into five minutes of
+                daily role-play, and shows your managers exactly where to coach. Run it in one rooftop first. No cost
+                to try.
+              </p>
+              <div className={s.heroCtas}>
+                <a href={BOOK} {...ext} className={s.btnLime}>Book a 15-minute call</a>
+                <a href={DEMO} {...ext} className={s.btnOutline}>See the live demo</a>
+              </div>
+              <div className={s.trustline}>Sales floor and service drive · Your team downloads nothing · Built by a seasoned CX trainer</div>
+            </div>
+
+            <div className={s.heroCard}>
+              <div className={s.heroCardTop}>
+                <div className={s.cardKicker}>EXAMPLE DAILY REP</div>
+                <div className={s.cardBadge}>5 MIN</div>
+              </div>
+              <div className={s.cardTitle}>Customer pushes back on price</div>
+              <div className={s.cardText}>The rep practices a live conversation with a simulated customer, aimed at the habit that is costing them most.</div>
+              <div className={s.scoredBox}>
+                <div className={s.scoredLabel}>SCORED ON</div>
+                <div className={s.chips}>
+                  {SCORED.map((c) => <span key={c} className={s.chip}>{c}</span>)}
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      {/* PROBLEM */}
+      <div className={s.secProblem}>
+        <div className={s.wrap}>
+          <div className={s.section} style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+            <div className={s.secHead}>
+              <div className={s.eyebrow}>The real problem</div>
+              <h2 className={s.h2}>It is not a motivation problem. It is a consistency problem.</h2>
+              <p className={s.sub}>Your team does not lack drive. They lack a system that helps every rep sound like your best rep on every customer.</p>
+            </div>
+            <div className={s.cards3}>
+              {PROBLEMS.map(([h, p]) => (
+                <div key={h} className={s.card}>
+                  <div className={s.cardH}>{h}</div>
+                  <div className={s.cardP}>{p}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* HOW THE PILOT WORKS */}
+      <div className={s.secHow}>
+        <div className={s.wrap}>
+          <div className={s.sectionWide} style={{ display: "flex", flexDirection: "column", gap: 44 }}>
+            <div className={s.secHead}>
+              <div className={s.eyebrow}>How the pilot works</div>
+              <h2 className={s.h2}>One store. About a week to go live. A 30-day look at what changes.</h2>
+            </div>
+            <div className={s.steps}>
+              {STEPS.map(([n, t, d]) => (
+                <div key={n} className={s.step}>
+                  <div className={s.stepNum}>{n}</div>
+                  <div className={s.stepTitle}>{t}</div>
+                  <div className={s.stepText}>{d}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className={s.fitBlock}>
+              <div className={s.secHead}>
+                <div className={s.eyebrow}>Who this is for</div>
+                <h3 className={s.h3}>Built for stores that want consistency, not another seminar.</h3>
+              </div>
+              <div className={s.fit}>
+                <div className={s.fitGood}>
+                  <div className={s.fitH}>A good fit if</div>
+                  {FIT_GOOD.map((t) => (
+                    <div key={t} className={s.fitRow}><span className={s.fitDot} /><span>{t}</span></div>
+                  ))}
+                </div>
+                <div className={s.fitBad}>
+                  <div className={s.fitH}>Probably not a fit if</div>
+                  {FIT_BAD.map((t) => (
+                    <div key={t} className={`${s.fitRow} ${s.fitRowMuted}`}><span className={`${s.fitDot} ${s.fitDotMuted}`} /><span>{t}</span></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* WHY DIFFERENT */}
+      <div className={s.secWhy}>
+        <div className={s.wrap}>
+          <div className={s.section} style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+            <h2 className={s.h2} style={{ maxWidth: 760 }}>Not another seminar your team forgets by Monday.</h2>
+            <div className={s.compare}>
+              <div className={s.compareCard}>
+                <div className={s.compareLabel} style={{ color: "#8E8E96" }}>THE USUAL TRAINING</div>
+                {USUAL.map((t) => <div key={t} className={`${s.compareItem} ${s.compareItemMuted}`}>{t}</div>)}
+              </div>
+              <div className={`${s.compareCard} ${s.compareAk}`}>
+                <div className={s.compareLabel} style={{ color: "#C6FF00" }}>WITH AUTOKNERD</div>
+                {WITH_AK.map((t) => <div key={t} className={s.compareItem}>{t}</div>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* FOUNDER */}
+      <div className={s.secFounder}>
+        <div className={s.wrap}>
+          <div className={s.sectionWide}>
+            <div className={s.founderWrap}>
+              <div className={s.eyebrow}>Why I built this</div>
+              <p className={s.founderQuote}>
+                Being nice is not the same as losing money. When people feel heard, gross goes up and happy customers
+                come back through service for years.
+              </p>
+              <p className={s.founderBody}>
+                After years on the showroom floor, I built AutoKnerd to make that your standard, every rep, every time.
+                We proved it on a real floor with our first pilot store, and now we are opening it to a small group of
+                founding dealers.
+              </p>
+              <div className={s.founderName}>Andrew Sardone · Founder, AutoKnerd</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* FINAL CTA */}
+      <div className={s.ctaOuter}>
+        <div className={s.wrap}>
+          <div className={s.cta}>
+            <div className={s.ctaCopy}>
+              <h2 className={s.ctaTitle}>Pick one store. We will take it from there.</h2>
+              <p className={s.ctaText}>A 15-minute call to see if a pilot fits your store. If it does, you are live in about a week.</p>
+            </div>
+            <div className={s.ctaBtns}>
+              <a href={BOOK} {...ext} className={s.btnDark}>Book 15 minutes</a>
+              <a href={DEMO} {...ext} className={s.btnDarkOutline}>See the live demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* FOOTER */}
+      <div className={s.wrap}>
+        <footer className={s.footer}>
+          <div>© 2026 AutoKnerd LLC. All rights reserved.</div>
+          <div className={s.footerLinks}>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+            <a href="/podcast">Podcast</a>
+          </div>
+        </footer>
+      </div>
+    </div>
+  );
+}
