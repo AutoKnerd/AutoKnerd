@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import s from "./pilot.module.css";
 import { DEMO, BOOK, ext } from "@/app/lib/links";
+import TrackedLink from "./TrackedLink";
 
 const grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -55,8 +56,8 @@ export default function PilotPage() {
           <nav className={s.nav}>
             <a href="/" className={s.brand}>Auto<span>Knerd</span></a>
             <div className={s.navRight}>
-              <a href={DEMO} {...ext} className={s.navLink}>Live demo</a>
-              <a href={BOOK} {...ext} className={s.navPill}>Book 15 minutes</a>
+              <TrackedLink href={DEMO} event="See Demo" location="nav" {...ext} className={s.navLink}>Live demo</TrackedLink>
+              <TrackedLink href={BOOK} event="Book Call" location="nav" {...ext} className={s.navPill}>Book 15 minutes</TrackedLink>
             </div>
           </nav>
 
@@ -71,8 +72,8 @@ export default function PilotPage() {
                 to try.
               </p>
               <div className={s.heroCtas}>
-                <a href={BOOK} {...ext} className={s.btnLime}>Book a 15-minute call</a>
-                <a href={DEMO} {...ext} className={s.btnOutline}>See the live demo</a>
+                <TrackedLink href={BOOK} event="Book Call" location="hero" {...ext} className={s.btnLime}>Book a 15-minute call</TrackedLink>
+                <TrackedLink href={DEMO} event="See Demo" location="hero" {...ext} className={s.btnOutline}>See the live demo</TrackedLink>
               </div>
               <div className={s.trustline}>Sales floor and service drive · Your team downloads nothing · Built by a seasoned CX trainer</div>
             </div>
@@ -207,8 +208,8 @@ export default function PilotPage() {
               <p className={s.ctaText}>A 15-minute call to see if a pilot fits your store. If it does, you are live in about a week.</p>
             </div>
             <div className={s.ctaBtns}>
-              <a href={BOOK} {...ext} className={s.btnDark}>Book 15 minutes</a>
-              <a href={DEMO} {...ext} className={s.btnDarkOutline}>See the live demo</a>
+              <TrackedLink href={BOOK} event="Book Call" location="final-cta" {...ext} className={s.btnDark}>Book 15 minutes</TrackedLink>
+              <TrackedLink href={DEMO} event="See Demo" location="final-cta" {...ext} className={s.btnDarkOutline}>See the live demo</TrackedLink>
             </div>
           </div>
         </div>
