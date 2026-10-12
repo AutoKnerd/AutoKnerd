@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Outfit, Manrope } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const GOOGLE_TAG_MANAGER_ID = "GTM-T3NB6CTV";
@@ -67,6 +68,7 @@ export default function RootLayout({
         <div className="noise-overlay" />
         <div className="fixed inset-0 bg-mesh-gradient opacity-20 pointer-events-none -z-50" />
         {children}
+        <Analytics />
       </body>
     </html>
   );
