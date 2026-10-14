@@ -1,0 +1,183 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Post-Discovery Handoff — AutoKnerd</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: single-column one-page worksheet, a before/after comparison, a three-column Feature-Benefit-Why card table, a checklist rollout at the end */
+:root{
+  --bg:#f5f6f4; --surface:#ffffff; --fg:#14211f; --muted:#516360; --line:#d5dcd9;
+  --accent:#c4561a; --accent-soft:#f6e4d9; --ink:#12302c; --ink-fg:#eef4f2;
+  --f-display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --f-body:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{background:var(--ink);color:var(--ink-fg);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));
+  padding:40px max(16px,env(safe-area-inset-left,0px)) 36px}
+header .in{max-width:760px;margin:0 auto}
+.tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#f0a67c}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(40px,9vw,64px);line-height:1;margin:10px 0 14px;text-wrap:balance}
+header p{margin:0;max-width:56ch;color:#c9d9d5;font-size:17px}
+.win{margin:18px 0 0;max-width:56ch;font-size:14.5px;line-height:1.45;color:var(--ink-fg);background:rgba(255,255,255,.08);border-left:3px solid #f0a67c;padding:9px 12px}
+.win b{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#f0a67c;font-weight:500;margin-right:6px}
+h2{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);padding:18px}
+.stat b{display:block;font-family:var(--f-display);font-size:54px;line-height:1;color:var(--accent)}
+.stat span{color:var(--muted);font-size:15px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.rule{border-top:3px solid var(--accent);padding-top:10px}
+.rule h3{margin:0 0 4px;font-size:17px}
+.rule p{margin:0;color:var(--muted);font-size:15px}
+.timeline{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.step{position:relative;padding:0 0 28px 24px;min-width:0}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;background:var(--accent);border-radius:50%}
+.when{font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1}
+.goal{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px}
+.say{background:var(--surface);border:1px solid var(--line);padding:14px 16px;margin:0;font-size:15.5px}
+.say em{display:block;font-style:normal;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.ask{padding:16px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.ask.good{border-color:var(--accent);background:var(--accent-soft)}
+.ask .l{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ask.good .l{color:var(--accent)}
+.ask p{margin:6px 0 8px;font-size:16px}
+.ask small{color:var(--muted);font-size:14px}
+.roll{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.roll li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+.roll li::before{content:"";flex:none;width:18px;height:18px;border:2px solid var(--accent);margin-top:3px}
+.roll span{min-width:0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;font-size:15px;vertical-align:top}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.blank{height:38px}
+.cta{background:var(--ink);color:var(--ink-fg);padding:24px}
+.cta h2{color:var(--ink-fg)}
+.cta p{margin:0 0 6px;color:#c9d9d5}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:12px}
+.cta-copy{flex:1 1 260px;min-width:0}
+.cta-btn{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:2px}
+.cta-btn:hover{filter:brightness(1.08)}
+.cta-qr{flex:none;background:#fff;padding:10px;text-align:center;color:#12302c;font-size:12px;line-height:1.3}
+.cta-qr span{display:block;margin-top:6px;font-family:var(--f-mono)}
+</style>
+
+<header><div class="in">
+  <div class="tag">From the AutoKnerd Podcast &middot; Post-Discovery Handoff</div>
+  <h1>Post-Discovery Handoff</h1>
+  <p>A one-page card that carries what the customer told you in discovery onto the car, so every feature you show answers "show me that you heard me."</p>
+  <div class="win"><b>Instant win:</b>On your next walkaround, tie every feature to something the customer said, starting with "You told me..." If you cannot, skip the feature.</div>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <h2>Why this matters</h2>
+  <p class="sub">The moment right after discovery is where customers get lost.</p>
+  <div class="stats">
+    <div class="stat"><b>365</b><span>points of walkaround dropped on a couple fresh from a product training. They left and said the car had too much equipment</span></div>
+    <div class="stat"><b>5 to 7</b><span>reasons is all a customer needs to buy, so sell those reasons and nothing else</span></div>
+  </div>
+  <p>The customer is thinking one thing: show me that you heard me. Specs without context tell them you were not listening. A walking brochure is available free on the manufacturer's website. Be the proof they came to the right place.</p>
+</section>
+
+<section>
+  <h2>Spec robot versus trusted guide</h2>
+  <p class="sub">Same feature. Very different walkaround.</p>
+  <div class="compare">
+    <div class="ask"><div class="l">Spec robot</div><p>"And we've got a panoramic sunroof right here."</p><small>Then straight on to the next feature, hoping they work out how it changes their life.</small></div>
+    <div class="ask good"><div class="l">Trusted guide</div><p>"You said your kids love road trips and you love taking them. Check out the panoramic sunroof. At night the kids can look up at the stars, it keeps the ride feeling open, and it means a little less fighting in the back."</p><small>The feature is tied to something they said.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>The Feature, Benefit, Why card</h2>
+  <p class="sub">Three columns. If the Why column is blank, the feature does not belong in the presentation.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Feature</th><th>Benefit (plain words)</th><th>Why (what the customer said)</th></tr>
+      <tr><td>Adaptive cruise</td><td>Less driver fatigue on long drives</td><td>"You commute an hour each way."</td></tr>
+      <tr><td>Blind spot monitor</td><td>Warns you when a car is hiding in your blind spot</td><td>"Your daughter is about to start driving."</td></tr>
+      <tr><td>Wireless phone connection</td><td>No cables, quick connect, everything on the screen when you get in</td><td>"Tech makes your life easier when you're rushing from meeting to meeting."</td></tr>
+      <tr><td>Fully flat seats</td><td>Fits the stroller and the cooler</td><td>"Weekend soccer trips are your family's escape."</td></tr>
+      <tr><td>Hands-free liftgate</td><td>Mini story: you're carrying groceries and the gate opens without you dropping anything</td><td>"You said you dropped a lot last winter."</td></tr>
+    </table>
+  </div>
+  <p class="sub" style="margin-top:12px">Notice the safety example: the hot button is "safety," but the cord with emotion on it is "my daughter starts driving soon." Show the thing that prevents the accident, not just the airbags.</p>
+</section>
+
+<section>
+  <h2>Three rules for the card</h2>
+  <p class="sub">Run every feature through them before it leaves your mouth.</p>
+  <div class="rules">
+    <div class="rule"><h3>No Why, no show</h3><p>If you cannot check off the Why, take the feature out. It clogs the presentation and the test drive.</p></div>
+    <div class="rule"><h3>Write a mini story</h3><p>Do not write a bland benefit. Even three words of story beat a spec: "groceries in hand, gate opens."</p></div>
+    <div class="rule"><h3>Use the Why as your closer</h3><p>End each feature with "That's why I showed you this." Each yes is a small close, so you never need a closing class.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>The self-check</h2>
+  <p class="sub">Ask it silently before every feature.</p>
+  <div class="compare">
+    <div class="ask good"><div class="l">Ask yourself</div><p>"Am I proving I listened to what they said, or proving I studied the brochure?"</p><small>Product knowledge is not the royalty skill. Working with people is.</small></div>
+    <div class="ask"><div class="l">What to expect when you do it</div><p>Shorter negotiations, lighter objections, and trust that builds faster.</p><small>There is less to object to when you only showed what they wanted.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Manager rollout: 15 minutes</h2>
+  <p class="sub">Run it in this week's sales meeting. Print the card or have people sketch the three columns.</p>
+  <ul class="roll">
+    <li><span><b>Minutes 0 to 3.</b> Tell the 365-point story. Ask: when did you last show a feature the customer never mentioned?</span></li>
+    <li><span><b>Minutes 3 to 6.</b> Everyone picks an imaginary customer and three features, then fills in Feature, Benefit and Why.</span></li>
+    <li><span><b>Minutes 6 to 13.</b> Four chairs in the meeting room stand in for a car. Each person gives a three-minute walkaround using the card, tying each feature back. Teammates watch for a Why that was not the customer's own words.</span></li>
+    <li><span><b>Minutes 13 to 15.</b> Swap cards with a teammate. Everyone commits to using a card on their next customer.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Weekly inspection</h2>
+  <p class="sub">Inspect the card and the walkaround, not the closing rate.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Consultant</th><th>Cards filled in</th><th>Features cut for no Why</th><th>Walkarounds you observed</th><th>Why used the customer's own words</th></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Want this to run itself?</h2>
+  <p>AutoKnerd gives each rep a 5-minute daily practice rep on their weakest customer habit, and managers see it all in one dashboard. I'm opening a few one-store, 90-day pilots.</p>
+  <div class="cta-row">
+    <div class="cta-copy">
+      <p>See how the pilot works and book 20 minutes with me.</p>
+      <a class="cta-btn" href="https://www.autoknerd.com/pilot" target="_blank" rel="noopener">See the pilot</a>
+      <p style="margin-top:14px"><b>Andrew Sardone</b>, host of the AutoKnerd Podcast &middot; andrew@autoknerd.com</p>
+    </div>
+    <div class="cta-qr"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code linking to the AutoKnerd pilot page" style="display:block;width:136px;height:136px" shape-rendering="crispEdges" viewBox="0 0 33 33"><path class="qrline" stroke="#12302c" d="M0 0.5h7m1 0h1m1 0h3m3 0h3m2 0h1m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h1m4 0h2m1 0h2m3 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m3 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h2m1 0h2m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m2 0h4m1 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h2m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m1 0h1m2 0h5m2 0h1m1 0h1m-24 1h1m3 0h1m1 0h5m5 0h2m1 0h1m1 0h1m2 0h6m2 0h1m-33 1h1m1 0h1m4 0h3m2 0h2m1 0h1m2 0h1m4 0h1m1 0h1m3 0h4m-33 1h4m1 0h6m1 0h1m2 0h1m1 0h1m3 0h5m3 0h1m1 0h1m-31 1h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h3m1 0h1m1 0h3m6 0h1m-33 1h1m3 0h5m1 0h1m2 0h2m3 0h5m2 0h2m1 0h2m1 0h1m-31 1h2m2 0h1m1 0h2m3 0h1m3 0h1m2 0h1m1 0h2m4 0h1m1 0h2m-25 1h1m1 0h1m2 0h3m2 0h1m1 0h2m3 0h1m1 0h3m1 0h3m-32 1h2m1 0h3m1 0h2m1 0h1m3 0h1m2 0h1m1 0h4m1 0h6m-29 1h1m1 0h1m1 0h3m4 0h2m1 0h3m3 0h2m3 0h1m1 0h2m1 0h1m-31 1h2m1 0h1m10 0h1m1 0h2m4 0h1m1 0h1m3 0h3m-31 1h1m2 0h3m2 0h1m2 0h2m1 0h1m2 0h1m1 0h6m1 0h1m1 0h1m1 0h1m-31 1h2m5 0h4m1 0h2m6 0h1m1 0h1m3 0h1m3 0h2m-33 1h1m1 0h2m1 0h2m3 0h1m1 0h1m1 0h3m2 0h3m2 0h1m1 0h4m1 0h2m-33 1h3m1 0h2m1 0h1m1 0h4m1 0h1m3 0h3m1 0h1m2 0h1m3 0h3m-29 1h1m2 0h3m1 0h6m1 0h1m3 0h3m3 0h1m1 0h1m1 0h1m-25 1h2m2 0h2m2 0h4m2 0h1m1 0h4m1 0h1m2 0h1m-32 1h3m1 0h3m2 0h5m3 0h1m1 0h4m1 0h5m1 0h3m-25 1h1m4 0h3m2 0h1m5 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h2m1 0h1m1 0h5m2 0h2m2 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h4m2 0h1m1 0h6m1 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h1m1 0h1m1 0h1m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m1 0h2m2 0h1m2 0h3m2 0h1m1 0h4m-30 1h1m1 0h3m1 0h1m4 0h3m2 0h1m4 0h2m1 0h1m1 0h5m-31 1h1m5 0h1m2 0h2m2 0h2m2 0h2m2 0h1m2 0h1m1 0h1m-27 1h7m1 0h1m1 0h1m4 0h3m2 0h2m1 0h3m6 0h1"/></svg><span>Scan to see the pilot</span></div>
+  </div>
+</section>
+
+<footer>Based on the AutoKnerd Podcast episode on the handoff after discovery. Free to use and share inside your store.</footer>
+</main>
+
+</body></html>

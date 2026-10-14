@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Navbar } from "@/app/components/Navbar";
 import { Footer } from "@/app/components/Footer";
-import { AUTOKNERD_CX_TOOLS } from "@/app/lib/tools";
+import { AUTOKNERD_CX_TOOLS, AUTOKNERD_WORKSHEETS } from "@/app/lib/tools";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -61,6 +61,56 @@ export default function ToolsHubPage() {
                 >
                   Explore Tool
                 </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="pb-20 md:pb-28">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="max-w-3xl mb-10 md:mb-14">
+            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 font-mono mb-4">
+              From the podcast
+            </p>
+            <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-white font-outfit mb-5">
+              Playbooks &amp; worksheets
+            </h2>
+            <p className="text-lg md:text-xl text-slate/70 tracking-tight leading-relaxed">
+              One-page, print-ready worksheets pulled from AutoKnerd podcast episodes. Use one on the floor, in a
+              one-on-one, or run the 15-minute rollout in your next sales meeting.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+            {AUTOKNERD_WORKSHEETS.map((worksheet) => (
+              <article
+                key={worksheet.slug}
+                className="rounded-[2rem] border border-white/10 bg-white/[0.02] p-6 md:p-8 hover:border-primary/35 hover:shadow-[0_0_45px_rgba(124,255,27,0.2)] hover:-translate-y-1 transition-all duration-500 flex flex-col"
+              >
+                <h3 className="text-2xl md:text-3xl text-white tracking-tight leading-tight mb-4">
+                  {worksheet.title}
+                </h3>
+                <p className="text-base md:text-lg text-slate/65 tracking-tight leading-relaxed mb-5 flex-1">
+                  {worksheet.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {worksheet.topics.map((topic) => (
+                    <span
+                      key={topic}
+                      className="px-3 py-1.5 rounded-full border border-primary/30 bg-primary/[0.06] text-[10px] uppercase tracking-[0.15em] text-primary/90 font-mono"
+                    >
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={`/tools/${worksheet.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center bg-primary text-black px-7 py-3.5 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.28em] border border-primary hover:bg-white hover:border-white transition-all duration-300"
+                >
+                  Open Worksheet
+                </a>
               </article>
             ))}
           </div>

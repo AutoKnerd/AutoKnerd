@@ -1,0 +1,200 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Delivery Day Checklist — AutoKnerd</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: single-column one-page worksheet, a vertical timeline of the delivery sequence, a compare for damage handling, a checklist rollout at the end */
+:root{
+  --bg:#f5f6f4; --surface:#ffffff; --fg:#14211f; --muted:#516360; --line:#d5dcd9;
+  --accent:#c4561a; --accent-soft:#f6e4d9; --ink:#12302c; --ink-fg:#eef4f2;
+  --f-display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --f-body:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{background:var(--ink);color:var(--ink-fg);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));
+  padding:40px max(16px,env(safe-area-inset-left,0px)) 36px}
+header .in{max-width:760px;margin:0 auto}
+.tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#f0a67c}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(40px,9vw,64px);line-height:1;margin:10px 0 14px;text-wrap:balance}
+header p{margin:0;max-width:56ch;color:#c9d9d5;font-size:17px}
+header p.win{margin-top:16px;font-size:15px;border-left:3px solid #f0a67c;padding-left:12px;color:#eef4f2}
+header p.win b{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#f0a67c;margin-right:6px}
+h2{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);padding:18px}
+.stat b{display:block;font-family:var(--f-display);font-size:54px;line-height:1;color:var(--accent)}
+.stat span{color:var(--muted);font-size:15px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.rule{border-top:3px solid var(--accent);padding-top:10px}
+.rule h3{margin:0 0 4px;font-size:17px}
+.rule p{margin:0;color:var(--muted);font-size:15px}
+.timeline{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.step{position:relative;padding:0 0 28px 24px;min-width:0}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;background:var(--accent);border-radius:50%}
+.when{font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1}
+.goal{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px}
+.say{background:var(--surface);border:1px solid var(--line);padding:14px 16px;margin:0;font-size:15.5px}
+.say em{display:block;font-style:normal;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.ask{padding:16px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.ask.good{border-color:var(--accent);background:var(--accent-soft)}
+.ask .l{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ask.good .l{color:var(--accent)}
+.ask p{margin:6px 0 8px;font-size:16px}
+.ask small{color:var(--muted);font-size:14px}
+.roll{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.roll li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+.roll li::before{content:"";flex:none;width:18px;height:18px;border:2px solid var(--accent);margin-top:3px}
+.roll span{min-width:0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;font-size:15px}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.blank{height:38px}
+.cta{background:var(--ink);color:var(--ink-fg);padding:24px}
+.cta h2{color:var(--ink-fg)}
+.cta p{margin:0 0 6px;color:#c9d9d5}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:12px}
+.cta-copy{flex:1 1 260px;min-width:0}
+.cta-btn{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:2px}
+.cta-btn:hover{filter:brightness(1.08)}
+.cta-qr{flex:none;background:#fff;padding:10px;text-align:center;color:#12302c;font-size:12px;line-height:1.3}
+.cta-qr span{display:block;margin-top:6px;font-family:var(--f-mono)}
+</style>
+
+<header><div class="in">
+  <div class="tag">From the AutoKnerd Podcast &middot; Delivery</div>
+  <h1>Delivery Day Checklist</h1>
+  <p>A one-page sequence for making delivery the last great impression, so the customer remembers your name and comes back. Includes a 15-minute rollout for your next sales meeting.</p>
+  <p class="win"><b>Instant win:</b>Today, any deal that waits on finance gets its delivery walkthrough started before the customer sits down with the finance manager, not after.</p>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <h2>Why this matters</h2>
+  <p class="sub">Two goals at delivery.</p>
+  <div class="rules">
+    <div class="rule"><h3>A great last impression</h3><p>The customer has to remember who you are. If they do not, they never come back to you.</p></div>
+    <div class="rule"><h3>A customer who stays busy</h3><p>A bored customer gets frustrated, then angry, then hands you a survey about wait time. An engaged brain makes time move differently.</p></div>
+    <div class="rule"><h3>A handoff to service</h3><p>Service is the primary revenue generator of an established store. Retain the customer there and your closing ratio goes up the next time.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>The delivery sequence</h2>
+  <p class="sub">Run these in order. Tick them off on every deal.</p>
+  <div class="timeline">
+    <div class="step">
+      <div class="when">Before finance</div>
+      <div class="goal">Goal: use the 45 minutes to an hour</div>
+      <p class="say"><em>Do</em>If finance will take a while, start delivering now. Pull an equal or lesser trim than the one they bought (never a higher trim they cannot have) and cover the basics: the computer, the radio, the owner's manual (most are digital or on the manufacturer's site). You do not need to program anything yet. If finance falls through, you have spent that hour showing why this is the right vehicle, and they will remember the good service.</p>
+    </div>
+    <div class="step">
+      <div class="when">Do not park them in front of the TV</div>
+      <div class="goal">Goal: keep the brain active</div>
+      <p class="say"><em>Why</em>I lost the wait-time survey when he walked away and played a handheld game. Customers who stayed engaged did not punish him. Boredom turns to frustration, then anger, then a bad survey.</p>
+    </div>
+    <div class="step">
+      <div class="when">After finance</div>
+      <div class="goal">Goal: be the safe person</div>
+      <p class="say"><em>Say</em>If they come back rattled from finance: "It's okay, this is just what buying a car is like. Come on with me and let me teach you some cool stuff about your car." Your needs assessment is what makes you the safe one.</p>
+    </div>
+    <div class="step">
+      <div class="when">Hot lap, then manager</div>
+      <div class="goal">Goal: verify the car before they see it</div>
+      <p class="say"><em>Do</em>Walk the vehicle. Look for leftover soap, dirt, a scratch, packaging, plastic or rubber bands. If there is damage, go to your manager first and get the solution before you tell the customer.</p>
+    </div>
+    <div class="step">
+      <div class="when">The presentation</div>
+      <div class="goal">Goal: cover their five to seven things first</div>
+      <p class="say"><em>Do</em>Start with the five to seven items the customer said they needed, from your needs assessment notes (keep them on paper or scan them). Then cover the items the manufacturer asks you to deliver on., missing one of their five to seven is how you get hammered on functionality surveys.</p>
+    </div>
+    <div class="step">
+      <div class="when">Do not touch the car</div>
+      <div class="goal">Goal: make it stick</div>
+      <p class="say"><em>Say</em>"Here's the key. Push that button on the door." Adults are physical learners. Hand them the key, the start button, the lever. Do not try to cover everything, because the brain holds only about five to seven things in an hour.</p>
+    </div>
+    <div class="step">
+      <div class="when">Phone and connected apps</div>
+      <div class="goal">Goal: a launching pad, not a lecture</div>
+      <p class="say"><em>Do</em>Plug their phone in and show them the phone, text and maps buttons, then the voice button. For connected-car apps, cover only what they got excited about (for example, starting the car from the phone). It is like delivering a second car on top of the first.</p>
+    </div>
+    <div class="step">
+      <div class="when">Walk-out and service intro</div>
+      <div class="goal">Goal: they never have to come back inside</div>
+      <p class="say"><em>Do</em>Walking them to the car is the last thing you do. Never bring them back in for paperwork. If a manager needs a signature, the manager walks out. Introduce them to their service writer in person and make sure the writer knows this is your customer.</p>
+    </div>
+    <div class="step">
+      <div class="when">Photo, then follow-up</div>
+      <div class="goal">Goal: positive feelings before the survey</div>
+      <p class="say"><em>Do</em>Take a photo of you, the customer and the new car. If you know when the survey hits, send them the photo a day or a few days after delivery, before the survey lands., people do not hurt friends on surveys.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Found damage? It is not the customer's problem</h2>
+  <p class="sub">Fix it before they see it, and bring the solution with you.</p>
+  <div class="compare">
+    <div class="ask"><div class="l">Skip this</div><p>"Oh, there is a scratch. Sorry, can you come back in?"</p><small>It makes the problem theirs, kills the survey and costs you the next deal.</small></div>
+    <div class="ask good"><div class="l">Say this</div><p>"On Thursday our paint guy is in. I'll drop a vehicle off for you that day so you're never without a car."</p><small>Manager decides the fix first. The customer should not pay for it or be stranded.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Manager rollout: 15 minutes</h2>
+  <p class="sub">Run it in this week's sales meeting.</p>
+  <ul class="roll">
+    <li><span><b>Minutes 0 to 3.</b> Ask: what do our customers do while they wait on finance, and who is with them? Name the two goals of delivery.</span></li>
+    <li><span><b>Minutes 3 to 6.</b> Walk the sequence. Agree on a shared rule: no customer walks back into the building after they reach their vehicle.</span></li>
+    <li><span><b>Minutes 6 to 12.</b> Pairs practice a 5-minute pre-finance walkthrough. The "customer" pushes the buttons while the consultant keeps hands off. The partner checks that the five to seven items came first.</span></li>
+    <li><span><b>Minutes 12 to 15.</b> Name the service writers. Each consultant picks one and commits to introducing every delivery to them. Decide who handles damage decisions and what loaner option you have.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Weekly inspection</h2>
+  <p class="sub">Inspect the behavior, not the result. Surveys are the lagging number.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Consultant</th><th>Deliveries</th><th>Started pre-finance</th><th>Five to seven items covered</th><th>Service intro done</th><th>Photo sent</th></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Want this to run itself?</h2>
+  <p>AutoKnerd gives each rep a 5-minute daily practice rep on their weakest customer habit, and managers see it all in one dashboard. I'm opening a few one-store, 90-day pilots.</p>
+  <div class="cta-row">
+    <div class="cta-copy">
+      <p>See how the pilot works and book 20 minutes with me.</p>
+      <a class="cta-btn" href="https://www.autoknerd.com/pilot" target="_blank" rel="noopener">See the pilot</a>
+      <p style="margin-top:14px"><b>Andrew Sardone</b>, host of the AutoKnerd Podcast &middot; andrew@autoknerd.com</p>
+    </div>
+    <div class="cta-qr"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code linking to the AutoKnerd pilot page" style="display:block;width:136px;height:136px" shape-rendering="crispEdges" viewBox="0 0 33 33"><path class="qrline" stroke="#12302c" d="M0 0.5h7m1 0h1m1 0h3m3 0h3m2 0h1m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h1m4 0h2m1 0h2m3 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m3 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h2m1 0h2m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m2 0h4m1 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h2m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m1 0h1m2 0h5m2 0h1m1 0h1m-24 1h1m3 0h1m1 0h5m5 0h2m1 0h1m1 0h1m2 0h6m2 0h1m-33 1h1m1 0h1m4 0h3m2 0h2m1 0h1m2 0h1m4 0h1m1 0h1m3 0h4m-33 1h4m1 0h6m1 0h1m2 0h1m1 0h1m3 0h5m3 0h1m1 0h1m-31 1h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h3m1 0h1m1 0h3m6 0h1m-33 1h1m3 0h5m1 0h1m2 0h2m3 0h5m2 0h2m1 0h2m1 0h1m-31 1h2m2 0h1m1 0h2m3 0h1m3 0h1m2 0h1m1 0h2m4 0h1m1 0h2m-25 1h1m1 0h1m2 0h3m2 0h1m1 0h2m3 0h1m1 0h3m1 0h3m-32 1h2m1 0h3m1 0h2m1 0h1m3 0h1m2 0h1m1 0h4m1 0h6m-29 1h1m1 0h1m1 0h3m4 0h2m1 0h3m3 0h2m3 0h1m1 0h2m1 0h1m-31 1h2m1 0h1m10 0h1m1 0h2m4 0h1m1 0h1m3 0h3m-31 1h1m2 0h3m2 0h1m2 0h2m1 0h1m2 0h1m1 0h6m1 0h1m1 0h1m1 0h1m-31 1h2m5 0h4m1 0h2m6 0h1m1 0h1m3 0h1m3 0h2m-33 1h1m1 0h2m1 0h2m3 0h1m1 0h1m1 0h3m2 0h3m2 0h1m1 0h4m1 0h2m-33 1h3m1 0h2m1 0h1m1 0h4m1 0h1m3 0h3m1 0h1m2 0h1m3 0h3m-29 1h1m2 0h3m1 0h6m1 0h1m3 0h3m3 0h1m1 0h1m1 0h1m-25 1h2m2 0h2m2 0h4m2 0h1m1 0h4m1 0h1m2 0h1m-32 1h3m1 0h3m2 0h5m3 0h1m1 0h4m1 0h5m1 0h3m-25 1h1m4 0h3m2 0h1m5 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h2m1 0h1m1 0h5m2 0h2m2 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h4m2 0h1m1 0h6m1 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h1m1 0h1m1 0h1m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m1 0h2m2 0h1m2 0h3m2 0h1m1 0h4m-30 1h1m1 0h3m1 0h1m4 0h3m2 0h1m4 0h2m1 0h1m1 0h5m-31 1h1m5 0h1m2 0h2m2 0h2m2 0h2m2 0h1m2 0h1m1 0h1m-27 1h7m1 0h1m1 0h1m4 0h3m2 0h2m1 0h3m6 0h1"/></svg><span>Scan to see the pilot</span></div>
+  </div>
+</section>
+
+<footer>Based on the AutoKnerd Podcast episode on delivery. Free to use and share inside your store.</footer>
+</main>
+
+</body></html>

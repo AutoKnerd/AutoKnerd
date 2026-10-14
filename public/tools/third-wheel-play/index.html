@@ -1,0 +1,205 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Third Wheel Play — AutoKnerd</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: single-column one-page worksheet, a vertical timeline for the play, a type table, a checklist rollout at the end */
+:root{
+  --bg:#f5f6f4; --surface:#ffffff; --fg:#14211f; --muted:#516360; --line:#d5dcd9;
+  --accent:#c4561a; --accent-soft:#f6e4d9; --ink:#12302c; --ink-fg:#eef4f2;
+  --f-display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --f-body:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{background:var(--ink);color:var(--ink-fg);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));
+  padding:40px max(16px,env(safe-area-inset-left,0px)) 36px}
+header .in{max-width:760px;margin:0 auto}
+.tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#f0a67c}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(40px,9vw,64px);line-height:1;margin:10px 0 14px;text-wrap:balance}
+header p{margin:0;max-width:56ch;color:#c9d9d5;font-size:17px}
+header p.win{margin-top:16px;max-width:56ch;border-left:3px solid #f0a67c;background:rgba(255,255,255,.07);padding:8px 12px;font-size:15px;color:var(--ink-fg)}
+header p.win b{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#f0a67c;font-weight:500;margin-right:6px}
+h2{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);padding:18px}
+.stat b{display:block;font-family:var(--f-display);font-size:54px;line-height:1;color:var(--accent)}
+.stat span{color:var(--muted);font-size:15px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.rule{border-top:3px solid var(--accent);padding-top:10px}
+.rule h3{margin:0 0 4px;font-size:17px}
+.rule p{margin:0;color:var(--muted);font-size:15px}
+.timeline{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.step{position:relative;padding:0 0 28px 24px;min-width:0}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;background:var(--accent);border-radius:50%}
+.when{font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1}
+.goal{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px}
+.say{background:var(--surface);border:1px solid var(--line);padding:14px 16px;margin:0;font-size:15.5px}
+.say em{display:block;font-style:normal;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.ask{padding:16px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.ask.good{border-color:var(--accent);background:var(--accent-soft)}
+.ask .l{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ask.good .l{color:var(--accent)}
+.ask p{margin:6px 0 8px;font-size:16px}
+.ask small{color:var(--muted);font-size:14px}
+.roll{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.roll li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+.roll li::before{content:"";flex:none;width:18px;height:18px;border:2px solid var(--accent);margin-top:3px}
+.roll span{min-width:0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;font-size:15px;vertical-align:top}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.blank{height:38px}
+.cta{background:var(--ink);color:var(--ink-fg);padding:24px}
+.cta h2{color:var(--ink-fg)}
+.cta p{margin:0 0 6px;color:#c9d9d5}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:12px}
+.cta-copy{flex:1 1 260px;min-width:0}
+.cta-btn{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:2px}
+.cta-btn:hover{filter:brightness(1.08)}
+.cta-qr{flex:none;background:#fff;padding:10px;text-align:center;color:#12302c;font-size:12px;line-height:1.3}
+.cta-qr span{display:block;margin-top:6px;font-family:var(--f-mono)}
+</style>
+
+<header><div class="in">
+  <div class="tag">From the AutoKnerd Podcast &middot; The Third Wheel Episode</div>
+  <h1>The Third Wheel Play</h1>
+  <p>The friend, parent or spouse who has not said a word until the numbers hit the table. A five-move play that turns the one who derails the deal into the one who closes it.</p>
+  <p class="win"><b>Instant win:</b> On the next two-person visit, ask both of them "What's most important to the both of you?" and write down what the quiet one says.</p>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <h2>Why this matters</h2>
+  <p class="sub">The numbers.</p>
+  <div class="stats">
+    <div class="stat"><b>61%</b><span>of buyers say friends and family were their biggest influence</span></div>
+    <div class="stat"><b>83%</b><span>trust word of mouth from family and friends</span></div>
+    <div class="stat"><b>5 to 10%</b><span>how far family opinions still sway people, even over reliability and budget</span></div>
+  </div>
+  <p>The third wheel is not a distraction. They are part of the decision. If they dislike you, you hear about it at the worst moment. If they like you, the customer trusts you more. A trusted spouse or best friend can outweigh even 500 five-star reviews.</p>
+</section>
+
+<section>
+  <h2>Why they speak up at the end</h2>
+  <p class="sub">Three forces.</p>
+  <div class="rules">
+    <div class="rule"><h3>Fitting in</h3><p>Buyers do not want to look foolish in front of people they care about.</p></div>
+    <div class="rule"><h3>Leaning on someone</h3><p>Specs, financing and rates feel uncertain, so people lean on whoever is next to them, even a non-expert.</p></div>
+    <div class="rule"><h3>Trust multiplies</h3><p>The more a customer trusts the person in the room, the more weight their words carry.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>The play</h2>
+  <p class="sub">Five moves, in order. Do not fight the third wheel. Ride with them.</p>
+  <div class="timeline">
+    <div class="step">
+      <div class="when">1. Greet both</div>
+      <div class="goal">Goal: acknowledge they exist</div>
+      <p class="say"><em>Do</em>Say hello to both at the door. A lot of third wheels sit in the back wondering whether anyone knows they are there. Gently find out who they are to the buyer, without getting too personal.</p>
+    </div>
+    <div class="step">
+      <div class="when">2. Open the table</div>
+      <div class="goal">Goal: ask both, not just the buyer</div>
+      <p class="say"><em>Say</em>"What's most important to the both of you?" Or if they have researched together: "It sounds like you've done your research together. Walk me through your top priorities, both of you."</p>
+    </div>
+    <div class="step">
+      <div class="when">3. Write it down</div>
+      <div class="goal">Goal: let them talk, even if grumpy</div>
+      <p class="say"><em>Do</em>If the third wheel is aggravated, write down exactly what they say. They are telling you what to do. Never scream back. Give them a few minutes to vent, and learn why they came. It may be pure moral support.</p>
+    </div>
+    <div class="step">
+      <div class="when">4. Acknowledge, validate, redirect</div>
+      <div class="goal">Goal: bring their priorities into the plan</div>
+      <p class="say"><em>Say</em>"So you want to avoid [their concern], and we need to land around [their stated target]. Do you agree?" Validate their opinion, make them feel important, then redirect back to the stated priorities.</p>
+    </div>
+    <div class="step">
+      <div class="when">5. Ask them to weigh in</div>
+      <div class="goal">Goal: the third wheel becomes the closer</div>
+      <p class="say"><em>Say</em>"Our numbers match what you worked out. What do you think, is this a good one for your friend?" Let the one who checked the math confirm it. Keep it honest and warm, never a trap.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>One line to keep, one to drop</h2>
+  <p class="sub">85% of the conversation should be about the people in front of you and 15% about the product.</p>
+  <div class="compare">
+    <div class="ask"><div class="l">Skip this</div><p>Talk only to the buyer and ignore the other person until they speak.</p><small>Ignoring the influencer means longer negotiations and more lost deals.</small></div>
+    <div class="ask good"><div class="l">Say this</div><p>"What's most important to the both of you?"</p><small>It opens the table, makes the third wheel part of the process and tells you what you need to know.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Spot the type</h2>
+  <p class="sub">Types of third wheel, and how to work each one.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Third wheel</th><th>What they are doing</th><th>Your move</th></tr>
+      <tr><td><b>Protectionist friend</b></td><td>Guarding the buyer from getting hosed.</td><td>Respect it. Ask what matters to both of them. Show them the numbers openly.</td></tr>
+      <tr><td><b>Expert buddy</b></td><td>Knows everything, pencils out the lease, wants to be sure.</td><td>Let them show what they know and be curious how they did it. Trust builds fast when they get to teach.</td></tr>
+      <tr><td><b>Quiet spouse or parent</b></td><td>Says nothing until the end, then one line sinks it.</td><td>Draw them in early with a direct question about their priorities.</td></tr>
+      <tr><td><b>Phone third wheel</b></td><td>Not in the room. Being texted or sent screenshots.</td><td>Offer to help with their research. Do not grab the phone. Be the safety net they trust.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Manager rollout: 15 minutes</h2>
+  <p class="sub">Run it in this week's sales meeting.</p>
+  <ul class="roll">
+    <li><span><b>Minutes 0 to 3.</b> Read the 61% and 83% numbers. Ask: when did a quiet tag-along last wreck a deal at the table?</span></li>
+    <li><span><b>Minutes 3 to 6.</b> Walk the five moves and the four types.</span></li>
+    <li><span><b>Minutes 6 to 12.</b> Trios role-play: buyer, third wheel, consultant. Make the third wheel grumpy or quiet. Consultants run moves 1 to 4. Do not be jerks about it, and aim for everyone laughing by the end.</span></li>
+    <li><span><b>Minutes 12 to 15.</b> Each consultant names the next customer pair they expect and which move they will open with. Set a day to review the notes.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Weekly inspection</h2>
+  <p class="sub">Inspect whether the second person was included, not just whether the deal closed.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Consultant</th><th>Visits with a second person</th><th>Greeted both</th><th>Asked both for priorities</th><th>Third wheel's view invited at close</th></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Want this to run itself?</h2>
+  <p>AutoKnerd gives each rep a 5-minute daily practice rep on their weakest customer habit, and managers see it all in one dashboard. I'm opening a few one-store, 90-day pilots.</p>
+  <div class="cta-row">
+    <div class="cta-copy">
+      <p>See how the pilot works and book 20 minutes with me.</p>
+      <a class="cta-btn" href="https://www.autoknerd.com/pilot" target="_blank" rel="noopener">See the pilot</a>
+      <p style="margin-top:14px"><b>Andrew Sardone</b>, host of the AutoKnerd Podcast &middot; andrew@autoknerd.com</p>
+    </div>
+    <div class="cta-qr"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code linking to the AutoKnerd pilot page" style="display:block;width:136px;height:136px" shape-rendering="crispEdges" viewBox="0 0 33 33"><path class="qrline" stroke="#12302c" d="M0 0.5h7m1 0h1m1 0h3m3 0h3m2 0h1m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h1m4 0h2m1 0h2m3 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m3 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h2m1 0h2m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m2 0h4m1 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h2m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m1 0h1m2 0h5m2 0h1m1 0h1m-24 1h1m3 0h1m1 0h5m5 0h2m1 0h1m1 0h1m2 0h6m2 0h1m-33 1h1m1 0h1m4 0h3m2 0h2m1 0h1m2 0h1m4 0h1m1 0h1m3 0h4m-33 1h4m1 0h6m1 0h1m2 0h1m1 0h1m3 0h5m3 0h1m1 0h1m-31 1h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h3m1 0h1m1 0h3m6 0h1m-33 1h1m3 0h5m1 0h1m2 0h2m3 0h5m2 0h2m1 0h2m1 0h1m-31 1h2m2 0h1m1 0h2m3 0h1m3 0h1m2 0h1m1 0h2m4 0h1m1 0h2m-25 1h1m1 0h1m2 0h3m2 0h1m1 0h2m3 0h1m1 0h3m1 0h3m-32 1h2m1 0h3m1 0h2m1 0h1m3 0h1m2 0h1m1 0h4m1 0h6m-29 1h1m1 0h1m1 0h3m4 0h2m1 0h3m3 0h2m3 0h1m1 0h2m1 0h1m-31 1h2m1 0h1m10 0h1m1 0h2m4 0h1m1 0h1m3 0h3m-31 1h1m2 0h3m2 0h1m2 0h2m1 0h1m2 0h1m1 0h6m1 0h1m1 0h1m1 0h1m-31 1h2m5 0h4m1 0h2m6 0h1m1 0h1m3 0h1m3 0h2m-33 1h1m1 0h2m1 0h2m3 0h1m1 0h1m1 0h3m2 0h3m2 0h1m1 0h4m1 0h2m-33 1h3m1 0h2m1 0h1m1 0h4m1 0h1m3 0h3m1 0h1m2 0h1m3 0h3m-29 1h1m2 0h3m1 0h6m1 0h1m3 0h3m3 0h1m1 0h1m1 0h1m-25 1h2m2 0h2m2 0h4m2 0h1m1 0h4m1 0h1m2 0h1m-32 1h3m1 0h3m2 0h5m3 0h1m1 0h4m1 0h5m1 0h3m-25 1h1m4 0h3m2 0h1m5 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h2m1 0h1m1 0h5m2 0h2m2 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h4m2 0h1m1 0h6m1 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h1m1 0h1m1 0h1m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m1 0h2m2 0h1m2 0h3m2 0h1m1 0h4m-30 1h1m1 0h3m1 0h1m4 0h3m2 0h1m4 0h2m1 0h1m1 0h5m-31 1h1m5 0h1m2 0h2m2 0h2m2 0h2m2 0h1m2 0h1m1 0h1m-27 1h7m1 0h1m1 0h1m4 0h3m2 0h2m1 0h3m6 0h1"/></svg><span>Scan to see the pilot</span></div>
+  </div>
+</section>
+
+<footer>Based on the AutoKnerd Podcast episode on the third wheel. Free to use and share inside your store.</footer>
+</main>
+
+</body></html>
