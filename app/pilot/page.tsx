@@ -12,9 +12,9 @@ const grotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Free Pilot · AutoKnerd",
+  title: "Founding Dealer Pilot · AutoKnerd",
   description:
-    "Run AutoKnerd in one store, free. Find the one behavior holding each salesperson and advisor back, turn it into five minutes of daily practice, and show managers exactly where to coach. A 30-day look at what changes.",
+    "Run AutoKnerd in one store for 90 days. Find the one behavior holding each salesperson and advisor back, turn it into five minutes of daily practice, and show managers exactly where to coach — then decide with real results in front of you.",
 };
 
 const SCORED = ["Empathy", "Listening", "Trust", "Follow-up", "Closing"];
@@ -28,7 +28,7 @@ const PROBLEMS = [
 const STEPS = [
   ["01 · DIAGNOSE", "We find each rep's one limiting habit", "AutoKnerd baselines your team's CX behavior across the sales floor and the service drive."],
   ["02 · COACH", "Reps practice daily. Managers steer weekly.", "Each rep gets a five-minute daily rep on their weakest habit. Managers set a light weekly focus, about five minutes of their time."],
-  ["03 · REVIEW", "You see where to coach, then decide", "Owners and GMs see which behaviors are strong and where consistency is slipping. At the end, we review it together and you decide whether to expand."],
+  ["03 · REVIEW", "You see where to coach, then decide", "Owners and GMs see which behaviors are strong and where consistency is slipping. At 90 days, we review it together and you decide whether to continue."],
 ];
 
 const FIT_GOOD = [
@@ -47,6 +47,15 @@ const FIT_BAD = [
 const USUAL = ["One big event, then back to normal", "Same lesson for the whole room", "You hope it sticks", "No line of sight for managers"];
 const WITH_AK = ["Five focused minutes, every day", "Aimed at each rep's weak spot", "Reps actually do it, because it plays like a game", "Managers see exactly where to coach"];
 
+const METHOD = [
+  ["01", "One habit at a time", "Most training tries to fix everything at once, so nothing changes. AutoKnerd finds the single behavior holding each rep back and practices only that until it becomes natural."],
+  ["02", "Practice, not just information", "Reps do not watch a slide or read a binder. They hold a live conversation with a simulated customer and say the words out loud, which is how a skill is actually built."],
+  ["03", "Short, daily and spaced out", "Five minutes a day, repeated over weeks, beats one long session. Frequent short reps fight the forgetting that follows a one-day class and turn good intentions into habits."],
+  ["04", "Feedback while it is fresh", "Every rep is scored on the behaviors customers feel: empathy, listening, trust, follow-up and closing. The rep sees what to adjust right away, not at the next review."],
+  ["05", "Aimed at real customer moments", "The scenarios come from the conversations that make or lose a deal: price pushback, a nervous first-time buyer, a service customer who expects bad news. Practice matches the floor and the drive."],
+  ["06", "Managers close the loop", "Managers set a light weekly focus and see the patterns across the team, so coaching happens before the numbers slip instead of after."],
+];
+
 export default function PilotPage() {
   return (
     <div className={`${s.page} ${grotesk.variable}`}>
@@ -54,25 +63,28 @@ export default function PilotPage() {
       <div className={s.navBar}>
         <div className={s.wrap}>
           <nav className={s.nav}>
-            <a href="/" className={s.brand}>Auto<span>Knerd</span></a>
+            <a href="/" className={s.brand} aria-label="AutoKnerd home">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="AutoKnerd, Dealership CX Development" className={s.brandLogo} />
+            </a>
             <div className={s.navRight}>
               <TrackedLink href={DEMO} event="See Demo" location="nav" {...ext} className={s.navLink}>Live demo</TrackedLink>
-              <TrackedLink href={BOOK} event="Book Call" location="nav" {...ext} className={s.navPill}>Book 15 minutes</TrackedLink>
+              <TrackedLink href={BOOK} event="Book Call" location="nav" {...ext} className={s.navPill}>Book 20 minutes</TrackedLink>
             </div>
           </nav>
 
           {/* HERO */}
           <section className={s.hero}>
             <div className={s.heroCopy}>
-              <div className={s.eyebrow}>Free pilot · One store · Founding dealers</div>
-              <h1 className={s.h1}>Find the one behavior holding each rep back. Fix it in one store, free.</h1>
+              <div className={s.eyebrow}>90-day pilot · One store · Founding dealers</div>
+              <h1 className={s.h1}>Reps who sound like your best rep. Managers who know exactly where to coach.</h1>
               <p className={s.lead}>
                 AutoKnerd CX AI turns each salesperson&apos;s and advisor&apos;s weakest habit into five minutes of
-                daily role-play, and shows your managers exactly where to coach. Run it in one rooftop first. No cost
-                to try.
+                daily role-play, and shows your managers exactly where to coach. Run it in one rooftop for 90 days,
+                watch your team get sharper, then decide with real results in front of you.
               </p>
               <div className={s.heroCtas}>
-                <TrackedLink href={BOOK} event="Book Call" location="hero" {...ext} className={s.btnLime}>Book a 15-minute call</TrackedLink>
+                <TrackedLink href={BOOK} event="Book Call" location="hero" {...ext} className={s.btnLime}>Book a 20-minute call</TrackedLink>
                 <TrackedLink href={DEMO} event="See Demo" location="hero" {...ext} className={s.btnOutline}>See the live demo</TrackedLink>
               </div>
               <div className={s.trustline}>Sales floor and service drive · Your team downloads nothing · Built by a seasoned CX trainer</div>
@@ -123,7 +135,7 @@ export default function PilotPage() {
           <div className={s.sectionWide} style={{ display: "flex", flexDirection: "column", gap: 44 }}>
             <div className={s.secHead}>
               <div className={s.eyebrow}>How the pilot works</div>
-              <h2 className={s.h2}>One store. About a week to go live. A 30-day look at what changes.</h2>
+              <h2 className={s.h2}>One store. About a week to go live. 90 days to see what changes.</h2>
             </div>
             <div className={s.steps}>
               {STEPS.map(([n, t, d]) => (
@@ -178,6 +190,29 @@ export default function PilotPage() {
         </div>
       </div>
 
+      {/* THE METHOD */}
+      <div className={s.secMethod}>
+        <div className={s.wrap}>
+          <div className={s.section} style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+            <div className={s.secHead}>
+              <div className={s.eyebrow}>The method</div>
+              <h2 className={s.h2}>Why five minutes a day changes how your team talks to customers.</h2>
+              <p className={s.sub}>Daily microtraining is built on how people really learn a skill: small, frequent, specific practice with feedback. AutoKnerd applies that to customer experience, the conversations where trust is won or lost.</p>
+            </div>
+            <div className={s.methodGrid}>
+              {METHOD.map(([n, t, d]) => (
+                <div key={n} className={s.methodCard}>
+                  <div className={s.methodNum}>{n}</div>
+                  <div className={s.methodTitle}>{t}</div>
+                  <div className={s.methodText}>{d}</div>
+                </div>
+              ))}
+            </div>
+            <p className={s.methodOutro}>The result is not a team that knows more about customer experience. It is a team that does it, because the behaviors customers feel have been rehearsed every day until they are habit.</p>
+          </div>
+        </div>
+      </div>
+
       {/* FOUNDER */}
       <div className={s.secFounder}>
         <div className={s.wrap}>
@@ -205,10 +240,10 @@ export default function PilotPage() {
           <div className={s.cta}>
             <div className={s.ctaCopy}>
               <h2 className={s.ctaTitle}>Pick one store. We will take it from there.</h2>
-              <p className={s.ctaText}>A 15-minute call to see if a pilot fits your store. If it does, you are live in about a week.</p>
+              <p className={s.ctaText}>A 20-minute call to see if the 90-day pilot fits your store. One rooftop, live in about a week.</p>
             </div>
             <div className={s.ctaBtns}>
-              <TrackedLink href={BOOK} event="Book Call" location="final-cta" {...ext} className={s.btnDark}>Book 15 minutes</TrackedLink>
+              <TrackedLink href={BOOK} event="Book Call" location="final-cta" {...ext} className={s.btnDark}>Book 20 minutes</TrackedLink>
               <TrackedLink href={DEMO} event="See Demo" location="final-cta" {...ext} className={s.btnDarkOutline}>See the live demo</TrackedLink>
             </div>
           </div>
@@ -218,7 +253,11 @@ export default function PilotPage() {
       {/* FOOTER */}
       <div className={s.wrap}>
         <footer className={s.footer}>
-          <div>© 2026 AutoKnerd LLC. All rights reserved.</div>
+          <div className={s.footerBrand}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="AutoKnerd" className={s.footerLogo} />
+            <span>© 2026 AutoKnerd LLC. All rights reserved.</span>
+          </div>
           <div className={s.footerLinks}>
             <a href="/privacy">Privacy</a>
             <a href="/terms">Terms</a>
