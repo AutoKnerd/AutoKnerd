@@ -49,7 +49,7 @@ export default function ContactPage() {
       <section className={s.section}>
         <div className={s.container}>
           <div className={s.grid2} style={{ alignItems: "flex-start" }}>
-            {/* Left — who we work with */}
+            {/* Left, who we work with */}
             <div>
               <p className={`${s.mono} ${s.kicker}`}>WHO WE WORK WITH</p>
               <h2 className={s.h2sm} style={{ maxWidth: 420 }}>
@@ -81,7 +81,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Right — strategy call panel */}
+            {/* Right, strategy call panel */}
             <div className={s.ctaBand} style={{ padding: "clamp(28px, 4vw, 44px)" }}>
               <div className={s.ctaGlow} />
               <div style={{ position: "relative" }}>

@@ -138,7 +138,7 @@ const CaseStudiesPage = () => {
             <section className="py-24 md:py-44 border-t border-white/5 bg-black/30 text-center">
                 <div className="container mx-auto px-6 md:px-12">
                     <p className="text-2xl md:text-3xl text-slate/40 font-light italic max-w-4xl mx-auto tracking-tight leading-relaxed">
-                        &quot;Consistent results are the byproduct of consistent systems. We don&apos;t hope for better behavior—<span className="text-white">we install the architecture that ensures it.&quot;</span>
+                        &quot;Consistent results are the byproduct of consistent systems. We don&apos;t hope for better behavior, <span className="text-white">we install the architecture that ensures it.&quot;</span>
                     </p>
                     <div className="mt-16">
                         <a href={STRATEGY_CALL_URL} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center bg-primary text-black px-12 py-6 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] transition-all hover:bg-white active:scale-95">

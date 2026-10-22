@@ -14,7 +14,7 @@ const grotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Founding Dealer Pilot · AutoKnerd",
   description:
-    "Run AutoKnerd in one store for 90 days. Find the one behavior holding each salesperson and advisor back, turn it into five minutes of daily practice, and show managers exactly where to coach — then decide with real results in front of you.",
+    "Run AutoKnerd in one store for 90 days. Find the one behavior holding each salesperson and advisor back, turn it into five minutes of daily practice, and show managers exactly where to coach, then decide with real results in front of you.",
 };
 
 const SCORED = ["Empathy", "Listening", "Trust", "Follow-up", "Closing"];

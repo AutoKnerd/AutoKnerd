@@ -14,7 +14,7 @@ const DOCS = [
   { href: "/terms", title: "Terms of Service", desc: "The agreement that governs access to and use of AutoKnerd." },
   { href: "/dpa", title: "Data Processing Agreement", desc: "How we process a dealership's data as its processor / service provider." },
   { href: "/subprocessors", title: "Sub-processors", desc: "The third-party providers we use to deliver the Service." },
-  { href: "/acceptable-use", title: "Acceptable Use Policy", desc: "The rules for using AutoKnerd — part of the Terms." },
+  { href: "/acceptable-use", title: "Acceptable Use Policy", desc: "The rules for using AutoKnerd, part of the Terms." },
   { href: "/security", title: "Security Overview", desc: "How we protect customer and account data today." },
 ];
 
@@ -30,7 +30,7 @@ export default function LegalPage() {
           </span>
           <h1 className={s.h1}>Legal &amp; <span className={s.grad}>trust.</span></h1>
           <p className={s.lead} style={{ maxWidth: 620 }}>
-            Our policies and agreements in one place — how AutoKnerd handles data, what you agree to, and how we
+            Our policies and agreements in one place, how AutoKnerd handles data, what you agree to, and how we
             keep it secure.
           </p>
         </div>

@@ -53,7 +53,7 @@ export default function TermsPage() {
             <p>
               You must provide accurate information, keep your credentials secure, and are responsible for
               activity under your account. You must be at least 18 (or the age of majority in your state) to use
-              the Service. Accounts are for dealership staff — owners, general managers, managers, and the team
+              the Service. Accounts are for dealership staff, owners, general managers, managers, and the team
               members a dealership enrolls.
             </p>
 
@@ -148,7 +148,7 @@ export default function TermsPage() {
 
             <h2>14. Governing law and disputes</h2>
             <p>
-              These Terms are governed by the laws of the State of <strong>[STATE — attorney to set]</strong>,
+              These Terms are governed by the laws of the State of <strong>[STATE, attorney to set]</strong>,
               without regard to conflicts of law. <strong>[Attorney to choose exclusive jurisdiction or binding
               arbitration with a class-action waiver.]</strong>
             </p>

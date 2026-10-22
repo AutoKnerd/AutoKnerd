@@ -5,7 +5,7 @@ import s from "@/app/components/site.module.css";
 
 export const metadata: Metadata = {
   title: "Security Overview · AutoKnerd",
-  description: "How AutoKnerd protects customer and account data — the controls in place today.",
+  description: "How AutoKnerd protects customer and account data, the controls in place today.",
 };
 
 const mail = { color: "#5E8A00", fontWeight: 700 } as const;
@@ -61,7 +61,7 @@ export default function SecurityPage() {
             <ul>
               <li><strong>Location:</strong> data is processed and stored in the <strong>United States</strong>.</li>
               <li><strong>Minimization:</strong> we collect the data needed to run coaching and reporting, and do not intentionally collect sensitive categories of data.</li>
-              <li><strong>Retention:</strong> data is retained for as long as needed to provide the Service and on the dealership&apos;s instructions; deletion is available on request, and self-service deletion tooling is being added. [Target: a clearly enforced retention window — being implemented.]</li>
+              <li><strong>Retention:</strong> data is retained for as long as needed to provide the Service and on the dealership&apos;s instructions; deletion is available on request, and self-service deletion tooling is being added. [Target: a clearly enforced retention window, being implemented.]</li>
               <li><strong>No sale, no ad-targeting, no third-party model training</strong> of customer data. The application uses no third-party advertising trackers; the marketing website uses Google Tag Manager for analytics.</li>
               <li><strong>Sub-processors:</strong> a current list is published (Google Cloud/Firebase, Railway, Vercel, and Google Gemini for AI). See <a href="/subprocessors" style={mail}>Sub-processors</a>.</li>
             </ul>
@@ -72,8 +72,8 @@ export default function SecurityPage() {
             <h2>Incident response</h2>
             <p>
               We log and review platform activity and will notify affected customers of a confirmed security
-              incident affecting their data without undue delay after confirmation [set an outside window — e.g.,
-              72 hours — only if operationally achievable], consistent with our{" "}
+              incident affecting their data without undue delay after confirmation [set an outside window, e.g.,
+              72 hours, only if operationally achievable], consistent with our{" "}
               <a href="/dpa" style={mail}>Data Processing Agreement</a>. [A formal, always-on
               monitoring/alerting and incident-response program is on the roadmap.]
             </p>
@@ -84,7 +84,7 @@ export default function SecurityPage() {
               (access, deletion, correction) via <a href="mailto:privacy@autoknerd.com" style={mail}>privacy@autoknerd.com</a>.
             </p>
 
-            <h2>Roadmap (not yet in place — not represented as current)</h2>
+            <h2>Roadmap (not yet in place, not represented as current)</h2>
             <ul>
               <li>Automated data-retention/deletion enforcement (in progress)</li>
               <li>Independent third-party penetration test</li>

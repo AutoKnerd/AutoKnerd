@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           <h1 className={s.h1}>Privacy <span className={s.grad}>Policy.</span></h1>
           <p className={s.lead} style={{ maxWidth: 640 }}>
             What personal information AutoKnerd collects, how we use it, who we share it with, and the
-            choices you have — across our website and the app.
+            choices you have, across our website and the app.
           </p>
           <p className={s.mono} style={{ marginTop: 16, fontSize: 13, letterSpacing: "0.08em", color: "#8A938D" }}>
             LAST UPDATED: SEPTEMBER 2026
@@ -48,19 +48,19 @@ export default function PrivacyPage() {
             <p><strong>Two kinds of people use AutoKnerd, and our role differs for each:</strong></p>
             <ul>
               <li>
-                <strong>Account holders</strong> (dealer principals, general managers, managers, and admins) —
+                <strong>Account holders</strong> (dealer principals, general managers, managers, and admins), 
                 we are the <strong>controller</strong> of their account data.
               </li>
               <li>
-                <strong>Team members</strong> (salespeople, service advisors, and other staff) — when a
+                <strong>Team members</strong> (salespeople, service advisors, and other staff), when a
                 dealership enrolls its team, <strong>the dealership directs what is collected</strong>, and
                 AutoKnerd acts as a <strong>service provider / processor</strong> handling that data on the
                 dealership&apos;s behalf and instructions.
               </li>
             </ul>
             <p>
-              For limited purposes — security, abuse prevention, legal compliance, and operating our own
-              systems — we may also process some of this data on our own behalf. US state privacy laws use
+              For limited purposes, security, abuse prevention, legal compliance, and operating our own
+              systems, we may also process some of this data on our own behalf. US state privacy laws use
               terms like &ldquo;business&rdquo; and &ldquo;service provider&rdquo;; the exact role for each
               activity should be confirmed with counsel.
             </p>
@@ -114,17 +114,17 @@ export default function PrivacyPage() {
             <p>We share personal information only as follows:</p>
             <ul>
               <li>
-                <strong>With the dealership or organization</strong> — for team data. Coaching results and
+                <strong>With the dealership or organization</strong>, for team data. Coaching results and
                 progress go to the dealership that enrolled the team; that is the point of the product.
               </li>
               <li>
                 <strong>With service providers / sub-processors</strong> that operate the service under
-                contract — hosting and infrastructure, database, authentication (Google Firebase), payments,
+                contract, hosting and infrastructure, database, authentication (Google Firebase), payments,
                 and AI (Google Gemini). Each is bound to protect the data and use it only to provide its
                 service to us.
               </li>
-              <li><strong>For legal reasons</strong> — to comply with law, respond to lawful requests, or protect rights and safety.</li>
-              <li><strong>In a business transfer</strong> — as part of a merger, acquisition, or asset sale, subject to this policy.</li>
+              <li><strong>For legal reasons</strong>, to comply with law, respond to lawful requests, or protect rights and safety.</li>
+              <li><strong>In a business transfer</strong>, as part of a merger, acquisition, or asset sale, subject to this policy.</li>
             </ul>
             <p>
               We do not sell or &ldquo;share&rdquo; personal information for cross-context behavioral
@@ -149,7 +149,7 @@ export default function PrivacyPage() {
 
             <h2>7. Your choices and rights</h2>
             <p>
-              Depending on your state (for example, <strong>California — CCPA/CPRA</strong>, and other US
+              Depending on your state (for example, <strong>California, CCPA/CPRA</strong>, and other US
               state privacy laws), you may have the right to access, correct, delete, or obtain a copy of your
               personal information, and to appeal a decision. To exercise a right, contact{" "}
               <a href="mailto:privacy@autoknerd.com" style={{ color: "#5E8A00", fontWeight: 700 }}>privacy@autoknerd.com</a>.

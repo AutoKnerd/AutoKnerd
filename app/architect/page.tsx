@@ -206,7 +206,7 @@ const ArchitectPage = () => {
                                     Behavior doesn&apos;t change because people are motivated; behavior changes when the system makes it inevitable.
                                 </p>
                                 <p>
-                                    After years of observing the decay of traditional sales training, I stopped looking at dealerships as &quot;rooms full of people&quot; and started looking at them as complex systems. AutoKnerd is the result of that shift—a move from abstract culture-building to concrete behavioral engineering.
+                                    After years of observing the decay of traditional sales training, I stopped looking at dealerships as &quot;rooms full of people&quot; and started looking at them as complex systems. AutoKnerd is the result of that shift, a move from abstract culture-building to concrete behavioral engineering.
                                 </p>
                             </div>
                         </div>

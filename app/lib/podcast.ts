@@ -62,6 +62,18 @@ function stripHtml(input: string): string {
   return input.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// Feed copy is written in Podbean and often contains em-dashes. We render it as
+// human-sounding, so strip em-dashes (and spaced en-dashes) the same way we do
+// across the site: reflow to a comma. Non-breaking hyphens become plain hyphens.
+function humanizeText(input: string): string {
+  return input
+    .replace(/\s*—\s*/g, ", ")
+    .replace(/\s+–\s+/g, ", ")
+    .replace(/‑/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function normalizeEpisodeTitle(value: string): string {
   const cleaned = value
     .replace(/&nbsp;/gi, " ")
@@ -174,12 +186,12 @@ export async function getPodcastFeedData(): Promise<PodcastFeedData> {
 
   const parsed = (feed.items as RawItem[])
     .map((item): PodcastEpisode | null => {
-      const title = normalizeEpisodeTitle(item.title ?? "");
+      const title = humanizeText(normalizeEpisodeTitle(item.title ?? ""));
       const link = item.link?.trim() ?? "";
       const guid = item.guid?.trim() ?? "";
       const pubDate = item.pubDate?.trim() ?? "";
       const summarySource = item.contentSnippet ?? item.description ?? item.content ?? "";
-      const cleanedText = stripHtml(summarySource);
+      const cleanedText = humanizeText(stripHtml(summarySource));
       const summary = cleanedText;
       const description = cleanedText;
       const audioUrl = item.enclosure?.url?.trim() ?? "";

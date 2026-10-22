@@ -81,7 +81,7 @@ export default function DpaPage() {
             <ul>
               <li>
                 Process Customer Data only on Customer&apos;s documented instructions (including the
-                configuration Customer selects in the product), and only to provide the Service — not for its own
+                configuration Customer selects in the product), and only to provide the Service, not for its own
                 commercial purposes, not sold, and not used to train third-party AI models or for advertising.
               </li>
               <li>Ensure personnel authorized to process Customer Data are bound by confidentiality.</li>
@@ -147,7 +147,7 @@ export default function DpaPage() {
             <p>In the event of a conflict, this DPA controls over the Terms of Service with respect to the processing of Customer Data.</p>
 
             <h2>13. Signatures</h2>
-            <p>[Signature blocks — Customer and AutoKnerd LLC.]</p>
+            <p>[Signature blocks, Customer and AutoKnerd LLC.]</p>
           </div>
         </div>
       </section>

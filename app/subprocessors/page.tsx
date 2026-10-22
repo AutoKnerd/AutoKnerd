@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const ROWS = [
-  ["Google Cloud / Firebase (Google LLC)", "Database (Firestore), authentication, and file storage — the core backend", "Account data; team-member performance data; practice-session responses and coaching inputs", "United States [confirm region]"],
+  ["Google Cloud / Firebase (Google LLC)", "Database (Firestore), authentication, and file storage, the core backend", "Account data; team-member performance data; practice-session responses and coaching inputs", "United States [confirm region]"],
   ["Railway Corp.", "Application hosting for the AutoKnerd app and its APIs", "Data in transit through the app; request metadata (e.g., IP)", "United States"],
   ["Vercel Inc.", "Hosting for the marketing website (autoknerd.com)", "Website visitor request metadata (e.g., IP)", "United States"],
   ["Google (Gemini API) (Google LLC)", "AI practice scenarios and coaching-summary generation", "Practice-session content sent to the AI feature", "United States [confirm region + data-use terms]"],

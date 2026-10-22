@@ -5,7 +5,7 @@ import s from "@/app/components/site.module.css";
 
 export const metadata: Metadata = {
   title: "Acceptable Use Policy · AutoKnerd",
-  description: "The rules for using AutoKnerd — part of the Terms of Service.",
+  description: "The rules for using AutoKnerd, part of the Terms of Service.",
 };
 
 export default function AcceptableUsePage() {
@@ -61,7 +61,7 @@ export default function AcceptableUsePage() {
             <p><strong>Misuse AI features</strong></p>
             <ul>
               <li>Submit content to AI features that you are not permitted to disclose to a third-party processor.</li>
-              <li>Rely on AI output for high-stakes decisions — such as employment or disciplinary decisions — without human review.</li>
+              <li>Rely on AI output for high-stakes decisions, such as employment or disciplinary decisions, without human review.</li>
             </ul>
 
             <h2>Enforcement</h2>

@@ -114,7 +114,7 @@ export type AutoKnerdWorksheet = {
 };
 
 // Self-contained, print-ready one-page worksheets from the AutoKnerd podcast.
-// Hosted as static HTML at /tools/<slug> — see public/tools/<slug>/index.html and
+// Hosted as static HTML at /tools/<slug>, see public/tools/<slug>/index.html and
 // the rewrites in next.config.ts. Ordered loosely along the sales journey.
 export const AUTOKNERD_WORKSHEETS: AutoKnerdWorksheet[] = [
   {
