@@ -10,16 +10,14 @@ const stepIcons = [Search, Rocket, Calendar, TrendingUp];
 export const Pipeline = () => {
     return (
         <section id="process" className="py-[140px] bg-background relative border-y border-white/5 overflow-hidden">
-            {/* Advanced Premium Background Depth */}
             <div className="absolute inset-0 bg-mesh-gradient opacity-30 pointer-events-none" />
             <div className="absolute inset-0 parallax-grid-2 pointer-events-none opacity-50" />
             <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent shadow-[0_0_30px_rgba(124,255,27,0.5)] z-10" />
-            
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110vw] h-[110vw] bg-primary/10 blur-[250px] pointer-events-none opacity-40 animate-slow-pulse -z-10" />
 
             <div className="container mx-auto px-6 md:px-12 relative z-20">
                 <div className="text-left mb-20 md:mb-32 lg:mb-48 max-w-6xl">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
@@ -34,7 +32,6 @@ export const Pipeline = () => {
                 </div>
 
                 <div className="relative">
-                    {/* Architectural Connector Line */}
                     <div className="absolute top-12 md:top-16 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent hidden lg:block opacity-60 shrink-0 shadow-[0_0_15px_rgba(124,255,27,0.5)]" />
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 lg:gap-24 relative z-10">
@@ -62,7 +59,7 @@ export const Pipeline = () => {
                                     </div>
 
                                     <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium mb-4 md:mb-8 font-outfit tracking-tighter group-hover:translate-x-3 transition-transform duration-700 leading-snug text-white shadow-glow-green">{step.title}</h3>
-                                    
+
                                     <p className="text-lg text-slate/60 leading-relaxed font-light group-hover:text-slate/90 transition-colors duration-700 flex-1 tracking-tight">
                                         {step.description}
                                     </p>

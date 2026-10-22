@@ -69,7 +69,6 @@ export const Impact = () => {
                             </div>
                         </div>
 
-                        {/* Decorative Orbs */}
                         <div className="absolute -top-12 -right-12 w-64 h-64 bg-primary/10 blur-[100px] rounded-full animate-slow-pulse opacity-40" />
                         <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-primary/5 blur-[80px] rounded-full animate-slow-pulse delay-700 opacity-20" />
                     </motion.div>

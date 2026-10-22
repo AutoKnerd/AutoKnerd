@@ -112,9 +112,14 @@ const AutoDrivePage = () => {
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-6">
-                                <button className="bg-primary text-black px-12 py-6 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] transition-all hover:bg-white active:scale-95 shadow-[0_0_40px_rgba(124,255,27,0.3)]">
-                                    Start Training in AutoDrive
-                                </button>
+                                <a 
+                                    href="https://app.autodrivecx.com/signup" 
+                                    target="_blank" 
+                                    rel="noreferrer" 
+                                    className="bg-primary text-black px-12 py-6 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] transition-all hover:bg-white active:scale-95 shadow-[0_0_40px_rgba(124,255,27,0.3)] inline-block text-center"
+                                >
+                                    START TRAINING IN AUTODRIVE
+                                </a>
                                 <a href="https://autodrivecx.com" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center border border-white/10 text-white/60 hover:text-white px-12 py-6 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] transition-all hover:border-primary/40 bg-white/[0.02]">
                                     Learn More at AutoDriveCX.com
                                 </a>
@@ -144,7 +149,7 @@ const AutoDrivePage = () => {
                             </h2>
                             <div className="space-y-8 text-lg md:text-xl text-slate/50 font-light leading-relaxed">
                                 <p>
-                                    Most dealerships do not have an effort problem; they have a <strong>behavioral drift</strong> problem. Training is often treated as an event—a weekend workshop or a guest speaker.
+                                    Most dealerships do not have an effort problem; they have a <strong>behavioral drift</strong> problem. Training is often treated as an event, a weekend workshop or a guest speaker.
                                 </p>
                                 <p>
                                     For a few weeks, performance improves. But without a functional reinforcement system, teams slowly drift back to their default habits. Consistency is lost because the dealership lacks the mechanical infrastructure to anchor behavior.
@@ -396,9 +401,14 @@ const AutoDrivePage = () => {
                                 Install the infrastructure <br />of <span className="text-primary italic">predictable performance.</span>
                             </h2>
                             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                                <button className="bg-primary text-black px-12 py-6 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] transition-all hover:bg-white active:scale-95 shadow-[0_0_40px_rgba(124,255,27,0.3)]">
-                                    Start Training in AutoDrive
-                                </button>
+                                <a 
+                                    href="https://app.autodrivecx.com/signup" 
+                                    target="_blank" 
+                                    rel="noreferrer" 
+                                    className="bg-primary text-black px-12 py-6 rounded-full font-bold uppercase tracking-[0.4em] text-[11px] transition-all hover:bg-white active:scale-95 shadow-[0_0_40px_rgba(124,255,27,0.3)] inline-block text-center"
+                                >
+                                    START TRAINING IN AUTODRIVE
+                                </a>
                             </div>
                             <div className="mt-12">
                                 <a href="https://autodrivecx.com" target="_blank" rel="noreferrer" className="text-[10px] font-mono text-slate/40 hover:text-primary transition-colors uppercase tracking-[0.4em] flex items-center justify-center gap-2 group">

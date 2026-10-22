@@ -26,7 +26,6 @@ export const TrainingFails = () => {
 
     return (
         <section className="py-36 md:py-[160px] relative overflow-hidden bg-background border-y border-white/5">
-            {/* Advanced Premium Background Depth */}
             <div className="absolute inset-0 bg-mesh-gradient opacity-30 pointer-events-none" />
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent shadow-[0_0_30px_rgba(124,255,27,0.5)]" />
             <div className="bg-scanlines absolute inset-0 opacity-20 pointer-events-none" />

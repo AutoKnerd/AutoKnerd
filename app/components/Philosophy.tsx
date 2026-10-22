@@ -2,7 +2,7 @@
 
 import React from "react";
 import { siteContent } from "@/app/data/mockData";
-import { Shield, Eye, RefreshCcw, LucideIcon, Globe, Target, Box } from "lucide-react";
+import { Shield, Eye, RefreshCcw, LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
 const iconsMap: Record<string, LucideIcon> = {
@@ -14,7 +14,6 @@ const iconsMap: Record<string, LucideIcon> = {
 export const Philosophy = () => {
     return (
         <section id="solutions" className="py-20 md:py-32 lg:py-64 bg-background relative border-t border-white/5 bg-dot-grid bg-fixed">
-            {/* Structural Geometry */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-primary/20 via-primary/5 to-transparent pointer-events-none opacity-40 shrink-0 hidden md:block" />
             <div className="absolute top-1/4 -right-1/4 w-[60vw] h-[60vw] bg-primary/5 blur-[200px] pointer-events-none opacity-10 animate-slow-pulse" />
 
@@ -45,7 +44,6 @@ export const Philosophy = () => {
                                 className="group relative h-full"
                             >
                                 <div className="relative glass-green p-10 md:p-14 lg:p-20 rounded-[2.5rem] md:rounded-[4rem] lg:rounded-[5rem] border-white/5 hover:bg-white/[0.03] transition-all duration-1000 h-full flex flex-col items-start overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] active:scale-[0.98]">
-                                    {/* Internal Grid Motif */}
                                     <div className="absolute inset-0 bg-blueprint opacity-[0.03] pointer-events-none" />
                                     <div className="absolute top-0 right-0 p-8 md:p-12 opacity-5 pointer-events-none group-hover:opacity-20 transition-opacity duration-1000">
                                         <Icon className="w-48 h-48 md:w-64 md:h-64 text-primary" />
@@ -75,6 +73,5 @@ export const Philosophy = () => {
                 </div>
             </div>
         </section>
-
     );
 };

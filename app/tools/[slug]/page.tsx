@@ -139,14 +139,14 @@ export default async function ToolDetailPage({ params }: ToolPageProps) {
               Want to turn this tool into repeatable showroom behavior? AutoDriveCX gives consultants guided drills, trust-driven practice, and behavioral skill development.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href={AUTODRIVECX_SIGNUP_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center bg-primary text-black px-7 py-3.5 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.28em] border border-primary hover:bg-white hover:border-white transition-all duration-300"
-              >
-                Start Training in AutoDriveCX
-              </a>
+                <a
+                  href={AUTODRIVECX_SIGNUP_URL}
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center bg-primary text-black px-7 py-3.5 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.28em] border border-primary hover:bg-white hover:border-white transition-all duration-300"
+                >
+                  Start Training in AutoDriveCX
+                </a>
               <a
                 href={AUTODRIVECX_INFO_URL}
                 target="_blank"

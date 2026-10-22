@@ -9,7 +9,6 @@ import { motion } from "framer-motion";
 export const Team = () => {
     return (
         <section id="architect" className="py-32 md:py-[140px] bg-background relative overflow-hidden border-t border-white/5">
-            {/* Structural Geometry */}
             <div className="bg-blueprint absolute inset-0 opacity-[0.03] pointer-events-none" />
             <div className="bg-dot-grid absolute inset-0 opacity-[0.05] pointer-events-none" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110vw] h-[110vw] bg-primary/10 blur-[300px] pointer-events-none opacity-20 -z-10 animate-slow-pulse" />
