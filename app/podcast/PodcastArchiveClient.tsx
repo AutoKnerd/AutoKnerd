@@ -6,8 +6,9 @@ import { useEffect, useMemo, useState } from "react";
 import type { PodcastEpisode } from "@/app/lib/podcast";
 import type { TopicEpisodeMap } from "@/app/lib/intelligenceMap";
 import { inferTopicsForEpisode, PODCAST_TOPICS } from "@/app/lib/podcastTopics";
+import { getEpisodeArticle } from "@/app/lib/episodeArticles";
 import s from "@/app/components/site.module.css";
-import { Play, ArrowRight } from "lucide-react";
+import { Headphones, FileText, Wrench, BookOpen, ArrowRight } from "lucide-react";
 
 type PodcastArchiveClientProps = {
   episodes: PodcastEpisode[];
@@ -28,7 +29,7 @@ function formatDate(value: string): string {
   return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
 }
 
-export default function PodcastArchiveClient({ episodes, fallbackArtwork }: PodcastArchiveClientProps) {
+export default function PodcastArchiveClient({ episodes }: PodcastArchiveClientProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -93,6 +94,9 @@ export default function PodcastArchiveClient({ episodes, fallbackArtwork }: Podc
           <div>
             <p className={`${s.mono} ${s.kicker}`}>THE FULL ARCHIVE</p>
             <h2 className={s.h2sm}>Browse every episode.</h2>
+            <p className={s.cardText} style={{ fontSize: 15, maxWidth: 520 }}>
+              Every episode is a listen, a two-minute read, and a tool you can run with your team on Monday.
+            </p>
           </div>
           <p className={s.mono} style={{ fontSize: 12, letterSpacing: "0.1em", color: "#8A938D" }}>
             {filteredEpisodes.length === 0
@@ -157,30 +161,49 @@ export default function PodcastArchiveClient({ episodes, fallbackArtwork }: Podc
             No matching episodes found.
           </div>
         ) : (
-          <div className={s.epList}>
-            {shown.map((episode) => (
-              <Link key={episode.link} href={`/podcast/${episode.slug}`} className={s.epRow}>
-                {episode.imageUrl || fallbackArtwork ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img className={s.epThumb} src={episode.imageUrl ?? fallbackArtwork} alt="" />
-                ) : (
-                  <span className={s.epThumb} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <Play size={20} color="#8A938D" />
-                  </span>
-                )}
-                <div className={s.epMeta}>
-                  <p className={`${s.mono} ${s.epDate}`}>
-                    {formatDate(episode.pubDate)}
-                    {episode.matchedTopics[0] ? `  ·  ${episode.matchedTopics[0]}` : ""}
-                  </p>
-                  <h3 className={s.epTitle}>{episode.title}</h3>
-                  <p className={s.epSummary}>{truncate(episode.summary, 120)}</p>
-                </div>
-                <span className={s.epView}>
-                  View <ArrowRight size={15} strokeWidth={2.2} />
-                </span>
-              </Link>
-            ))}
+          <div className={s.epGrid}>
+            {shown.map((episode) => {
+              const article = getEpisodeArticle(episode.slug);
+              const tag = episode.matchedTopics[0] ?? "AutoKnerd";
+              const hook = article?.dek ?? truncate(episode.summary, 150);
+              return (
+                <Link
+                  key={episode.link}
+                  href={`/podcast/${episode.slug}`}
+                  className={article ? `${s.epCard} ${s.epCardFlag}` : s.epCard}
+                >
+                  <div className={s.epCardHead}>
+                    <span className={s.epTag}>{tag}</span>
+                    {article ? (
+                      <span className={s.epPlaybook}>
+                        <BookOpen size={11} strokeWidth={2.6} /> Playbook
+                      </span>
+                    ) : null}
+                    <span className={s.epCardDate}>{formatDate(episode.pubDate)}</span>
+                  </div>
+                  <h3 className={s.epCardTitle}>{episode.title}</h3>
+                  <p className={s.epCardHook}>{hook}</p>
+                  <div className={s.epCardSpacer} />
+                  <div className={s.epFormats}>
+                    <span className={s.epFmt}>
+                      <Headphones size={13} strokeWidth={2.4} />
+                      <span className={s.epFmtLabel}>Listen</span>
+                    </span>
+                    <span className={s.epFmt}>
+                      <FileText size={13} strokeWidth={2.4} />
+                      <span className={s.epFmtLabel}>Read</span>
+                    </span>
+                    <span className={s.epFmt}>
+                      <Wrench size={13} strokeWidth={2.4} />
+                      <span className={s.epFmtLabel}>Tool</span>
+                    </span>
+                    <span className={s.epOpen}>
+                      Open <ArrowRight size={14} strokeWidth={2.4} />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         )}
 

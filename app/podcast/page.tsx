@@ -8,7 +8,7 @@ import PodcastArchiveClient from "@/app/podcast/PodcastArchiveClient";
 import { DEMO, ext } from "@/app/lib/links";
 import Link from "next/link";
 import { Suspense } from "react";
-import { Play, ArrowRight } from "lucide-react";
+import { Play, ArrowRight, Headphones, FileText, Wrench } from "lucide-react";
 
 export const revalidate = 300;
 
@@ -137,7 +137,12 @@ export default async function PodcastPage() {
                     {formatDate(featuredEpisode.pubDate)}
                   </p>
                   <p className={s.cardText} style={{ fontSize: 16, marginTop: 16 }}>{truncate(featuredEpisode.summary, 260)}</p>
-                  <div style={{ marginTop: 20, borderRadius: 16, border: "1px solid #E7ECE5", background: "#F7F9F5", padding: 14 }}>
+                  <div className={s.epFormats} style={{ borderTop: "none", paddingTop: 0, marginTop: 16 }}>
+                    <span className={s.epFmt}><Headphones size={13} strokeWidth={2.4} /><span className={s.epFmtLabel}>Listen</span></span>
+                    <span className={s.epFmt}><FileText size={13} strokeWidth={2.4} /><span className={s.epFmtLabel}>Read</span></span>
+                    <span className={s.epFmt}><Wrench size={13} strokeWidth={2.4} /><span className={s.epFmtLabel}>Tool</span></span>
+                  </div>
+                  <div style={{ marginTop: 18, borderRadius: 16, border: "1px solid #E7ECE5", background: "#F7F9F5", padding: 14 }}>
                     <audio controls style={{ width: "100%" }}>
                       <source src={featuredEpisode.audioUrl} />
                       Your browser does not support the audio element.

@@ -214,16 +214,43 @@
 .legal th { text-align: left; padding: 10px 12px; border-bottom: 2px solid #E3E8DF; color: #0C1512; font-weight: 800; }
 .legal td { padding: 10px 12px; border-bottom: 1px solid #EDF1EA; color: #3A443F; vertical-align: top; line-height: 1.5; }
 
-/* ---- PODCAST EPISODE LIST ---- */
-.epList { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
-.epRow { display: flex; align-items: center; gap: 18px; padding: 14px 18px; border-radius: 20px; border: 1px solid #E7ECE5; background: #FFFFFF; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
-.epRow:hover { border-color: #CFE7A8; box-shadow: 0 12px 30px rgba(12,21,18,0.07); transform: translateY(-1px); }
-.epThumb { width: 68px; height: 68px; flex-shrink: 0; border-radius: 14px; border: 1px solid #E7ECE5; object-fit: cover; display: block; background: #F0F3EC; }
-.epMeta { flex: 1; min-width: 0; }
-.epDate { margin: 0; font-size: 11px; letter-spacing: 0.12em; color: #8A938D; }
-.epTitle { margin: 5px 0 0; font-size: 16px; font-weight: 800; line-height: 1.3; }
-.epSummary { margin: 5px 0 0; font-size: 13px; line-height: 1.4; color: #6A736D; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.epView { flex-shrink: 0; font-size: 14px; font-weight: 700; color: #0C1512; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+/* ---- PODCAST ARCHIVE CARDS ---- */
+.epGrid { margin-top: 26px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.epCard {
+  position: relative; display: flex; flex-direction: column;
+  background: #FFFFFF; border: 1px solid #E7ECE5; border-radius: 22px; padding: 22px 22px 18px;
+  box-shadow: 0 10px 30px rgba(12,21,18,0.04);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.epCard:hover { border-color: #CFE7A8; box-shadow: 0 18px 42px rgba(12,21,18,0.09); transform: translateY(-2px); }
+.epCardFlag { border-color: #D7EDA6; background: linear-gradient(180deg, #FCFFF4, #FFFFFF 68%); }
+.epCardHead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.epTag {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4B7A2E;
+  background: #EEF4E4; border: 1px solid #DCE9C6; padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+}
+.epPlaybook {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.08em; color: #0C1512;
+  background: #CCFF00; padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+}
+.epCardDate { margin-left: auto; font-family: var(--font-jetbrains-mono), ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; color: #9AA29C; white-space: nowrap; }
+.epCardTitle {
+  margin: 15px 0 0; font-size: 19px; font-weight: 800; line-height: 1.28; color: #0C1512; letter-spacing: -0.01em;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.epCard:hover .epCardTitle { color: #2C5B12; }
+.epCardHook {
+  margin: 9px 0 0; font-size: 14px; line-height: 1.5; color: #6A736D;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.epCardSpacer { flex: 1; min-height: 14px; }
+.epFormats { display: flex; align-items: center; gap: 7px; margin-top: 18px; padding-top: 15px; border-top: 1px solid #EEF1EB; }
+.epFmt { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #3A443F; background: #F2F5EE; border-radius: 999px; padding: 6px 10px; }
+.epFmt svg { color: #5E8A00; flex-shrink: 0; }
+.epOpen { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 800; color: #0C1512; white-space: nowrap; }
 
 /* =================== MOBILE =================== */
 @media (max-width: 860px) {
@@ -256,8 +283,8 @@
   .ctaBtnLime, .ctaBtnGhost { width: 100%; }
   .dispatchForm { width: 100%; }
   .dispatchInput { flex: 1; width: auto; }
-  .epView { display: none; }
-  .epThumb { width: 54px; height: 54px; }
-  .epRow { padding: 12px 14px; gap: 14px; }
-  .epSummary { white-space: normal; }
+  .epGrid { grid-template-columns: 1fr; gap: 14px; }
+  .epCard { padding: 20px 18px 16px; }
+  .epFmtLabel { display: none; }
+  .epFmt { padding: 6px 9px; }
 }
