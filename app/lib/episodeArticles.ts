@@ -50,7 +50,7 @@ export const EPISODE_ARTICLES: Record<string, EpisodeArticle> = {
         ["“We’ll talk it over at home.”", "There’s a second decision-maker. Arm your buyer to sell it for you."],
       ],
       note: "…plus 3 more lines and the full follow-up cadence in the tool.",
-      href: "/tools/predictability-script-pack",
+      href: "/tools/be-back-decoder",
       cta: "Get the free tool",
     },
     managerNote: {
