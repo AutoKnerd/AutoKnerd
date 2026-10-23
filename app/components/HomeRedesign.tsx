@@ -305,7 +305,7 @@ export function HomeRedesign() {
             <div className={styles.ctaInner}>
               <div style={{ maxWidth: 620 }}>
                 <h2 className={styles.ctaTitle}>See where execution is slipping this week.</h2>
-                <p className={styles.ctaText}>Pick a role and click through a live, no-login demo, or book a call and we will look at your store together.</p>
+                <p className={styles.ctaText}>Pick a role and click through a live, no-login demo, or see how a 90-day pilot runs in one of your stores.</p>
                 <p className={styles.ctaPricing}>Simple per-rooftop pricing · start with a <Link href="/pilot" className={styles.ctaPricingLink}>90-day pilot</Link> on one store</p>
               </div>
               <div className={styles.ctaBtns}>
