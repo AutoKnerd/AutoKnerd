@@ -2,6 +2,7 @@ import {
   Gauge, Target, Package, Shield, MessagesSquare, TrendingDown, Database,
   ShieldCheck, DollarSign, TrendingUp, RefreshCw, Check, Play, ArrowRight, X,
 } from "lucide-react";
+import Link from "next/link";
 import styles from "./site.module.css";
 import { SiteNav } from "./SiteNav";
 import { SiteFooter } from "./SiteFooter";
@@ -305,11 +306,11 @@ export function HomeRedesign() {
               <div style={{ maxWidth: 620 }}>
                 <h2 className={styles.ctaTitle}>See where execution is slipping this week.</h2>
                 <p className={styles.ctaText}>Pick a role and click through a live, no-login demo, or book a call and we will look at your store together.</p>
-                <p className={styles.ctaPricing}>Simple per-rooftop pricing · start with a 30-day pilot on one store</p>
+                <p className={styles.ctaPricing}>Simple per-rooftop pricing · start with a <Link href="/pilot" className={styles.ctaPricingLink}>90-day pilot</Link> on one store</p>
               </div>
               <div className={styles.ctaBtns}>
                 <a href={DEMO} {...ext} className={styles.ctaBtnLime}>See a live demo</a>
-                <a href={BOOK} {...ext} className={styles.ctaBtnGhost}>Book a call</a>
+                <Link href="/pilot" className={styles.ctaBtnGhost}>See the 90-day pilot</Link>
               </div>
             </div>
           </div>

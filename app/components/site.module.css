@@ -176,6 +176,8 @@
 .ctaTitle { margin: 0; font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: #F4F7F4; letter-spacing: -0.02em; }
 .ctaText { margin: 14px 0 0; font-size: 17px; line-height: 1.5; color: #A6AFA9; }
 .ctaPricing { margin: 16px 0 0; font-size: 14px; font-weight: 600; color: #CDE86B; }
+.ctaPricingLink { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.ctaPricingLink:hover { color: #CCFF00; }
 .ctaBtns { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
 .ctaBtnLime { display: inline-flex; align-items: center; justify-content: center; height: 54px; padding: 0 30px; border-radius: 999px; background: #CCFF00; color: #0C1512; font-weight: 800; font-size: 16px; }
 .ctaBtnGhost { display: inline-flex; align-items: center; justify-content: center; height: 54px; padding: 0 30px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); color: #F4F7F4; font-weight: 700; font-size: 16px; }
