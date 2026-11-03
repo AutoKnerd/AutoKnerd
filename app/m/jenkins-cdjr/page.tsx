@@ -189,6 +189,31 @@ export default function JenkinsManualPage() {
           <p style={body}>Service and parts roles get the same engine tuned to their lane: the write-up, the MPI walk-through, and the pickup conversation.</p>
         </Section>
 
+        {/* Daily use */}
+        <Section eyebrow="Build the habit" title="Keep your team using it daily">
+          <p style={body}>The app rewards showing up: XP, streaks, and a five-minute daily lesson. Your job is to make that daily. Here is what works on a busy floor:</p>
+          <ul style={{ margin: "8px 0 0", paddingLeft: 22 }}>
+            <li style={liStyle}><strong>Make it a ritual.</strong> The same five minutes every day, tied to something that already happens, like right before the morning huddle. Consistency is what builds the streak.</li>
+            <li style={liStyle}><strong>Do it yourself, out loud.</strong> If you practice and mention a lesson on the floor or in a save, your team follows. Managers who use it get teams who use it.</li>
+            <li style={liStyle}><strong>Protect the streak.</strong> Call out the longest streaks in your meeting. A visible streak is one of the strongest reasons people come back the next day.</li>
+            <li style={liStyle}><strong>Coach from it, do not police it.</strong> Use the needs-help-first roster for a helpful one-on-one, not a &quot;why didn&apos;t you do your lesson&quot; callout. People stick with a tool that helps them.</li>
+            <li style={liStyle}><strong>Reward practice, not just units.</strong> Shout out the biggest momentum gain of the week, not only the top closer. The app surfaces the growers a leaderboard misses.</li>
+            <li style={liStyle}><strong>Keep it real.</strong> Remind them it is reps, not homework: short, and built around real floor conversations.</li>
+          </ul>
+        </Section>
+
+        {/* Cost of not using */}
+        <Section eyebrow="Why it matters" title="What you lose if they are not using it">
+          <p style={body}>When the team stops practicing, it is not just a missed lesson. Here is what quietly slips:</p>
+          <ul style={{ margin: "8px 0 0", paddingLeft: 22 }}>
+            <li style={liStyle}><strong>Skills stop compounding.</strong> The daily lesson targets each rep&apos;s weakest skill. Skip it and the gap that is costing deals stays open.</li>
+            <li style={liStyle}><strong>You lose your read on the floor.</strong> Momentum, skills, and the needs-help-first roster only reflect people who are practicing. Empty data means you are coaching blind.</li>
+            <li style={liStyle}><strong>Coaching goes back to guesswork.</strong> No practice means no biggest opportunity and no AI coaching plan, so you are back to generic training that does not stick.</li>
+            <li style={liStyle}><strong>Consistency drifts.</strong> The whole point is every rep handling the moment the same way. Without daily reps, behavior slides back to however each person feels that day.</li>
+            <li style={liStyle}><strong>The pilot cannot prove itself.</strong> A 90-day pilot only shows a result if the team actually uses it. Low usage means no before-and-after story to justify keeping it.</li>
+          </ul>
+        </Section>
+
         {/* Keep it running */}
         <Section eyebrow="During the pilot" title="Keep it running">
           <ul style={{ margin: "14px 0 0", paddingLeft: 22 }}>
