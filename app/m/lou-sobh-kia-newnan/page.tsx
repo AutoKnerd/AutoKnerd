@@ -243,8 +243,20 @@ export default function LouSobhManualPage() {
           </div>
         </Section>
 
+        {/* Direct contact */}
+        <Section eyebrow="Help" title="Questions? Reach me directly">
+          <div style={{ padding: "clamp(20px, 3vw, 28px)", marginTop: 16, border: "1px solid #CDE88A", borderRadius: 20, background: "linear-gradient(180deg,#FBFFEF,#F6FAED)" }}>
+            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "#2C332E" }}>
+              Stuck on anything, or want a hand getting your team rolling? Email me directly at{" "}
+              <a href="mailto:andrew@autoknerd.com" style={{ color: GREEN, fontWeight: 700, textDecoration: "underline" }}>andrew@autoknerd.com</a>.
+              I make myself available to every pilot store, so do not hesitate.
+            </p>
+            <p style={{ margin: "10px 0 0", fontSize: 14, lineHeight: 1.55, color: MUTED }}>&mdash; Andrew Sardone, AutoKnerd</p>
+          </div>
+        </Section>
+
         <p style={{ marginTop: "clamp(40px, 6vw, 64px)", paddingTop: 20, borderTop: `1px solid ${BORDER}`, fontSize: 13, color: MUTED }}>
-          AutoKnerd &middot; Manager guide for Lou Sobh Kia Newnan &middot; 90-day pilot
+          AutoKnerd &middot; Manager guide for Lou Sobh Kia Newnan &middot; 90-day pilot &middot; Questions? andrew@autoknerd.com
         </p>
       </main>
     </div>
