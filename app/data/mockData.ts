@@ -1,12 +1,11 @@
 export const siteContent = {
   navigation: {
     links: [
+      { label: "Ecosystem", href: "/#systems" },
       { label: "Methodology", href: "/methodology" },
-      { label: "Podcast", href: "/podcast" },
-      { label: "Systems", href: "/#systems" },
       { label: "Process", href: "/#process" },
       { label: "Impact", href: "/#impact" },
-      { label: "Insights", href: "/#insights" },
+      { label: "Podcast", href: "/podcast" },
     ],
     cta: "Book Strategy Call",
   },
@@ -179,18 +178,18 @@ export const siteContent = {
   },
   products: [
     {
-      id: "autoforge",
-      tagline: "Manager System",
-      title: "AutoForge",
-      description: "AutoForge is the manager operating system for dealership CX. It gives managers a structured weekly framework for coaching behavior and reinforcing customer experience standards. Instead of hoping training sticks, managers run consistent behavioral reinforcement cycles.",
-      outcome: "Stabilizes team behavior and installs consistent CX coaching.",
+      id: "autoshop",
+      tagline: "Core Operating Framework",
+      title: "AutoShop",
+      description: "AutoShop is the foundational behavioral architecture for the dealership. It maps out the exact workflows, touchpoints, and execution standards required to deliver a premium, frictionless experience at scale.",
+      outcome: "Establishes a unified operational baseline across all departments.",
       features: [
-        "Weekly CX leadership protocols",
-        "Behavior coaching tools",
-        "Team culture diagnostics",
-        "Execution scorecards",
+        "Process architecture maps",
+        "Workflow standardization",
+        "Operational baseline metrics",
+        "Execution roadmaps",
       ],
-      cta: "Deploy AutoForge",
+      cta: "Deploy AutoShop",
     },
     {
       id: "autodrivecx",
@@ -205,6 +204,20 @@ export const siteContent = {
         "Performance telemetry",
       ],
       cta: "Deploy AutoDriveCX",
+    },
+    {
+      id: "autoforge",
+      tagline: "Manager System",
+      title: "AutoForge",
+      description: "AutoForge is the manager operating system for dealership CX. It gives managers a structured weekly framework for coaching behavior and reinforcing customer experience standards. Instead of hoping training sticks, managers run consistent behavioral reinforcement cycles.",
+      outcome: "Stabilizes team behavior and installs consistent CX coaching.",
+      features: [
+        "Weekly CX leadership protocols",
+        "Behavior coaching tools",
+        "Team culture diagnostics",
+        "Execution scorecards",
+      ],
+      cta: "Deploy AutoForge",
     }
   ],
   process: {
@@ -282,5 +295,13 @@ export const siteContent = {
     supportText: "Customers expect transparency, clarity, and trust. Dealerships that rely on inconsistent sales behavior struggle to meet those expectations. AutoKnerd installs the behavioral systems that make trust consistent.",
     primaryBtn: "Book Strategy Call",
     secondaryBtn: "Explore Methodology",
+    company: [
+      { label: "Meet the Architect", href: "/architect" },
+      { label: "Platform", href: "/autodrive" },
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Contact", href: "/contact" },
+      { label: "Terms", href: "/terms" },
+      { label: "Privacy", href: "/privacy" },
+    ]
   },
 };

@@ -2,6 +2,7 @@ import Parser from "rss-parser";
 import { inferTopicsForEpisode } from "@/app/lib/podcastTopics";
 
 const PODCAST_RSS_URL = "https://feed.podbean.com/btedesign/feed.xml";
+const PODCAST_FEED_REVALIDATE_SECONDS = 300;
 
 type RawItem = {
   title?: string;
@@ -59,6 +60,18 @@ const parser: Parser = new Parser({
 
 function stripHtml(input: string): string {
   return input.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+// Feed copy is written in Podbean and often contains em-dashes. We render it as
+// human-sounding, so strip em-dashes (and spaced en-dashes) the same way we do
+// across the site: reflow to a comma. Non-breaking hyphens become plain hyphens.
+function humanizeText(input: string): string {
+  return input
+    .replace(/\s*—\s*/g, ", ")
+    .replace(/\s+–\s+/g, ", ")
+    .replace(/‑/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function normalizeEpisodeTitle(value: string): string {
@@ -133,7 +146,7 @@ function getFallbackArtwork(feed: RawFeed): string | undefined {
 
 async function fetchPodcastFeed(): Promise<RawFeed & { items: RawItem[] }> {
   const response = await fetch(PODCAST_RSS_URL, {
-    next: { revalidate: 3600 },
+    next: { revalidate: PODCAST_FEED_REVALIDATE_SECONDS },
   });
   if (!response.ok) {
     throw new Error(`Failed to fetch podcast feed: ${response.status}`);
@@ -173,12 +186,12 @@ export async function getPodcastFeedData(): Promise<PodcastFeedData> {
 
   const parsed = (feed.items as RawItem[])
     .map((item): PodcastEpisode | null => {
-      const title = normalizeEpisodeTitle(item.title ?? "");
+      const title = humanizeText(normalizeEpisodeTitle(item.title ?? ""));
       const link = item.link?.trim() ?? "";
       const guid = item.guid?.trim() ?? "";
       const pubDate = item.pubDate?.trim() ?? "";
       const summarySource = item.contentSnippet ?? item.description ?? item.content ?? "";
-      const cleanedText = stripHtml(summarySource);
+      const cleanedText = humanizeText(stripHtml(summarySource));
       const summary = cleanedText;
       const description = cleanedText;
       const audioUrl = item.enclosure?.url?.trim() ?? "";

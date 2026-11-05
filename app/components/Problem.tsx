@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 export const Problem = () => {
     return (
         <section id="methodology" className="py-36 md:py-[170px] relative overflow-hidden bg-background">
-            {/* Advanced Premium Background Depth */}
             <div className="absolute inset-0 bg-mesh-gradient opacity-40 pointer-events-none" />
             <div className="absolute inset-0 parallax-grid-1 pointer-events-none" />
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
@@ -16,7 +15,7 @@ export const Problem = () => {
             <div className="container mx-auto px-6 md:px-12 relative z-20">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
                     <div className="lg:col-span-12 mb-14 md:mb-24">
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 1.5, ease: "easeOut" }}
@@ -43,8 +42,8 @@ export const Problem = () => {
 
                         <div className="space-y-[32px] md:pr-12 relative border-l border-white/10 pl-8 md:pl-12">
                             {siteContent.dealerPainMirror.issues.map((issue, i) => (
-                                <motion.div 
-                                    key={i} 
+                                <motion.div
+                                    key={i}
                                     initial={{ opacity: 0, x: -30 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 1, delay: i * 0.2 }}
@@ -65,7 +64,7 @@ export const Problem = () => {
                                 </motion.div>
                             ))}
                         </div>
-                        
+
                         <div className="mt-16 md:mt-24 pt-12 md:pt-16 border-t border-white/10 font-outfit relative z-20">
                             <h3 className="text-2xl md:text-3xl font-light text-slate/50 mb-2">{siteContent.dealerPainMirror.closingHead}</h3>
                             <p className="text-3xl md:text-4xl text-white font-medium shadow-glow-green">{siteContent.dealerPainMirror.closingSub}</p>
@@ -73,7 +72,7 @@ export const Problem = () => {
                     </div>
 
                     <div className="lg:col-span-7">
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1.5, ease: "easeOut" }}
@@ -97,7 +96,7 @@ export const Problem = () => {
                                 <div className="space-y-12 md:space-y-20">
                                     <div className="p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] glass-green relative overflow-hidden group/graph">
                                         <div className="absolute inset-0 bg-scanlines opacity-20 pointer-events-none" />
-                                        
+
                                         <div className="flex items-center justify-between mb-8 md:mb-12 relative z-10">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-glow-green" />
@@ -122,7 +121,7 @@ export const Problem = () => {
                                         </div>
                                     </div>
 
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 pl-4 md:pl-8 border-l border-primary/20">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 pl-4 md:pl-8 border-l border-primary/20">
                                         <div className="space-y-4 md:space-y-6 rounded-[1.5rem] border border-white/10 bg-white/[0.02] p-6 md:p-8">
                                             <div className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.3em] md:tracking-[0.4em] text-slate/50 font-mono flex items-center gap-3">
                                                 <Cpu className="w-3 h-3 text-primary" />

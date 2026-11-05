@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
+import { Inter, JetBrains_Mono, Outfit, Manrope } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const GOOGLE_TAG_MANAGER_ID = "GTM-T3NB6CTV";
@@ -21,9 +22,20 @@ const outfit = Outfit({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
 export const metadata: Metadata = {
   title: "AutoKnerd | Dealership Customer Experience. Engineered.",
   description: "Building systems that help high-end dealerships create trust, clarity, and consistency through behavioral architectural engineering.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -34,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} antialiased selection:bg-primary selection:text-black`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} ${manrope.variable} antialiased selection:bg-primary selection:text-black`}
       >
         <noscript>
           <iframe
@@ -56,6 +68,7 @@ export default function RootLayout({
         <div className="noise-overlay" />
         <div className="fixed inset-0 bg-mesh-gradient opacity-20 pointer-events-none -z-50" />
         {children}
+        <Analytics />
       </body>
     </html>
   );

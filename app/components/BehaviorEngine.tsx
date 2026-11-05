@@ -22,11 +22,11 @@ export const BehaviorEngine = () => {
                         <div className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse shadow-glow-green" />
                         <div className="h-px w-12 md:w-20 bg-primary/40" />
                     </div>
-                    
+
                     <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light mb-[60px] font-outfit text-white tracking-tighter leading-tight">
                         The AutoKnerd <br /><span className="text-primary italic">Behavior Engine.</span>
                     </h2>
-                    
+
                     <div className="text-xl md:text-2xl text-slate/70 font-light tracking-tight max-w-3xl space-y-4">
                         {siteContent.behaviorEngine.introParas.map((para, i) => (
                             <p key={i}>{para}</p>
@@ -34,13 +34,12 @@ export const BehaviorEngine = () => {
                     </div>
                 </div>
 
-                {/* Horizontal Architecture Diagram */}
                 <div className="relative mb-[120px]">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 relative z-10">
                         {siteContent.behaviorEngine.diagramNodes.map((node, i) => {
                             const Icon = nodeIcons[i];
                             return (
-                                <motion.div 
+                                <motion.div
                                     key={i}
                                     initial={{ opacity: 0, y: 30 }}
                                     whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +72,6 @@ export const BehaviorEngine = () => {
                                         </div>
                                     </div>
 
-                                    {/* Connector Arrow (Desktop) */}
                                     {i < 3 && (
                                         <div className="hidden lg:flex absolute top-1/2 -right-2 -translate-y-1/2 z-20 items-center justify-center transition-opacity duration-500 opacity-20">
                                             <ArrowRight className="w-4 h-4 text-white" />
@@ -90,7 +88,6 @@ export const BehaviorEngine = () => {
                     <p className="text-3xl md:text-5xl lg:text-6xl text-white font-medium tracking-tight leading-tight">{siteContent.behaviorEngine.captionSub}</p>
                 </div>
 
-                {/* System Diagnostics Section */}
                 <div className="max-w-5xl mx-auto border-t border-white/5 pt-16">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-10">
                         <div className="flex items-center gap-6">
@@ -107,11 +104,11 @@ export const BehaviorEngine = () => {
                             {[
                                 { icon: Settings, label: "System Status", value: "Active", animation: "spin_8s" },
                                 { icon: RefreshCcw, label: "Execution Monitoring", value: "Live", animation: "spin_4s" },
-                                { icon: Activity, label: "Behavior Tracking", value: "Active", pulse: true }
+                                { icon: Activity, label: "Behavior Tracking", value: "Active", pulse: true },
                             ].map((status, i) => (
                                 <div key={i} className="flex items-center gap-4 bg-white/[0.03] border border-white/5 py-3 px-6 rounded-2xl backdrop-blur-sm group hover:border-primary/20 transition-all duration-500">
-                                    <status.icon 
-                                        className={`w-4 h-4 text-primary ${status.animation ? `animate-[spin_${status.animation.split('_')[1]}_linear_infinite]` : ""} ${status.pulse ? "animate-pulse" : ""}`} 
+                                    <status.icon
+                                        className={`w-4 h-4 text-primary ${status.animation ? `animate-[spin_${status.animation.split("_")[1]}_linear_infinite]` : ""} ${status.pulse ? "animate-pulse" : ""}`}
                                     />
                                     <div className="flex flex-col">
                                         <span className="text-[9px] uppercase font-bold tracking-[0.2em] text-slate/50 font-mono">{status.label}</span>

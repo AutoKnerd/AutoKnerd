@@ -1,0 +1,187 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>30-90-180 Follow-Up Map — AutoKnerd</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: single-column one-page worksheet, a vertical timeline for the map, a checklist rollout at the end */
+:root{
+  --bg:#f5f6f4; --surface:#ffffff; --fg:#14211f; --muted:#516360; --line:#d5dcd9;
+  --accent:#c4561a; --accent-soft:#f6e4d9; --ink:#12302c; --ink-fg:#eef4f2;
+  --f-display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --f-body:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{background:var(--ink);color:var(--ink-fg);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));
+  padding:40px max(16px,env(safe-area-inset-left,0px)) 36px}
+header .in{max-width:760px;margin:0 auto}
+.tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#f0a67c}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(40px,9vw,64px);line-height:1;margin:10px 0 14px;text-wrap:balance}
+header p{margin:0;max-width:56ch;color:#c9d9d5;font-size:17px}
+h2{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);padding:18px}
+.stat b{display:block;font-family:var(--f-display);font-size:54px;line-height:1;color:var(--accent)}
+.stat span{color:var(--muted);font-size:15px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.rule{border-top:3px solid var(--accent);padding-top:10px}
+.rule h3{margin:0 0 4px;font-size:17px}
+.rule p{margin:0;color:var(--muted);font-size:15px}
+.timeline{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.step{position:relative;padding:0 0 28px 24px;min-width:0}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;background:var(--accent);border-radius:50%}
+.when{font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1}
+.goal{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px}
+.say{background:var(--surface);border:1px solid var(--line);padding:14px 16px;margin:0;font-size:15.5px}
+.say em{display:block;font-style:normal;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.ask{padding:16px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.ask.good{border-color:var(--accent);background:var(--accent-soft)}
+.ask .l{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ask.good .l{color:var(--accent)}
+.ask p{margin:6px 0 8px;font-size:16px}
+.ask small{color:var(--muted);font-size:14px}
+.roll{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.roll li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+.roll li::before{content:"";flex:none;width:18px;height:18px;border:2px solid var(--accent);margin-top:3px}
+.roll span{min-width:0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;font-size:15px}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.blank{height:38px}
+.cta{background:var(--ink);color:var(--ink-fg);padding:24px}
+.cta h2{color:var(--ink-fg)}
+.cta p{margin:0 0 6px;color:#c9d9d5}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:12px}
+.cta-copy{flex:1 1 260px;min-width:0}
+.cta-btn{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:2px}
+.cta-btn:hover{filter:brightness(1.08)}
+.cta-qr{flex:none;background:#fff;padding:10px;text-align:center;color:#12302c;font-size:12px;line-height:1.3}
+.cta-qr span{display:block;margin-top:6px;font-family:var(--f-mono)}
+</style>
+
+<header><div class="in">
+  <div class="tag">From the AutoKnerd Podcast &middot; Follow-Up Episode</div>
+  <h1>The 30-90-180 Follow-Up Map</h1>
+  <p>A one-page system for turning sold customers into repeat and referral business, with a 15-minute rollout you can run in your next sales meeting.</p>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <h2>Why this matters</h2>
+  <p class="sub">The two numbers behind it.</p>
+  <div class="stats">
+    <div class="stat"><b>91%</b><span>of customers would give a referral if asked</span></div>
+    <div class="stat"><b>11%</b><span>of consultants follow up in a way that earns it</span></div>
+  </div>
+  <p>That gap is your cheapest source of deals. Most customers already believe they chose right. They are waiting for a reason to come back to their car person and your store.</p>
+</section>
+
+<section>
+  <h2>Three rules for every touch</h2>
+  <p class="sub">If a call or text fails one of these, don't make it.</p>
+  <div class="rules">
+    <div class="rule"><h3>Purposeful</h3><p>Every contact brings one nugget of value: a tip, a heads-up, something real. "Just checking in" is not value.</p></div>
+    <div class="rule"><h3>Personalized</h3><p>Use what you learned in the needs assessment: the dog's name, the soccer team, the road trip. Notes go in the CRM on delivery day.</p></div>
+    <div class="rule"><h3>Planned</h3><p>Not daily, not weekly. A fixed schedule per customer so nobody gets annoyed and nobody gets forgotten.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>The map</h2>
+  <p class="sub">Five touches. Notice none of them ask for business.</p>
+  <div class="timeline">
+    <div class="step">
+      <div class="when">24 hours</div>
+      <div class="goal">Goal: thank them</div>
+      <p class="say"><em>Say</em>Thank them for the purchase. Short and human. If your manufacturer survey needs a contact before it goes out, make it now.</p>
+    </div>
+    <div class="step">
+      <div class="when">30 days</div>
+      <div class="goal">Goal: find their struggles</div>
+      <p class="say"><em>Say</em>"Hey Mike, just checking in on the new SUV. Any questions come up behind the wheel? Anything frustrating?" You are asking for information, not business.</p>
+    </div>
+    <div class="step">
+      <div class="when">90 days</div>
+      <div class="goal">Goal: give them something</div>
+      <p class="say"><em>Say</em>"Hey Sarah, the manufacturer rolled out a software update with some great features. Have you seen it yet?" A software update, a feature you found, a news item. It also opens the door to booking service.</p>
+    </div>
+    <div class="step">
+      <div class="when">180 days</div>
+      <div class="goal">Goal: stay part of the ownership experience</div>
+      <p class="say"><em>Say</em>"Thought I'd send a couple of road trip prep tips for your SUV. Hope it's been a fun ride." Even as a voicemail, it says you help and have more to share.</p>
+    </div>
+    <div class="step">
+      <div class="when">Birthdays and anniversaries</div>
+      <div class="goal">Goal: show you remember</div>
+      <p class="say"><em>Say</em>A personal hello with no pitch. These are the easiest calls anyone will pick up.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>When to ask for the referral</h2>
+  <p class="sub">After they thank you for following up. Not before.</p>
+  <div class="compare">
+    <div class="ask"><div class="l">Skip this</div><p>"Can you send me some people who want to buy a car?"</p><small>Selfish, awkward, and puts the work on the customer.</small></div>
+    <div class="ask good"><div class="l">Say this</div><p>"If you have any friends, family or coworkers looking for a vehicle, I'd be honored to help them the same way I helped you."</p><small>Service-driven. It centers them and offers help instead of asking a favor.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Manager rollout: 15 minutes</h2>
+  <p class="sub">Run it in this week's sales meeting.</p>
+  <ul class="roll">
+    <li><span><b>Minutes 0 to 3.</b> Read the 91% and 11% numbers. Ask the room: how many of last month's buyers have heard from us since delivery?</span></li>
+    <li><span><b>Minutes 3 to 6.</b> Walk the map. Each consultant picks one customer sold in the last 30 days.</span></li>
+    <li><span><b>Minutes 6 to 11.</b> Pairs role-play the 30-day call using real notes from that customer. Swap roles. The partner scores it against the three rules.</span></li>
+    <li><span><b>Minutes 11 to 15.</b> Every consultant makes that call today. Set the date you will check the CRM for logged touches.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Weekly inspection</h2>
+  <p class="sub">Inspect the behavior, not the result. Referrals are the lagging number.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Consultant</th><th>Buyers due for a touch</th><th>Touches made</th><th>Notes in CRM</th><th>Referral asks</th></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Want this to run itself?</h2>
+  <p>AutoKnerd gives each rep a 5-minute daily practice rep on their weakest customer habit, and managers see it all in one dashboard. I'm opening a few one-store, 90-day pilots.</p>
+  <div class="cta-row">
+    <div class="cta-copy">
+      <p>See how the pilot works and book 20 minutes with me.</p>
+      <a class="cta-btn" href="https://www.autoknerd.com/pilot" target="_blank" rel="noopener">See the pilot</a>
+      <p style="margin-top:14px"><b>Andrew Sardone</b>, host of the AutoKnerd Podcast &middot; andrew@autoknerd.com</p>
+    </div>
+    <div class="cta-qr"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code linking to the AutoKnerd pilot page" style="display:block;width:136px;height:136px" shape-rendering="crispEdges" viewBox="0 0 33 33"><path class="qrline" stroke="#12302c" d="M0 0.5h7m1 0h1m1 0h3m3 0h3m2 0h1m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h1m4 0h2m1 0h2m3 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m3 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h2m1 0h2m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m2 0h4m1 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h2m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m1 0h1m2 0h5m2 0h1m1 0h1m-24 1h1m3 0h1m1 0h5m5 0h2m1 0h1m1 0h1m2 0h6m2 0h1m-33 1h1m1 0h1m4 0h3m2 0h2m1 0h1m2 0h1m4 0h1m1 0h1m3 0h4m-33 1h4m1 0h6m1 0h1m2 0h1m1 0h1m3 0h5m3 0h1m1 0h1m-31 1h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h3m1 0h1m1 0h3m6 0h1m-33 1h1m3 0h5m1 0h1m2 0h2m3 0h5m2 0h2m1 0h2m1 0h1m-31 1h2m2 0h1m1 0h2m3 0h1m3 0h1m2 0h1m1 0h2m4 0h1m1 0h2m-25 1h1m1 0h1m2 0h3m2 0h1m1 0h2m3 0h1m1 0h3m1 0h3m-32 1h2m1 0h3m1 0h2m1 0h1m3 0h1m2 0h1m1 0h4m1 0h6m-29 1h1m1 0h1m1 0h3m4 0h2m1 0h3m3 0h2m3 0h1m1 0h2m1 0h1m-31 1h2m1 0h1m10 0h1m1 0h2m4 0h1m1 0h1m3 0h3m-31 1h1m2 0h3m2 0h1m2 0h2m1 0h1m2 0h1m1 0h6m1 0h1m1 0h1m1 0h1m-31 1h2m5 0h4m1 0h2m6 0h1m1 0h1m3 0h1m3 0h2m-33 1h1m1 0h2m1 0h2m3 0h1m1 0h1m1 0h3m2 0h3m2 0h1m1 0h4m1 0h2m-33 1h3m1 0h2m1 0h1m1 0h4m1 0h1m3 0h3m1 0h1m2 0h1m3 0h3m-29 1h1m2 0h3m1 0h6m1 0h1m3 0h3m3 0h1m1 0h1m1 0h1m-25 1h2m2 0h2m2 0h4m2 0h1m1 0h4m1 0h1m2 0h1m-32 1h3m1 0h3m2 0h5m3 0h1m1 0h4m1 0h5m1 0h3m-25 1h1m4 0h3m2 0h1m5 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h2m1 0h1m1 0h5m2 0h2m2 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h4m2 0h1m1 0h6m1 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h1m1 0h1m1 0h1m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m1 0h2m2 0h1m2 0h3m2 0h1m1 0h4m-30 1h1m1 0h3m1 0h1m4 0h3m2 0h1m4 0h2m1 0h1m1 0h5m-31 1h1m5 0h1m2 0h2m2 0h2m2 0h2m2 0h1m2 0h1m1 0h1m-27 1h7m1 0h1m1 0h1m4 0h3m2 0h2m1 0h3m6 0h1"/></svg><span>Scan to see the pilot</span></div>
+  </div>
+</section>
+
+<footer>Based on the AutoKnerd Podcast episode on follow-up. Free to use and share inside your store.</footer>
+</main>
+
+</body></html>

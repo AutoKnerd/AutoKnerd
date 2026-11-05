@@ -1,0 +1,195 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Discovery Before The Test Drive — AutoKnerd</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: single-column one-page worksheet, a vertical timeline for the four discovery moves, situation cards, a checklist rollout at the end */
+:root{
+  --bg:#f5f6f4; --surface:#ffffff; --fg:#14211f; --muted:#516360; --line:#d5dcd9;
+  --accent:#c4561a; --accent-soft:#f6e4d9; --ink:#12302c; --ink-fg:#eef4f2;
+  --f-display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --f-body:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{background:var(--ink);color:var(--ink-fg);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));
+  padding:40px max(16px,env(safe-area-inset-left,0px)) 36px}
+header .in{max-width:760px;margin:0 auto}
+.tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#f0a67c}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(40px,9vw,64px);line-height:1;margin:10px 0 14px;text-wrap:balance}
+header p{margin:0;max-width:56ch;color:#c9d9d5;font-size:17px}
+.win{margin:18px 0 0;max-width:56ch;font-size:14.5px;line-height:1.45;color:var(--ink-fg);background:rgba(255,255,255,.08);border-left:3px solid #f0a67c;padding:9px 12px}
+.win b{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#f0a67c;font-weight:500;margin-right:6px}
+h2{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);padding:18px}
+.stat b{display:block;font-family:var(--f-display);font-size:54px;line-height:1;color:var(--accent)}
+.stat span{color:var(--muted);font-size:15px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.rule{border-top:3px solid var(--accent);padding-top:10px}
+.rule h3{margin:0 0 4px;font-size:17px}
+.rule p{margin:0;color:var(--muted);font-size:15px}
+.timeline{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.step{position:relative;padding:0 0 28px 24px;min-width:0}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;background:var(--accent);border-radius:50%}
+.when{font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1}
+.goal{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px}
+.say{background:var(--surface);border:1px solid var(--line);padding:14px 16px;margin:0;font-size:15.5px}
+.say em{display:block;font-style:normal;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.ask{padding:16px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.ask.good{border-color:var(--accent);background:var(--accent-soft)}
+.ask .l{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ask.good .l{color:var(--accent)}
+.ask p{margin:6px 0 8px;font-size:16px}
+.ask small{color:var(--muted);font-size:14px}
+.roll{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.roll li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+.roll li::before{content:"";flex:none;width:18px;height:18px;border:2px solid var(--accent);margin-top:3px}
+.roll span{min-width:0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;font-size:15px}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.blank{height:38px}
+.cta{background:var(--ink);color:var(--ink-fg);padding:24px}
+.cta h2{color:var(--ink-fg)}
+.cta p{margin:0 0 6px;color:#c9d9d5}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:12px}
+.cta-copy{flex:1 1 260px;min-width:0}
+.cta-btn{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:2px}
+.cta-btn:hover{filter:brightness(1.08)}
+.cta-qr{flex:none;background:#fff;padding:10px;text-align:center;color:#12302c;font-size:12px;line-height:1.3}
+.cta-qr span{display:block;margin-top:6px;font-family:var(--f-mono)}
+</style>
+
+<header><div class="in">
+  <div class="tag">From the AutoKnerd Podcast &middot; Discovery Before The Test Drive</div>
+  <h1>Discovery Before The Test Drive</h1>
+  <p>A one-page guide to earning the customer's story before you ever grab a key, so the drive becomes a conversation and not a silent loop around the block.</p>
+  <div class="win"><b>Instant win:</b>Before your next test drive, ask permission to ask questions, ask one of the three openers below, and say their answer back to them before you pull the car around.</div>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <h2>Why this matters</h2>
+  <p class="sub">The numbers.</p>
+  <div class="stats">
+    <div class="stat"><b>85%</b><span>of the conversation should be about the customer, only 15% about the product</span></div>
+    <div class="stat"><b>45 min</b><span>is about as long as a customer wants to be there, and two hours is the most you want to spend on one customer</span></div>
+  </div>
+  <p>The story behind it: a customer said yes to trunk size, yes to the kids, yes to the dog. Five minutes later they were on a drive that felt awkward, and they came back with "thanks, we'll just think about it." The consultant worked the vehicle and never worked the person. If a customer has not told you their story, they do not yet trust you enough to ride along.</p>
+</section>
+
+<section>
+  <h2>The reframe</h2>
+  <p class="sub">Discovery is not qualifying. It is aligning.</p>
+  <div class="rules">
+    <div class="rule"><h3>Guide, not cop</h3><p>You are not there to filter out weak leads or interrogate. You are there to find the signal in their story and build on it.</p></div>
+    <div class="rule"><h3>Slow is fast</h3><p>If discovery feels rushed to you, it is meaningless to them. Slow down and listen harder.</p></div>
+    <div class="rule"><h3>Customer is the hero</h3><p>The car is not the hero of the deal. The customer is. You are the guide.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>The four moves</h2>
+  <p class="sub">Run them in order before the test drive.</p>
+  <div class="timeline">
+    <div class="step">
+      <div class="when">1. Ask permission</div>
+      <div class="goal">Goal: stop sounding like an officer</div>
+      <p class="say"><em>Say</em>"I totally get it. I'm not here to pressure you. It doesn't help me and it doesn't help you. I just want to make your time as useful as possible. Mind if I ask a few questions so I don't waste any of it?"</p>
+    </div>
+    <div class="step">
+      <div class="when">2. Ask a low-pressure opener</div>
+      <div class="goal">Goal: get the story rolling</div>
+      <p class="say"><em>Pick one</em>"What changed recently that brought you in?" &nbsp;/&nbsp; "What does your current car not do well for you?" &nbsp;/&nbsp; "What needs to be different this time around?"</p>
+    </div>
+    <div class="step">
+      <div class="when">3. Read the invisible signals</div>
+      <div class="goal">Goal: match the customer's pace</div>
+      <p class="say"><em>Watch for</em>Are they rushed? Anxious? Keeping a spouse or kid calm? If a question makes them squirm, back up to a softer one. Your step one may be their step three.</p>
+    </div>
+    <div class="step">
+      <div class="when">4. Mirror and validate</div>
+      <div class="goal">Goal: earn a yes by proving you listened</div>
+      <p class="say"><em>Say</em>Repeat what they said in your own voice, then confirm it: "So the last two stores never pulled around the right color, and you want this one to be different. Did I get that right?" That "yes" is a micro commitment, and it is where trust starts.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Three customers, three openers</h2>
+  <p class="sub">Same goal each time: give them a safety net, not pressure.</p>
+  <div class="compare">
+    <div class="ask good"><div class="l">The high-energy shopper</div><p>"It looks like you've clearly done your homework. Mind if I ask you a few things so we can make the most of your time today?"</p><small>A big fluffy stop sign. It slows them down without killing momentum.</small></div>
+    <div class="ask good"><div class="l">The skeptical buyer</div><p>"Totally fair. If I were you, I'd be cautious too. Want a little space for a moment, or would it help if I asked a couple of questions to narrow things down? I have a lot of cars here and they're all different."</p><small>Gives them room to think instead of crowbarring answers out of them.</small></div>
+    <div class="ask good"><div class="l">The "I'm just looking" customer</div><p>Use humor or a reframe, then borrow one of the openers above.</p><small>They are usually curious, almost ready, or secretly hoping the right one jumps out. Every word matters here.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Skip this, do this</h2>
+  <p class="sub">The warm-up trap versus real discovery.</p>
+  <div class="compare">
+    <div class="ask"><div class="l">Skip this</div><p>Smile, shake hands, "What brings you in today?", then a feature dump, a walk through the inventory and a test drive on the most expensive thing they point at.</p><small>Needs assessment used as a checklist. You hope for the best.</small></div>
+    <div class="ask good"><div class="l">Do this</div><p>Ask permission, ask a low-pressure opener, read their signals, mirror their words, and only then choose the car and the drive.</p><small>You know who they are, so the drive extends the conversation.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Manager rollout: 15 minutes</h2>
+  <p class="sub">Run it in this week's sales meeting.</p>
+  <ul class="roll">
+    <li><span><b>Minutes 0 to 3.</b> Tell the story above. Ask the room: how many of your last five test drives started with a real conversation about the customer's life?</span></li>
+    <li><span><b>Minutes 3 to 5.</b> Read the four moves aloud. Each consultant circles the opener that sounds most like them.</span></li>
+    <li><span><b>Minutes 5 to 12.</b> Pairs role-play the three customers. One plays the customer and acts rushed, skeptical, or "just looking." The partner runs moves 1 to 4 and finishes by mirroring back. Swap.</span></li>
+    <li><span><b>Minutes 12 to 15.</b> Every consultant commits to run all four moves on their next up. Set the day you will ask each person what they learned.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Weekly inspection</h2>
+  <p class="sub">Inspect the habit, not the result. Closing rate is the lagging number.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Consultant</th><th>Test drives this week</th><th>Asked permission first</th><th>Opener asked</th><th>Mirrored back</th><th>One thing learned about the customer</th></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Want this to run itself?</h2>
+  <p>AutoKnerd gives each rep a 5-minute daily practice rep on their weakest customer habit, and managers see it all in one dashboard. I'm opening a few one-store, 90-day pilots.</p>
+  <div class="cta-row">
+    <div class="cta-copy">
+      <p>See how the pilot works and book 20 minutes with me.</p>
+      <a class="cta-btn" href="https://www.autoknerd.com/pilot" target="_blank" rel="noopener">See the pilot</a>
+      <p style="margin-top:14px"><b>Andrew Sardone</b>, host of the AutoKnerd Podcast &middot; andrew@autoknerd.com</p>
+    </div>
+    <div class="cta-qr"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code linking to the AutoKnerd pilot page" style="display:block;width:136px;height:136px" shape-rendering="crispEdges" viewBox="0 0 33 33"><path class="qrline" stroke="#12302c" d="M0 0.5h7m1 0h1m1 0h3m3 0h3m2 0h1m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h1m4 0h2m1 0h2m3 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m3 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h2m1 0h2m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m2 0h4m1 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h2m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m1 0h1m2 0h5m2 0h1m1 0h1m-24 1h1m3 0h1m1 0h5m5 0h2m1 0h1m1 0h1m2 0h6m2 0h1m-33 1h1m1 0h1m4 0h3m2 0h2m1 0h1m2 0h1m4 0h1m1 0h1m3 0h4m-33 1h4m1 0h6m1 0h1m2 0h1m1 0h1m3 0h5m3 0h1m1 0h1m-31 1h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h3m1 0h1m1 0h3m6 0h1m-33 1h1m3 0h5m1 0h1m2 0h2m3 0h5m2 0h2m1 0h2m1 0h1m-31 1h2m2 0h1m1 0h2m3 0h1m3 0h1m2 0h1m1 0h2m4 0h1m1 0h2m-25 1h1m1 0h1m2 0h3m2 0h1m1 0h2m3 0h1m1 0h3m1 0h3m-32 1h2m1 0h3m1 0h2m1 0h1m3 0h1m2 0h1m1 0h4m1 0h6m-29 1h1m1 0h1m1 0h3m4 0h2m1 0h3m3 0h2m3 0h1m1 0h2m1 0h1m-31 1h2m1 0h1m10 0h1m1 0h2m4 0h1m1 0h1m3 0h3m-31 1h1m2 0h3m2 0h1m2 0h2m1 0h1m2 0h1m1 0h6m1 0h1m1 0h1m1 0h1m-31 1h2m5 0h4m1 0h2m6 0h1m1 0h1m3 0h1m3 0h2m-33 1h1m1 0h2m1 0h2m3 0h1m1 0h1m1 0h3m2 0h3m2 0h1m1 0h4m1 0h2m-33 1h3m1 0h2m1 0h1m1 0h4m1 0h1m3 0h3m1 0h1m2 0h1m3 0h3m-29 1h1m2 0h3m1 0h6m1 0h1m3 0h3m3 0h1m1 0h1m1 0h1m-25 1h2m2 0h2m2 0h4m2 0h1m1 0h4m1 0h1m2 0h1m-32 1h3m1 0h3m2 0h5m3 0h1m1 0h4m1 0h5m1 0h3m-25 1h1m4 0h3m2 0h1m5 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h2m1 0h1m1 0h5m2 0h2m2 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h4m2 0h1m1 0h6m1 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h1m1 0h1m1 0h1m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m1 0h2m2 0h1m2 0h3m2 0h1m1 0h4m-30 1h1m1 0h3m1 0h1m4 0h3m2 0h1m4 0h2m1 0h1m1 0h5m-31 1h1m5 0h1m2 0h2m2 0h2m2 0h2m2 0h1m2 0h1m1 0h1m-27 1h7m1 0h1m1 0h1m4 0h3m2 0h2m1 0h3m6 0h1"/></svg><span>Scan to see the pilot</span></div>
+  </div>
+</section>
+
+<footer>Based on the AutoKnerd Podcast episode on information discovery before the test drive. Free to use and share inside your store.</footer>
+</main>
+
+</body></html>

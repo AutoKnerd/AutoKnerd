@@ -1,29 +1,33 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { siteContent } from "@/app/data/mockData";
-import { Check, ArrowRight, Settings, Radio } from "lucide-react";
+import { ArrowRight, Settings, Radio, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 
 const productIcons: Record<string, any> = {
+    autoshop: Layers,
     autodrivecx: Radio,
     autoforge: Settings,
 };
 
 export const Products = () => {
+    const orderedProducts = [...siteContent.products].sort((a, b) => {
+        const order = ["autoshop", "autodrivecx", "autoforge"];
+        return order.indexOf(a.id) - order.indexOf(b.id);
+    });
+
     return (
         <section id="systems" className="py-32 md:py-[140px] relative bg-background overflow-hidden border-y border-white/5 bg-fixed">
-            {/* Advanced Premium Background Depth */}
             <div className="absolute inset-0 bg-mesh-gradient opacity-40 pointer-events-none" />
             <div className="absolute inset-0 parallax-grid-1 pointer-events-none opacity-60" />
             <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent shadow-[0_0_30px_rgba(124,255,27,0.5)] z-10" />
-            
-            {/* Core Lighting */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] bg-primary/10 blur-[250px] pointer-events-none opacity-30 animate-slow-pulse" />
 
             <div className="container mx-auto px-6 md:px-12 relative z-10">
                 <div className="text-center mb-20 md:mb-32 lg:mb-48 max-w-5xl mx-auto">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
@@ -39,45 +43,54 @@ export const Products = () => {
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24 items-stretch max-w-7xl mx-auto">
-                    {siteContent.products.map((product, i) => {
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16 items-stretch max-w-7xl mx-auto">
+                    {orderedProducts.map((product, i) => {
                         const Icon = productIcons[product.id];
+                        const isAutoShop = product.id === "autoshop";
                         const isAutoDrive = product.id === "autodrivecx";
                         const isAutoForge = product.id === "autoforge";
-                        
-                        // Default to original base colors if neither (fallback)
+
                         let cardClass = "luxury-card";
                         let mainColor = "text-primary";
-                        let mainHex = "124, 255, 27"; // rgb for #7cff1b (primary)
-                        
-                        if (isAutoDrive) {
+                        let mainHex = "124, 255, 27"; // Precision green
+
+                        if (isAutoShop) {
+                            cardClass = "luxury-card";
+                            mainColor = "text-white";
+                            mainHex = "255, 255, 255";
+                        } else if (isAutoDrive) {
                             cardClass = "autodrive-card";
-                            mainColor = "text-[#0ea5e9]"; // Tailwind Sky 500
+                            mainColor = "text-[#0ea5e9]";
                             mainHex = "14, 165, 233";
                         } else if (isAutoForge) {
                             cardClass = "autoforge-card";
-                            mainColor = "text-[#dc2626]"; // Tailwind Red 600
+                            mainColor = "text-[#dc2626]";
                             mainHex = "220, 38, 38";
                         }
 
-                        // Determine the specific color classes based on the active product
                         const iconColor = mainColor;
                         const iconShadow = `drop-shadow-[0_0_15px_rgba(${mainHex},0.5)]`;
-                        const titleHover = isAutoDrive ? "group-hover/card:text-[#0ea5e9]" : isAutoForge ? "group-hover/card:text-[#dc2626]" : "group-hover/card:text-primary";
+                        const titleHover = isAutoShop ? "group-hover/card:text-white" : isAutoDrive ? "group-hover/card:text-[#0ea5e9]" : isAutoForge ? "group-hover/card:text-[#dc2626]" : "group-hover/card:text-primary";
                         const taglineColor = `${mainColor} drop-shadow-[0_0_10px_rgba(${mainHex},0.3)]`;
-                        const outcomeColor = isAutoDrive ? "text-[#0ea5e9]/80" : isAutoForge ? "text-[#dc2626]/80" : "text-primary/80";
-                        
-                        const dotBase = isAutoDrive ? "bg-[#0ea5e9]/20" : isAutoForge ? "bg-[#dc2626]/20" : "bg-primary/20";
-                        const dotHover = isAutoDrive ? "group-hover/item:bg-[#0ea5e9] group-hover/item:shadow-[0_0_10px_rgba(14,165,233,0.5)]" : 
-                                         isAutoForge ? "group-hover/item:bg-[#dc2626] group-hover/item:shadow-[0_0_10px_rgba(220,38,38,0.5)]" : 
-                                         "group-hover/item:bg-primary group-hover/item:shadow-[0_0_10px_rgba(124,255,27,0.5)]";
-                                         
-                        const lineGradient = isAutoDrive ? "from-[#0ea5e9]/30" : isAutoForge ? "from-[#dc2626]/30" : "from-primary/30";
-                        const lightGlow = isAutoDrive ? "from-[#0ea5e9]/20" : isAutoForge ? "from-[#dc2626]/20" : "from-white/20";
-                        const topGlow = isAutoDrive ? "via-[#0ea5e9]/50" : isAutoForge ? "via-[#dc2626]/50" : "via-white/50";
-                        const btnHover = isAutoDrive ? "hover:bg-[#0ea5e9] hover:border-[#0ea5e9] shadow-[0_0_20px_rgba(14,165,233,0.05)] hover:shadow-[0_0_40px_rgba(14,165,233,0.3)]" : 
-                                         isAutoForge ? "hover:bg-[#dc2626] hover:border-[#dc2626] shadow-[0_0_20px_rgba(220,38,38,0.05)] hover:shadow-[0_0_40px_rgba(220,38,38,0.3)]" : 
-                                         "hover:bg-primary hover:border-primary shadow-[0_0_20px_rgba(124,255,27,0.05)] hover:shadow-[0_0_40px_rgba(124,255,27,0.3)]";
+                        const outcomeColor = isAutoShop ? "text-white/80" : isAutoDrive ? "text-[#0ea5e9]/80" : isAutoForge ? "text-[#dc2626]/80" : "text-primary/80";
+                        const dotBase = isAutoShop ? "bg-white/20" : isAutoDrive ? "bg-[#0ea5e9]/20" : isAutoForge ? "bg-[#dc2626]/20" : "bg-primary/20";
+                        const dotHover = isAutoShop 
+                            ? "group-hover/item:bg-white group-hover/item:shadow-[0_0_10px_rgba(255,255,255,0.5)]"
+                            : isAutoDrive
+                            ? "group-hover/item:bg-[#0ea5e9] group-hover/item:shadow-[0_0_10px_rgba(14,165,233,0.5)]"
+                            : isAutoForge
+                                ? "group-hover/item:bg-[#dc2626] group-hover/item:shadow-[0_0_10px_rgba(220,38,38,0.5)]"
+                                : "group-hover/item:bg-primary group-hover/item:shadow-[0_0_10px_rgba(124,255,27,0.5)]";
+                        const lineGradient = isAutoShop ? "from-white/30" : isAutoDrive ? "from-[#0ea5e9]/30" : isAutoForge ? "from-[#dc2626]/30" : "from-primary/30";
+                        const lightGlow = isAutoShop ? "from-white/20" : isAutoDrive ? "from-[#0ea5e9]/20" : isAutoForge ? "from-[#dc2626]/20" : "from-white/20";
+                        const topGlow = isAutoShop ? "via-white/50" : isAutoDrive ? "via-[#0ea5e9]/50" : isAutoForge ? "via-[#dc2626]/50" : "via-white/50";
+                        const btnHover = isAutoShop
+                            ? "hover:bg-white hover:text-black hover:border-white shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:shadow-[0_0_40px_rgba(255,255,255,0.3)]"
+                            : isAutoDrive
+                            ? "hover:bg-[#0ea5e9] hover:border-[#0ea5e9] shadow-[0_0_20px_rgba(14,165,233,0.05)] hover:shadow-[0_0_40px_rgba(14,165,233,0.3)]"
+                            : isAutoForge
+                                ? "hover:bg-[#dc2626] hover:border-[#dc2626] shadow-[0_0_20px_rgba(220,38,38,0.05)] hover:shadow-[0_0_40px_rgba(220,38,38,0.3)]"
+                                : "hover:bg-primary hover:border-primary shadow-[0_0_20px_rgba(124,255,27,0.05)] hover:shadow-[0_0_40px_rgba(124,255,27,0.3)]";
 
                         return (
                             <motion.div
@@ -86,7 +99,7 @@ export const Products = () => {
                                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                                 transition={{ duration: 1.5, delay: i * 0.3, ease: [0.16, 1, 0.3, 1] }}
                                 viewport={{ once: true }}
-                                className={`flex flex-col ${cardClass} p-10 md:p-16 lg:p-24 rounded-[2.5rem] md:rounded-[4rem] lg:rounded-[5rem] relative group/card overflow-hidden cursor-default animate-float`}
+                                className={`flex flex-col ${cardClass} p-8 md:p-12 lg:p-16 rounded-[2.5rem] md:rounded-[3rem] lg:rounded-[4rem] relative group/card overflow-hidden cursor-default animate-float`}
                                 style={{ animationDelay: `${i * 0.5}s` }}
                             >
                                 <div className={`absolute inset-0 bg-gradient-to-br ${lightGlow} via-transparent to-transparent pointer-events-none opacity-50 transition-opacity duration-700 group-hover/card:opacity-100`} />
@@ -99,9 +112,9 @@ export const Products = () => {
                                     <div className={`text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.4em] md:tracking-[0.6em] font-mono ${taglineColor}`}>{product.tagline}</div>
                                 </div>
 
-                                <h3 className={`text-3xl md:text-5xl font-medium mb-6 md:mb-10 text-white font-outfit tracking-tighter group-hover/card:tracking-tight transition-all duration-1000 ${titleHover} leading-[1.1] relative z-10`}>{product.title}</h3>
+                                <h3 className={`text-3xl md:text-4xl font-medium mb-6 md:mb-8 text-white font-outfit tracking-tighter group-hover/card:tracking-tight transition-all duration-1000 ${titleHover} leading-[1.1] relative z-10`}>{product.title}</h3>
 
-                                <p className="text-lg md:text-xl text-slate/70 leading-relaxed mb-6 md:mb-8 flex-none font-light group-hover/card:text-white transition-colors duration-1000 tracking-tight relative z-10">
+                                <p className="text-base md:text-lg text-slate/70 leading-relaxed mb-6 md:mb-8 flex-none font-light group-hover/card:text-white transition-colors duration-1000 tracking-tight relative z-10">
                                     {product.description}
                                 </p>
 
@@ -109,8 +122,8 @@ export const Products = () => {
                                     {product.outcome}
                                 </p>
 
-                                <div className="space-y-[32px] mb-16 md:mb-32 md:pr-12 relative md:border-l border-white/10 md:pl-12 flex-1 z-10">
-                                    {product.features.map((item: string, j: number) => (
+                                <div className="space-y-[24px] mb-12 md:mb-24 md:pr-8 relative md:border-l border-white/10 md:pl-8 flex-1 z-10">
+                                    {product.features.map((item: string) => (
                                         <div key={item} className="flex flex-col gap-2 group/item">
                                             <div className="flex items-center gap-4 md:gap-6">
                                                 <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-700 ${dotBase} ${dotHover}`} />
@@ -121,24 +134,14 @@ export const Products = () => {
                                     ))}
                                 </div>
 
-                                {isAutoDrive ? (
-                                    <a 
-                                        href="https://autodrivecx.com" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className={`w-full py-6 md:py-9 bg-background/50 border border-white/10 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.3em] md:tracking-[0.45em] text-white hover:text-black transition-all duration-700 flex items-center justify-center gap-4 md:gap-8 group/btn relative overflow-hidden z-10 backdrop-blur-md ${btnHover}`}
-                                    >
-                                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-700 opacity-20" />
-                                        <span className="relative z-10">Deploy {product.title.split(" ")[0]}</span>
-                                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover/btn:translate-x-3 transition-transform duration-700 relative z-10" />
-                                    </a>
-                                ) : (
-                                    <button className={`w-full py-6 md:py-9 bg-background/50 border border-white/10 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.3em] md:tracking-[0.45em] text-white hover:text-black transition-all duration-700 flex items-center justify-center gap-4 md:gap-8 group/btn relative overflow-hidden z-10 backdrop-blur-md ${btnHover}`}>
-                                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-700 opacity-20" />
-                                        <span className="relative z-10">Deploy {product.title.split(" ")[0]}</span>
-                                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover/btn:translate-x-3 transition-transform duration-700 relative z-10" />
-                                    </button>
-                                )}
+                                <Link
+                                    href="/autodrive"
+                                    className={`w-full py-6 md:py-9 bg-background/50 border border-white/10 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.3em] md:tracking-[0.45em] text-white hover:text-black transition-all duration-700 flex items-center justify-center gap-4 md:gap-8 group/btn relative overflow-hidden z-10 backdrop-blur-md ${btnHover}`}
+                                >
+                                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-700 opacity-20" />
+                                    <span className="relative z-10">Deploy {product.title.split(" ")[0]}</span>
+                                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover/btn:translate-x-3 transition-transform duration-700 relative z-10" />
+                                </Link>
                             </motion.div>
                         );
                     })}

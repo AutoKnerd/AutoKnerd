@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Footer } from "@/app/components/Footer";
-import { Navbar } from "@/app/components/Navbar";
+import type { Metadata } from "next";
+import { SiteNav } from "@/app/components/SiteNav";
+import { SiteFooter } from "@/app/components/SiteFooter";
+import s from "@/app/components/site.module.css";
 import { getPodcastFeedData, getPodcastEpisodeBySlug } from "@/app/lib/podcast";
 import { getRelatedAutoKnerdTools } from "@/app/lib/podcastTools";
-import {
-  AUTODRIVECX_INFO_URL,
-  AUTODRIVECX_SIGNUP_URL,
-  getRecommendedAutoDriveCXSkills,
-} from "@/app/lib/autodrivecxSkills";
-import type { Metadata } from "next";
+import { getEpisodeArticle, type EpisodeToolBlock } from "@/app/lib/episodeArticles";
+import { Headphones, FileText, Wrench, ArrowRight, Check, Play } from "lucide-react";
+
+export const revalidate = 300;
+export const dynamicParams = true;
 
 type EpisodePageProps = {
   params: Promise<{ slug: string }>;
@@ -49,7 +50,11 @@ function truncatePoint(value: string, maxLength = 180): string {
   return `${(punctuationIndex > 80 ? cut.slice(0, punctuationIndex) : cut).trim()}...`;
 }
 
-function extractInsightPoints(description: string, maxItems = 6): string[] {
+function extractInsightPoints(
+  description: string,
+  options: { maxItems?: number; truncate?: boolean } = {}
+): string[] {
+  const { maxItems = 6, truncate = true } = options;
   const source = stripTimestampTail(description)
     .replace(/\r\n/g, "\n")
     .replace(/\n{3,}/g, "\n\n")
@@ -89,12 +94,12 @@ function extractInsightPoints(description: string, maxItems = 6): string[] {
         .filter((part) => part.length >= 24 && !/\b\d{1,2}:\d{2}(?::\d{2})?\b/.test(part));
 
       if (sentenceParts.length > 1) {
-        sentenceParts.forEach((part) => concisePoints.push(truncatePoint(part, 170)));
+        sentenceParts.forEach((part) => concisePoints.push(truncate ? truncatePoint(part, 170) : part));
         return;
       }
     }
 
-    concisePoints.push(truncatePoint(cleaned, 170));
+    concisePoints.push(truncate ? truncatePoint(cleaned, 170) : cleaned);
   });
 
   const deduped: string[] = [];
@@ -110,17 +115,17 @@ function extractInsightPoints(description: string, maxItems = 6): string[] {
 }
 
 function getBreakdownPoints(description: string): string[] {
-  return extractInsightPoints(description, 6);
+  return extractInsightPoints(description, { maxItems: 6 });
 }
 
 function getLearnPoints(description: string, overview: string): string[] {
-  const points = extractInsightPoints(description, 8);
+  const points = extractInsightPoints(description, { maxItems: 8, truncate: false });
   const normalizedOverview = normalizeForComparison(overview);
   const filtered = points.filter((point) => {
     const normalizedPoint = normalizeForComparison(point);
     return normalizedPoint.length > 0 && !normalizedOverview.includes(normalizedPoint);
   });
-  return (filtered.length > 0 ? filtered : points).slice(0, 4);
+  return filtered.length > 0 ? filtered : points;
 }
 
 function getKeyTakeaway(description: string): string {
@@ -225,454 +230,207 @@ export default async function EpisodePage({ params }: EpisodePageProps) {
   if (!episodeData) notFound();
 
   const { episode, related, matchedTopics } = episodeData;
-  const breakdownPoints = getBreakdownPoints(episode.description);
-  const keyTakeaway = getKeyTakeaway(episode.description);
-  const timestamps = getTimestamps(episode.description);
+
+  const article = getEpisodeArticle(slug);
   const overview = getOverviewParagraph(episode.description);
-  const learnPoints = getLearnPoints(episode.description, overview || episode.summary);
-  const framework = getFrameworkContent(episode.description || keyTakeaway || episode.summary);
-  const relatedTools = getRelatedAutoKnerdTools(matchedTopics, 3);
-  const relatedSkills = getRecommendedAutoDriveCXSkills(matchedTopics, 3);
+  const learnPoints = getLearnPoints(episode.description, overview || episode.summary).slice(0, 5);
+  const takeaway = getKeyTakeaway(episode.description);
+  const timestamps = getTimestamps(episode.description);
+  const tools = getRelatedAutoKnerdTools(matchedTopics, 2);
+  const tool: EpisodeToolBlock | null =
+    article?.tool ??
+    (tools[0]
+      ? {
+          kicker: "PUT IT TO WORK · FREE TOOL",
+          title: tools[0].title,
+          desc: tools[0].description,
+          href: tools[0].href,
+          cta: "Open the tool",
+        }
+      : null);
+  const readText = article
+    ? [article.intro, ...article.moves.map((m) => m[1])].join(" ")
+    : [overview, ...learnPoints].join(" ");
+  const readMin = Math.max(2, Math.round(readText.split(/\s+/).filter(Boolean).length / 180));
+  const durationLabel = episode.durationSeconds ? `${Math.round(episode.durationSeconds / 60)} min` : "";
+  const topicLabel = (article?.eyebrow || matchedTopics[0] || "AutoKnerd Podcast").toUpperCase();
+  const headingStyle = { fontSize: 24, fontWeight: 800, margin: "34px 0 10px", letterSpacing: "-0.01em" };
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <Navbar />
+    <div className={s.page}>
+      <SiteNav />
 
-      <section className="pt-36 md:pt-44 pb-16 md:pb-20 relative overflow-hidden border-b border-white/5">
-        <div className="absolute inset-0 bg-mesh-gradient opacity-35 pointer-events-none" />
-        <div className="absolute inset-0 parallax-grid-1 pointer-events-none opacity-55" />
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <Link
-            href="/podcast"
-            className="inline-block text-primary text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] mb-8 hover:text-white transition-colors"
-          >
-            Back to Podcast Archive
+      {/* HERO */}
+      <header className={s.hero} style={{ paddingBottom: 0 }}>
+        <div className={s.container} style={{ maxWidth: 820 }}>
+          <Link href="/podcast" className={s.textLink} style={{ display: "inline-block", marginBottom: 18, fontSize: 13 }}>
+            ← Back to episodes
           </Link>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter text-white leading-tight max-w-6xl">
-            {episode.title}
-          </h1>
-          <p className="mt-5 text-sm uppercase tracking-[0.2em] text-slate/40 font-mono">
-            {formatDate(episode.pubDate)}
-          </p>
+          <span className={`${s.eyebrow} ${s.mono}`}>
+            <span className={s.dot} />{topicLabel} · {formatDate(episode.pubDate)}
+          </span>
+          <h1 className={s.h1} style={{ maxWidth: 760 }}>{article?.headline || episode.title}</h1>
+          <p className={s.lead} style={{ maxWidth: 640 }}>{article?.dek || overview || episode.summary}</p>
+
+          {/* FORMAT BAR: pick your intent */}
+          <div className={s.chips} style={{ marginTop: 26 }}>
+            <a href="#listen" className={s.chip}><Headphones size={15} />&nbsp; Listen{durationLabel ? ` · ${durationLabel}` : ""}</a>
+            <a href="#read" className={s.chip}><FileText size={15} />&nbsp; Read · {readMin} min</a>
+            {tool ? <a href="#tool" className={s.chip}><Wrench size={15} />&nbsp; Get the tool</a> : null}
+          </div>
         </div>
-      </section>
+      </header>
 
-      <section className="py-14 md:py-20 border-b border-white/5">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-10 items-start">
-            <div className="xl:col-span-8 space-y-8 md:space-y-10">
-              <div className="luxury-card rounded-[2.8rem] p-8 md:p-12 border-primary/25">
-                <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-10 items-start">
-                  <div className="xl:col-span-5">
-                    {episode.imageUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={episode.imageUrl}
-                        alt={episode.title}
-                        className="w-full rounded-[2rem] border border-white/10 object-cover shadow-[0_24px_60px_rgba(0,0,0,0.5)]"
-                      />
-                    ) : (
-                      <div className="w-full aspect-square rounded-[2rem] border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/40 text-sm uppercase tracking-[0.25em] font-mono">
-                        Episode Artwork
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="xl:col-span-7">
-                    <div className="mb-8">
-                      <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-4 font-mono">
-                        Episode Summary
-                      </h2>
-                      <p className="text-lg md:text-xl text-slate/70 leading-relaxed tracking-tight mb-7">
-                        {overview || episode.summary}
-                      </p>
-                      {learnPoints.length > 0 && (
-                        <div>
-                          <h3 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-4 font-mono">
-                            What You&apos;ll Learn
-                          </h3>
-                          <ul className="space-y-3">
-                            {learnPoints.map((point) => (
-                              <li key={point} className="text-base md:text-lg text-slate/75 leading-relaxed tracking-tight flex gap-3">
-                                <span className="text-primary">•</span>
-                                <span>{point}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                    <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-4 md:p-5 mb-8">
-                      <audio controls className="w-full">
-                        <source src={episode.audioUrl} />
-                        Your browser does not support the audio element.
-                      </audio>
-                    </div>
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <a
-                        href="https://podcasts.apple.com/us/search?term=AutoKnerd%20Podcast"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center justify-center bg-primary text-black px-8 py-4 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.3em] border border-primary hover:bg-white hover:border-white transition-all duration-500"
-                      >
-                        Listen on Apple Podcasts
-                      </a>
-                      <a
-                        href="https://open.spotify.com/search/AutoKnerd%20Podcast"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center justify-center px-7 py-4 rounded-full border border-white/10 bg-white/[0.02] text-[10px] md:text-[11px] font-bold uppercase tracking-[0.22em] text-white/75 hover:text-white hover:border-primary/40 transition-all duration-500"
-                      >
-                        Listen on Spotify
-                      </a>
-                    </div>
-                  </div>
-                </div>
+      {/* LISTEN */}
+      <section id="listen" className={s.section} style={{ paddingTop: "clamp(32px, 5vw, 48px)" }}>
+        <div className={s.container} style={{ maxWidth: 820 }}>
+          <div className={s.card} style={{ padding: "clamp(20px, 3vw, 28px)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 14 }}>
+              <span style={{ width: 44, height: 44, borderRadius: 12, background: "#F0F3EC", display: "grid", placeItems: "center", color: "#5E8A00", flex: "0 0 44px" }}><Play size={20} /></span>
+              <div>
+                <p className={s.mono} style={{ margin: 0, fontSize: 11, letterSpacing: "0.14em", color: "#8A938D" }}>LISTEN TO THE EPISODE</p>
+                <p style={{ margin: "3px 0 0", fontWeight: 800, fontSize: 16 }}>{episode.title}</p>
               </div>
-
-              <div className={`grid grid-cols-1 ${keyTakeaway ? "lg:grid-cols-12" : ""} gap-6 md:gap-8`}>
-                <div className="lg:col-span-7 rounded-[2rem] border border-white/10 bg-white/[0.02] p-7 md:p-9">
-                  <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-6 font-mono">
-                    Episode Breakdown
-                  </h2>
-                  <ul className="space-y-4">
-                    {(breakdownPoints.length > 0 ? breakdownPoints : [episode.summary]).map((point) => (
-                      <li key={point} className="text-lg text-slate/75 leading-relaxed tracking-tight flex gap-3">
-                        <span className="text-primary">•</span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {keyTakeaway && (
-                  <div className="lg:col-span-5 rounded-[2rem] border border-primary/20 bg-primary/[0.05] p-7 md:p-9">
-                    <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary mb-6 font-mono">
-                      Key Takeaway
-                    </h2>
-                    <p className="text-2xl md:text-3xl text-white leading-tight tracking-tight">
-                      {keyTakeaway}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {framework && (
-                <div className="rounded-[2rem] border border-primary/30 bg-[linear-gradient(140deg,rgba(124,255,27,0.10)_0%,rgba(255,255,255,0.03)_100%)] p-7 md:p-9 shadow-[0_0_40px_rgba(124,255,27,0.12)]">
-                  <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary mb-5 font-mono">
-                    AutoKnerd CX Framework
-                  </h2>
-                  <h3 className="text-2xl md:text-3xl text-white tracking-tight mb-4 leading-tight">
-                    {framework.name}
-                  </h3>
-                  <p className="text-lg text-slate/75 leading-relaxed tracking-tight mb-7">
-                    {framework.explanation}
-                  </p>
-                  <h4 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/80 mb-4 font-mono">
-                    Core Principle
-                  </h4>
-                  <div className="space-y-3">
-                    {framework.corePrinciple.map((line) => (
-                      <p key={line} className="text-base md:text-lg text-white/90 tracking-tight leading-relaxed">
-                        {line}.
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="rounded-[2rem] border border-primary/20 bg-primary/[0.05] p-7 md:p-9 shadow-[0_0_32px_rgba(124,255,27,0.12)]">
-                <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary mb-4 font-mono">
-                  Apply This Skill in Your Showroom
-                </h2>
-                <p className="text-lg text-slate/75 leading-relaxed tracking-tight mb-4">
-                  AutoDriveCX turns the ideas in this episode into guided practice through scenario drills, discovery frameworks, and trust-driven conversation training.
-                </p>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-primary/80 font-mono mb-6">
-                  Start practicing the skill, not just hearing about it.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a
-                    href={AUTODRIVECX_SIGNUP_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center bg-primary text-black px-7 py-3.5 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.28em] border border-primary hover:bg-white hover:border-white transition-all duration-300"
-                  >
-                    Start Training in AutoDriveCX
-                  </a>
-                  <a
-                    href={AUTODRIVECX_INFO_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center px-6 py-3.5 rounded-full border border-white/10 bg-white/[0.02] text-[10px] md:text-[11px] font-bold uppercase tracking-[0.22em] text-white/75 hover:text-white hover:border-primary/40 transition-all duration-300"
-                  >
-                    What is AutoDriveCX?
-                  </a>
-                </div>
-              </div>
-
-              {timestamps.length > 0 && (
-                <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] p-7 md:p-9">
-                  <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-6 font-mono">
-                    Timestamps
-                  </h2>
-                  <ul className="space-y-4">
-                    {timestamps.map((item) => (
-                      <li key={`${item.time}-${item.label}`} className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4">
-                        <span className="text-primary font-mono text-sm tracking-[0.18em] uppercase">{item.time}</span>
-                        <span className="text-slate/75 text-base leading-relaxed tracking-tight">{item.label}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
-
-            <aside className="xl:col-span-4 space-y-6 md:space-y-7">
-              <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.02] p-6 md:p-7">
-                <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-5 font-mono">
-                  Topic Tags
-                </h2>
-                {matchedTopics.length > 0 ? (
-                  <div className="flex flex-wrap gap-2.5">
-                    {matchedTopics.slice(0, 3).map((topic) => (
-                      <Link
-                        key={topic}
-                        href={`/podcast?topic=${encodeURIComponent(topic)}`}
-                        className="px-3 py-1.5 rounded-full border border-primary/30 bg-primary/[0.06] text-[10px] uppercase tracking-[0.15em] text-primary/90 font-mono hover:border-primary/50 hover:text-white transition-all"
-                      >
-                        {topic}
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-slate/55">No inferred topic tags for this episode.</p>
-                )}
-              </div>
-
-              <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.02] p-6 md:p-7">
-                <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-5 font-mono">
-                  Related CX Intelligence
-                </h2>
-                <div className="space-y-4">
-                  {related.slice(0, 3).map((item) => (
-                    <article key={item.slug} className="border border-white/10 rounded-[1.2rem] bg-black/20 p-4">
-                      <h3 className="text-base md:text-lg text-white leading-tight tracking-tight mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-[10px] uppercase tracking-[0.18em] text-slate/45 font-mono mb-3">
-                        {formatDate(item.pubDate)}
-                      </p>
-                      <Link
-                        href={`/podcast/${item.slug}`}
-                        className="text-primary text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-colors"
-                      >
-                        View Episode
-                      </Link>
-                    </article>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.02] p-6 md:p-7">
-                <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-5 font-mono">
-                  Related AutoKnerd Tools
-                </h2>
-                <div className="space-y-4">
-                  {relatedTools.map((tool) => (
-                    <article key={tool.title} className="border border-white/10 rounded-[1.2rem] bg-black/20 p-4">
-                      <h3 className="text-base md:text-lg text-white leading-tight tracking-tight mb-2">
-                        {tool.title}
-                      </h3>
-                      <p className="text-sm text-slate/60 leading-relaxed tracking-tight mb-3">
-                        {tool.description}
-                      </p>
-                      <Link
-                        href={tool.href}
-                        className="text-primary text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-colors"
-                      >
-                        Explore Tool
-                      </Link>
-                    </article>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.02] p-6 md:p-7">
-                <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-5 font-mono">
-                  Recommended AutoDriveCX Skills
-                </h2>
-                <p className="text-sm text-slate/60 leading-relaxed tracking-tight mb-5">
-                  Based on this episode, here are the best next skills to practice inside AutoDriveCX.
-                </p>
-                <div className="space-y-4">
-                  {relatedSkills.map((skill) => (
-                    <article key={skill.title} className="border border-white/10 rounded-[1.2rem] bg-black/20 p-4">
-                      <h3 className="text-base md:text-lg text-white leading-tight tracking-tight mb-2">
-                        {skill.title}
-                      </h3>
-                      <p className="text-sm text-slate/60 leading-relaxed tracking-tight mb-3">
-                        {skill.description}
-                      </p>
-                      <a
-                        href={AUTODRIVECX_SIGNUP_URL}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-primary text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-colors"
-                      >
-                        Practice in AutoDriveCX
-                      </a>
-                    </article>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.02] p-6 md:p-7">
-                <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-4 font-mono">
-                  Related Methodology
-                </h2>
-                <p className="text-base text-slate/65 leading-relaxed tracking-tight mb-5">
-                  Explore the AutoKnerd methodology behind behavioral stabilization, trust-driven CX, and manager-led reinforcement.
-                </p>
-                <Link
-                  href="/methodology"
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/10 bg-white/[0.02] text-[10px] md:text-[11px] font-bold uppercase tracking-[0.22em] text-white/75 hover:text-white hover:border-primary/40 transition-all duration-500"
-                >
-                  Explore Methodology
-                </Link>
-              </div>
-
-              <div className="rounded-[1.8rem] border border-primary/20 bg-primary/[0.06] p-6 md:p-7">
-                <h2 className="text-lg md:text-2xl text-white tracking-tight leading-tight mb-3">
-                  Need CX stability at your store?
-                </h2>
-                <p className="text-base text-slate/75 leading-relaxed tracking-tight mb-5">
-                  AutoKnerd helps dealerships replace inconsistent training outcomes with manager-led behavioral systems.
-                </p>
-                <button className="w-full bg-primary text-black px-6 py-4 rounded-full font-extrabold uppercase tracking-[0.28em] text-[10px] md:text-[11px] border border-primary hover:bg-white hover:border-white transition-all duration-500">
-                  Book Strategy Call
-                </button>
-              </div>
-
-              <div className="rounded-[1.8rem] border border-white/10 bg-white/[0.02] p-6 md:p-7">
-                <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-4 font-mono">
-                  Listen On
-                </h2>
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href="https://open.spotify.com/search/AutoKnerd%20Podcast"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2 rounded-full border border-white/10 text-[10px] font-bold uppercase tracking-[0.2em] text-white/75 hover:text-white hover:border-primary/40 transition-all"
-                  >
-                    Spotify
-                  </a>
-                  <a
-                    href="https://podcasts.apple.com/us/search?term=AutoKnerd%20Podcast"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2 rounded-full border border-white/10 text-[10px] font-bold uppercase tracking-[0.2em] text-white/75 hover:text-white hover:border-primary/40 transition-all"
-                  >
-                    Apple
-                  </a>
-                  <a
-                    href="https://www.youtube.com/results?search_query=AutoKnerd+Podcast"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2 rounded-full border border-white/10 text-[10px] font-bold uppercase tracking-[0.2em] text-white/75 hover:text-white hover:border-primary/40 transition-all"
-                  >
-                    YouTube
-                  </a>
-                </div>
-              </div>
-            </aside>
+            <div style={{ borderRadius: 14, border: "1px solid #E7ECE5", background: "#F7F9F5", padding: 12 }}>
+              <audio controls style={{ width: "100%" }}>
+                <source src={episode.audioUrl} />
+                Your browser does not support the audio element.
+              </audio>
+            </div>
           </div>
         </div>
       </section>
 
-      {related.length > 0 && (
-        <section className="py-14 md:py-20 border-b border-white/5">
-          <div className="container mx-auto px-6 md:px-12">
-            <h2 className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] font-bold text-primary/70 mb-8 md:mb-10 font-mono">
-              Related Episodes
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-              {related.map((item) => (
-                <article
-                  key={`main-related-${item.slug}`}
-                  className="rounded-[2rem] border border-white/10 bg-white/[0.02] p-6 md:p-7 hover:border-primary/35 hover:shadow-[0_0_45px_rgba(124,255,27,0.2)] hover:-translate-y-1 transition-all duration-500 flex flex-col"
-                >
-                  <h3 className="text-xl md:text-2xl font-light text-white tracking-tight mb-3 leading-tight">
-                    {item.title}
-                  </h3>
-                  <p className="text-[11px] uppercase tracking-[0.2em] text-slate/40 mb-4 font-mono">
-                    {formatDate(item.pubDate)}
-                  </p>
-                  <p className="text-base text-slate/65 tracking-tight leading-relaxed mb-6 flex-1">
-                    {item.summary}
-                  </p>
-                  <Link
-                    href={`/podcast/${item.slug}`}
-                    className="text-primary text-xs md:text-sm font-bold uppercase tracking-[0.2em] hover:text-white transition-colors"
-                  >
-                    View Episode
-                  </Link>
-                </article>
+      {/* READ */}
+      <article id="read" className={s.section} style={{ paddingTop: "clamp(40px, 6vw, 56px)" }}>
+        <div className={s.container} style={{ maxWidth: 720 }}>
+          <p className={`${s.mono} ${s.kicker}`}>THE BREAKDOWN</p>
+          <div style={{ fontSize: 18, lineHeight: 1.72, color: "#2C332E", marginTop: 18 }}>
+            {article ? (
+              <>
+                <p style={{ marginTop: 0 }}>{article.intro}</p>
+                <h2 style={headingStyle}>{article.movesHeading}</h2>
+                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                  {article.moves.map(([t, d], i) => (
+                    <div key={t} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                      <span style={{ flex: "0 0 30px", height: 30, borderRadius: 9, background: "#DFF29A", color: "#2C332E", display: "grid", placeItems: "center", fontWeight: 800, fontSize: 14 }}>{i + 1}</span>
+                      <p style={{ margin: 0 }}><strong>{t}.</strong> {d}</p>
+                    </div>
+                  ))}
+                </div>
+                <blockquote style={{ margin: "34px 0 0", padding: "20px 24px", borderLeft: "3px solid #9ED70A", background: "#F7F9F5", borderRadius: "0 14px 14px 0", fontSize: 20, fontWeight: 700, lineHeight: 1.45, color: "#1E241F" }}>
+                  {article.quote}
+                </blockquote>
+              </>
+            ) : (
+              <>
+                {overview ? <p style={{ marginTop: 0 }}>{overview}</p> : null}
+                {learnPoints.length > 0 ? (
+                  <>
+                    <h2 style={headingStyle}>What you’ll take away</h2>
+                    <ul style={{ margin: 0, paddingLeft: 22 }}>
+                      {learnPoints.map((p) => <li key={p} style={{ marginBottom: 8 }}>{p}</li>)}
+                    </ul>
+                  </>
+                ) : null}
+                {takeaway ? (
+                  <blockquote style={{ margin: "34px 0 0", padding: "20px 24px", borderLeft: "3px solid #9ED70A", background: "#F7F9F5", borderRadius: "0 14px 14px 0", fontSize: 19, fontWeight: 700, lineHeight: 1.45, color: "#1E241F" }}>
+                    {takeaway}
+                  </blockquote>
+                ) : null}
+              </>
+            )}
+          </div>
+
+          {timestamps.length > 0 ? (
+            <div style={{ marginTop: 32, borderTop: "1px solid #E7ECE5", paddingTop: 22 }}>
+              <p className={s.mono} style={{ margin: "0 0 12px", fontSize: 11, letterSpacing: "0.16em", color: "#8A938D" }}>IN THIS EPISODE</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {timestamps.map((t) => (
+                  <div key={`${t.time}-${t.label}`} style={{ display: "flex", gap: 12, fontSize: 15 }}>
+                    <span className={s.mono} style={{ color: "#5E8A00", flex: "0 0 52px", fontWeight: 700 }}>{t.time}</span>
+                    <span style={{ color: "#2C332E" }}>{t.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </article>
+
+      {/* TOOL */}
+      {tool ? (
+        <section id="tool" className={s.section} style={{ paddingTop: "clamp(40px, 6vw, 56px)" }}>
+          <div className={s.container} style={{ maxWidth: 820 }}>
+            <div className={s.card} style={{ padding: "clamp(24px, 3vw, 34px)", border: "1px solid #CDE88A", background: "linear-gradient(180deg,#FBFFEF,#F6FAED)" }}>
+              <p className={s.mono} style={{ margin: 0, fontSize: 11, letterSpacing: "0.16em", color: "#5E8A00" }}>{tool.kicker}</p>
+              <h2 className={s.h2sm} style={{ margin: "10px 0 0", fontSize: "clamp(22px, 3vw, 30px)" }}>{tool.title}</h2>
+              <p className={s.cardText} style={{ fontSize: 16, marginTop: 10, maxWidth: 560 }}>{tool.desc}</p>
+              {tool.items && tool.items.length > 0 ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: 10, margin: "18px 0 22px" }}>
+                  {tool.items.map(([line, mean]) => (
+                    <div key={line} style={{ display: "flex", gap: 12, alignItems: "flex-start", background: "#FFFFFF", border: "1px solid #E7ECE5", borderRadius: 12, padding: "12px 14px" }}>
+                      <Check size={16} strokeWidth={2.6} style={{ color: "#5E8A00", marginTop: 3, flex: "0 0 16px" }} />
+                      <p style={{ margin: 0, fontSize: 15 }}><strong>{line}</strong> <span style={{ color: "#5B655F" }}>{mean}</span></p>
+                    </div>
+                  ))}
+                  {tool.note ? <p style={{ margin: 0, fontSize: 13, color: "#8A938D" }}>{tool.note}</p> : null}
+                </div>
+              ) : <div style={{ height: 18 }} />}
+              <Link href={tool.href} className={s.btnPrimary} style={{ height: 50, fontSize: 15 }}>
+                {tool.cta} <ArrowRight size={16} strokeWidth={2.4} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* MANAGER EXERCISE */}
+      {article?.managerNote ? (
+        <section className={s.section} style={{ paddingTop: "clamp(40px, 6vw, 56px)" }}>
+          <div className={s.container} style={{ maxWidth: 820 }}>
+            <div className={s.card} style={{ padding: "clamp(22px, 3vw, 30px)" }}>
+              <p className={`${s.mono} ${s.kicker}`}>{article.managerNote.kicker}</p>
+              <p className={s.cardText} style={{ fontSize: 16, marginTop: 12 }}>{article.managerNote.body}</p>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* RELATED */}
+      {related.length > 0 ? (
+        <section className={s.section} style={{ paddingTop: "clamp(40px, 6vw, 56px)" }}>
+          <div className={s.container} style={{ maxWidth: 820 }}>
+            <p className={`${s.mono} ${s.kicker}`}>KEEP GOING</p>
+            <div className={s.grid3} style={{ marginTop: 20 }}>
+              {related.map((r) => (
+                <Link key={r.slug} href={`/podcast/${r.slug}`} className={s.card} style={{ padding: 20, textDecoration: "none" }}>
+                  <p className={s.mono} style={{ margin: 0, fontSize: 11, letterSpacing: "0.12em", color: "#8A938D" }}>{formatDate(r.pubDate)}</p>
+                  <p style={{ margin: "10px 0 0", fontWeight: 800, fontSize: 17, lineHeight: 1.3, color: "#1E241F" }}>{r.title}</p>
+                </Link>
               ))}
             </div>
           </div>
         </section>
-      )}
+      ) : null}
 
-      <section className="py-12 md:py-14 border-b border-white/5">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="rounded-[2rem] border border-primary/25 bg-primary/[0.06] p-7 md:p-9 shadow-[0_0_34px_rgba(124,255,27,0.12)]">
-            <h2 className="text-2xl md:text-3xl text-white tracking-tight mb-4">
-              Learn → Practice → Deploy
-            </h2>
-            <p className="text-base md:text-lg text-slate/75 leading-relaxed tracking-tight mb-6">
-              The podcast gives you the idea.
-              <br />
-              AutoDriveCX helps you practice the behavior.
-              <br />
-              AutoKnerd systems help dealerships make it stick.
+      {/* CTA */}
+      <section className={s.section} style={{ paddingTop: "clamp(40px, 6vw, 56px)", paddingBottom: "clamp(56px, 8vw, 88px)" }}>
+        <div className={s.container} style={{ maxWidth: 820 }}>
+          <div className={s.card} style={{ padding: "clamp(28px, 4vw, 44px)", textAlign: "center" }}>
+            <h2 className={s.h2sm} style={{ margin: 0 }}>Make it consistent, not just hoped for.</h2>
+            <p className={s.cardText} style={{ fontSize: 16, margin: "12px auto 22px", maxWidth: 520 }}>
+              AutoKnerd turns the moves in this episode into five minutes of daily practice, so every rep handles it the same way. See it in your store with a 90-day pilot.
             </p>
-            <a
-              href={AUTODRIVECX_SIGNUP_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center bg-primary text-black px-7 py-3.5 rounded-full text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.28em] border border-primary hover:bg-white hover:border-white transition-all duration-300"
-            >
-              Start Training in AutoDriveCX
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-24 bg-primary relative overflow-hidden text-center">
-        <div className="absolute inset-0 bg-blueprint opacity-[0.05]" />
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-light text-black mb-10 tracking-tighter leading-tight font-outfit">
-            Stabilize Your Dealership Customer Experience
-          </h2>
-          <p className="text-lg md:text-2xl text-black/80 tracking-tight max-w-5xl mx-auto mb-10">
-            AutoKnerd helps dealerships replace inconsistent training outcomes with manager-led behavioral systems that improve trust, coaching consistency, and CSI stability.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-5 md:gap-6">
-            <button className="bg-black text-white px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] border border-black hover:bg-white hover:text-black hover:border-white transition-all duration-500">
-              Book Strategy Call
-            </button>
-            <Link
-              href="/methodology"
-              className="inline-flex items-center justify-center text-black/80 hover:text-black px-8 md:px-12 py-5 md:py-7 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all border border-black/25 hover:border-black rounded-full"
-            >
-              Explore Methodology
+            <Link href="/pilot" className={s.btnPrimary} style={{ height: 50, fontSize: 15 }}>
+              See the 90-day pilot <ArrowRight size={16} strokeWidth={2.4} />
             </Link>
           </div>
         </div>
       </section>
 
-      <Footer />
-    </main>
+      <SiteFooter />
+    </div>
   );
 }

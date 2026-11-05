@@ -4,19 +4,19 @@ import React from "react";
 import { motion } from "framer-motion";
 import { siteContent } from "@/app/data/mockData";
 import Link from "next/link";
+import { STRATEGY_CALL_URL } from "@/app/lib/booking";
 import { ChevronRight, Layers } from "lucide-react";
 
 export const Hero = () => {
     return (
         <section className="relative min-h-screen flex items-center pt-32 pb-24 md:pt-44 md:pb-[160px] overflow-hidden bg-background">
-            {/* Advanced Premium Background Depth */}
             <div className="absolute inset-0 bg-mesh-gradient opacity-50 pointer-events-none" />
             <div className="absolute inset-0 parallax-grid-1 pointer-events-none opacity-80" />
             <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent shadow-[0_0_30px_rgba(124,255,27,0.5)] z-10" />
 
             <div className="absolute inset-x-0 top-0 h-[30vh] md:h-[40vh] bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-x-0 bottom-0 h-[30vh] md:h-[40vh] bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
-            
+
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vh] bg-primary/10 blur-[250px] pointer-events-none -z-10 opacity-30 md:opacity-30" />
             <div className="animate-scan opacity-50" />
             <div className="bg-scanlines absolute inset-0 opacity-20 pointer-events-none z-10" />
@@ -51,14 +51,14 @@ export const Hero = () => {
                             {siteContent.hero.explanation}
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-6 md:gap-10">
-                            <button className="bg-primary hover:bg-white text-black px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] flex items-center justify-center gap-4 md:gap-5 transition-all duration-700 shadow-2xl active:scale-95 group/main border border-primary">
+                        <div className="flex flex-col sm:flex-row gap-6 md:gap-8">
+                            <a href={STRATEGY_CALL_URL} target="_blank" rel="noreferrer" className="bg-white hover:bg-primary text-black px-8 md:px-12 py-5 md:py-6 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] flex items-center justify-center gap-4 md:gap-5 transition-all duration-700 shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(124,255,27,0.4)] active:scale-95 group/main border border-white hover:border-primary">
                                 {siteContent.hero.primaryBtn}
                                 <ChevronRight className="w-4 h-4 md:w-5 md:h-5 group-hover/main:translate-x-3 transition-transform duration-700" />
-                            </button>
-                            <Link href="/methodology" className="flex items-center justify-center text-white/40 hover:text-white px-10 md:px-16 py-5 md:py-7 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all border border-white/10 hover:border-primary/40 rounded-full group/sec active:scale-95">
-                                {siteContent.hero.secondaryBtn}
-                            </Link>
+                            </a>
+                            <a href="#systems" className="flex items-center justify-center text-white/60 hover:text-white px-8 md:px-12 py-5 md:py-6 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all border border-white/10 hover:border-white/40 rounded-full group/sec active:scale-95 bg-white/[0.02] backdrop-blur-md">
+                                Explore Ecosystem
+                            </a>
                         </div>
                     </motion.div>
 
@@ -72,34 +72,52 @@ export const Hero = () => {
                             <div className="relative w-full h-full rounded-[3.5rem] md:rounded-[4.5rem] p-8 md:p-14 overflow-hidden border-t border-l border-white/40 border-b border-r border-white/10 flex flex-col gap-8 md:gap-10 shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_0_0_1px_rgba(255,255,255,0.2),inset_0_0_20px_rgba(255,255,255,0.1),0_0_40px_rgba(255,255,255,0.05)] group/card animate-float bg-gradient-to-br from-white/20 via-white/5 to-transparent backdrop-blur-[40px] drop-shadow-2xl hover:shadow-[0_30px_70px_rgba(0,0,0,0.6),inset_0_0_0_1px_rgba(255,255,255,0.3),inset_0_0_30px_rgba(255,255,255,0.2),0_0_60px_rgba(255,255,255,0.1)] transition-all duration-700">
                                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none opacity-50 transition-opacity duration-700 group-hover/card:opacity-100" />
                                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
-                                
+
                                 <div className="absolute inset-0 bg-scanlines opacity-20 pointer-events-none mix-blend-overlay" />
-                                
-                                {/* Header Block */}
+
                                 <div className="p-6 md:p-8 border-b border-white/10 relative z-10">
-                                    <div className="text-[10px] md:text-[11px] font-bold text-primary uppercase tracking-[0.5em] shadow-glow-green">
-                                        {siteContent.hero.telemetryTitle}
+                                    <div className="text-[10px] md:text-[11px] font-bold text-white uppercase tracking-[0.5em] shadow-glow-green drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
+                                        Behavior & Execution System
                                     </div>
                                 </div>
 
-                                 <div className="flex-1 p-8 space-y-8 md:space-y-10 relative z-10 flex flex-col justify-center">
-                                    {/* Stat 1: Behavior Consistency Index */}
-                                    <div className="text-center group/stat transition-all duration-500 rounded-[2rem] border border-white/10 bg-white/[0.02] py-6 md:py-8 px-4 md:px-6">
-                                        <div className="text-[10px] md:text-[11px] font-mono tracking-[0.32em] text-slate/40 uppercase mb-3">Behavior Consistency Index</div>
-                                        <div className="text-6xl md:text-8xl font-medium text-white font-outfit tracking-tighter transition-all duration-700 group-hover/stat:text-primary">98.4<span className="text-xl md:text-2xl ml-2 opacity-40 font-mono">%</span></div>
-                                    </div>
+                                <div className="flex-1 p-8 space-y-6 md:space-y-8 relative z-10 flex flex-col justify-center">
+                                    <Link href="#systems" className="text-left group/stat block transition-all duration-500 rounded-[2rem] border border-white/10 bg-white/[0.02] py-5 md:py-6 px-6 md:px-8 hover:bg-white/[0.05] hover:border-white/30 cursor-pointer relative overflow-hidden">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity" />
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <div className="text-[9px] md:text-[10px] font-mono tracking-[0.32em] text-white/40 uppercase mb-2">01 / Dealership Framework</div>
+                                                <div className="text-2xl md:text-3xl font-medium text-white font-outfit tracking-tighter transition-all duration-700 group-hover/stat:text-white">AutoShop</div>
+                                            </div>
+                                            <ChevronRight className="w-5 h-5 text-white/30 group-hover/stat:text-white group-hover/stat:translate-x-2 transition-all" />
+                                        </div>
+                                    </Link>
 
-                                    {/* Stat 2: Manager Coaching Cadence */}
-                                    <div className="text-center group/stat transition-all duration-500 rounded-[2rem] border border-white/10 bg-white/[0.02] py-6 md:py-8 px-4 md:px-6">
-                                        <div className="text-[10px] md:text-[11px] font-mono tracking-[0.32em] text-slate/40 uppercase mb-3">Manager Coaching Cadence</div>
-                                        <div className="text-5xl md:text-7xl font-medium text-white font-outfit tracking-tighter transition-all duration-700 group-hover/stat:text-primary">95<span className="text-xl md:text-2xl ml-2 opacity-40 font-mono">%</span></div>
-                                    </div>
+                                    <div className="w-px h-6 bg-gradient-to-b from-white/30 to-transparent mx-auto opacity-50" />
 
-                                    {/* Stat 3: Process Adherence Score */}
-                                    <div className="text-center group/stat transition-all duration-500 rounded-[2rem] border border-white/10 bg-white/[0.02] py-6 md:py-8 px-4 md:px-6">
-                                        <div className="text-[10px] md:text-[11px] font-mono tracking-[0.32em] text-slate/40 uppercase mb-3">Process Adherence Score</div>
-                                        <div className="text-5xl md:text-7xl font-medium text-white font-outfit tracking-tighter transition-all duration-700 group-hover/stat:text-primary">92<span className="text-xl md:text-2xl ml-2 opacity-40 font-mono">%</span></div>
-                                    </div>
+                                    <Link href="#systems" className="text-left group/stat block transition-all duration-500 rounded-[2rem] border border-white/10 bg-[#0ea5e9]/[0.02] py-5 md:py-6 px-6 md:px-8 hover:bg-[#0ea5e9]/[0.05] hover:border-[#0ea5e9]/30 cursor-pointer relative overflow-hidden">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[#0ea5e9]/10 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity" />
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <div className="text-[9px] md:text-[10px] font-mono tracking-[0.32em] text-[#0ea5e9]/40 uppercase mb-2">02 / Consultant System</div>
+                                                <div className="text-2xl md:text-3xl font-medium text-white font-outfit tracking-tighter transition-all duration-700 group-hover/stat:text-[#0ea5e9]">AutoDriveCX</div>
+                                            </div>
+                                            <ChevronRight className="w-5 h-5 text-[#0ea5e9]/30 group-hover/stat:text-[#0ea5e9] group-hover/stat:translate-x-2 transition-all" />
+                                        </div>
+                                    </Link>
+
+                                    <div className="w-px h-6 bg-gradient-to-b from-[#dc2626]/30 to-transparent mx-auto opacity-50" />
+
+                                    <Link href="#systems" className="text-left group/stat block transition-all duration-500 rounded-[2rem] border border-white/10 bg-[#dc2626]/[0.02] py-5 md:py-6 px-6 md:px-8 hover:bg-[#dc2626]/[0.05] hover:border-[#dc2626]/30 cursor-pointer relative overflow-hidden">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626]/10 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity" />
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <div className="text-[9px] md:text-[10px] font-mono tracking-[0.32em] text-[#dc2626]/40 uppercase mb-2">03 / Manager System</div>
+                                                <div className="text-2xl md:text-3xl font-medium text-white font-outfit tracking-tighter transition-all duration-700 group-hover/stat:text-[#dc2626]">AutoForge</div>
+                                            </div>
+                                            <ChevronRight className="w-5 h-5 text-[#dc2626]/30 group-hover/stat:text-[#dc2626] group-hover/stat:translate-x-2 transition-all" />
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { STRATEGY_CALL_URL } from "@/app/lib/booking";
 
 const fitSignals = [
     "CSI scores fluctuate month to month",
@@ -65,9 +66,9 @@ export const FitSection = () => {
                         </div>
 
                         <div className="mt-10 md:mt-12">
-                            <button className="bg-primary hover:bg-white text-black px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] flex items-center justify-center transition-all duration-700 shadow-2xl active:scale-95 border border-primary">
+                            <a href={STRATEGY_CALL_URL} target="_blank" rel="noreferrer" className="inline-flex bg-primary hover:bg-white text-black px-10 md:px-16 py-5 md:py-7 rounded-full font-extrabold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[11px] items-center justify-center transition-all duration-700 shadow-2xl active:scale-95 border border-primary">
                                 Book Strategy Call
-                            </button>
+                            </a>
                         </div>
                     </motion.div>
                 </div>

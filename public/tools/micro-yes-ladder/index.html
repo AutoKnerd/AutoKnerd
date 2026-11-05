@@ -1,0 +1,215 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Micro-Yes Ladder — AutoKnerd</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: single-column one-page worksheet, a vertical ladder timeline, a bridge sequence, a genuine-versus-fake comparison, a checklist rollout at the end */
+:root{
+  --bg:#f5f6f4; --surface:#ffffff; --fg:#14211f; --muted:#516360; --line:#d5dcd9;
+  --accent:#c4561a; --accent-soft:#f6e4d9; --ink:#12302c; --ink-fg:#eef4f2;
+  --f-display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --f-body:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1816; --surface:#16231f; --fg:#e8efed; --muted:#9bb0ab; --line:#2a3b37;
+  --accent:#ee8450; --accent-soft:#2c211b; --ink:#0a1f1c; --ink-fg:#eef4f2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{background:var(--ink);color:var(--ink-fg);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));
+  padding:40px max(16px,env(safe-area-inset-left,0px)) 36px}
+header .in{max-width:760px;margin:0 auto}
+.tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#f0a67c}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(40px,9vw,64px);line-height:1;margin:10px 0 14px;text-wrap:balance}
+header p{margin:0;max-width:56ch;color:#c9d9d5;font-size:17px}
+.win{margin:18px 0 0;max-width:56ch;font-size:14.5px;line-height:1.45;color:var(--ink-fg);background:rgba(255,255,255,.08);border-left:3px solid #f0a67c;padding:9px 12px}
+.win b{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#f0a67c;font-weight:500;margin-right:6px}
+h2{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.1;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);padding:18px}
+.stat b{display:block;font-family:var(--f-display);font-size:54px;line-height:1;color:var(--accent)}
+.stat span{color:var(--muted);font-size:15px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.rule{border-top:3px solid var(--accent);padding-top:10px}
+.rule h3{margin:0 0 4px;font-size:17px}
+.rule p{margin:0;color:var(--muted);font-size:15px}
+.timeline{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.step{position:relative;padding:0 0 28px 24px;min-width:0}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;background:var(--accent);border-radius:50%}
+.when{font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1}
+.goal{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px}
+.say{background:var(--surface);border:1px solid var(--line);padding:14px 16px;margin:0;font-size:15.5px}
+.say em{display:block;font-style:normal;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.ask{padding:16px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.ask.good{border-color:var(--accent);background:var(--accent-soft)}
+.ask .l{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ask.good .l{color:var(--accent)}
+.ask p{margin:6px 0 8px;font-size:16px}
+.ask small{color:var(--muted);font-size:14px}
+.roll{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.roll li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+.roll li::before{content:"";flex:none;width:18px;height:18px;border:2px solid var(--accent);margin-top:3px}
+.roll span{min-width:0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;font-size:15px}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.blank{height:38px}
+.cta{background:var(--ink);color:var(--ink-fg);padding:24px}
+.cta h2{color:var(--ink-fg)}
+.cta p{margin:0 0 6px;color:#c9d9d5}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:12px}
+.cta-copy{flex:1 1 260px;min-width:0}
+.cta-btn{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:2px}
+.cta-btn:hover{filter:brightness(1.08)}
+.cta-qr{flex:none;background:#fff;padding:10px;text-align:center;color:#12302c;font-size:12px;line-height:1.3}
+.cta-qr span{display:block;margin-top:6px;font-family:var(--f-mono)}
+</style>
+
+<header><div class="in">
+  <div class="tag">From the AutoKnerd Podcast &middot; Micro-Yes Ladder</div>
+  <h1>The Micro-Yes Ladder</h1>
+  <p>A one-page ladder for thawing out guarded customers with small, genuine yeses, then bridging those yeses into the big commitment so nobody slams the brakes at the paperwork.</p>
+  <div class="win"><b>Instant win:</b>On your next customer, open with "Good coffee or dealership coffee?" and keep a tally of every genuine yes through the visit.</div>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <h2>Why this matters</h2>
+  <p class="sub">Three numbers.</p>
+  <div class="stats">
+    <div class="stat"><b>9%</b><span>of people rank car salespeople's honesty as high</span></div>
+    <div class="stat"><b>50 to 70%</b><span>more often, test drives convert compared with visits without one</span></div>
+    <div class="stat"><b>54%</b><span>closing rate at the first dealership a buyer visits, when buyers only visit two</span></div>
+  </div>
+  <p>Customers arrive with their guard up. Andrew's story: a nervous couple, an anxious husband, drawbridge up. He asked no big questions early. Small, easy yeses stacked up until, by his count, they had nodded about 15 times before the price was ever shown. The yeses had already guided the way to the right car. Another couple nodded at everything, then their faces changed the second he mentioned paperwork, because he never connected the yeses to them owning the car. This page fixes both.</p>
+</section>
+
+<section>
+  <h2>Part 1: The ladder</h2>
+  <p class="sub">Low-risk first. Never ask for a rung they might refuse.</p>
+  <div class="timeline">
+    <div class="step">
+      <div class="when">First 30 seconds</div>
+      <div class="goal">Goal: an easy, human yes</div>
+      <p class="say"><em>Say</em>"Can I grab you a bottle of water? Or would you like the good coffee or the dealership coffee?" Expect a little laugh and "you pick." That is all you need.</p>
+    </div>
+    <div class="step">
+      <div class="when">At the vehicle</div>
+      <div class="goal">Goal: practical, low-pressure agreements</div>
+      <p class="say"><em>Say</em>"Mind if I pull this one into the shade so we can take a better look?" Then, "Want to see something this model does that most people miss?" Curiosity breeds a yes. If it has self-parking, practice it before you offer it, because those systems usually need a little help.</p>
+    </div>
+    <div class="step">
+      <div class="when">Before the drive</div>
+      <div class="goal">Goal: approval to move</div>
+      <p class="say"><em>Say</em>Get approval for the test drive, then keep going on the road: "We'll take a right here, okay?" Offer a feature you know they will enjoy, or their favorite color or trim.</p>
+    </div>
+    <div class="step">
+      <div class="when">On the numbers</div>
+      <div class="goal">Goal: a yes that helps them, not you</div>
+      <p class="say"><em>Say</em>"Would it help if I showed you what your monthly payment would look like with that package?" You are educating them that going up costs them a bit more, and that the choice is theirs.</p>
+    </div>
+    <div class="step">
+      <div class="when">After every yes</div>
+      <div class="goal">Goal: keep momentum alive</div>
+      <p class="say"><em>Say</em>Reinforce it: "Awesome choice." / "That really works well for you." / "Based on what we've talked about, you'll love this."</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Genuine yes versus fake yes</h2>
+  <p class="sub">Fake authenticity gets fake yeses, and the wall goes back up fast.</p>
+  <div class="compare">
+    <div class="ask"><div class="l">Fake yes</div><p>"Do you like breathing?" Throwaway questions asked only to stack yeses, or agreement forced through pressure.</p><small>It helps no one reach their goal. Pressure also costs you paycheck, so it is not a shortcut.</small></div>
+    <div class="ask good"><div class="l">Genuine yes</div><p>A question that moves them toward the car they came for and makes them smile or lean in.</p><small>Happier, more connected customers buy, come back and tell friends. A "no" here and there matters little, but do not stack them.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>The MICRO check</h2>
+  <p class="sub">Andrew's acronym for every yes question.</p>
+  <div class="rules">
+    <div class="rule"><h3>M: Make the first one easy</h3><p>Stupidly easy.</p></div>
+    <div class="rule"><h3>I: Integrate naturally</h3><p>Part of the conversation, never from left field.</p></div>
+    <div class="rule"><h3>C: Confirm positivity</h3><p>Each question should trigger a positive feeling.</p></div>
+    <div class="rule"><h3>R: Read the intent</h3><p>Ask with the goal of them leaving in the car, not just collecting yeses.</p></div>
+    <div class="rule"><h3>O: Own the big yes</h3><p>When a yes makes them smile and lean in, recognize it and build on it.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Part 2: The bridge to the big yes</h2>
+  <p class="sub">The yeses only pay off once you connect them to ownership.</p>
+  <div class="timeline">
+    <div class="step">
+      <div class="when">1. Anchor the yeses</div>
+      <div class="goal">Goal: make each one real</div>
+      <p class="say"><em>Say</em>"You told me you love the safety, the space, and the comfort works for you and your family. Did I hear that right?" When they confirm again, the yeses are anchored.</p>
+    </div>
+    <div class="step">
+      <div class="when">2. Tell their story</div>
+      <div class="goal">Goal: mental ownership</div>
+      <p class="say"><em>Say</em>Do not just recap. Weave it into a picture of their life: "Picture the road trip. The kids are finally asleep in the back. The safety systems keep you calm in your lane, and you can see the kids are out cold. This car gives everyone comfort."</p>
+    </div>
+    <div class="step">
+      <div class="when">3. Ask one bigger confirming question</div>
+      <div class="goal">Goal: the right to move to the close</div>
+      <p class="say"><em>Pick one</em>"Can you see this being the vehicle you trust for the next 5 years?" &nbsp;/&nbsp; "It sounds like the car checks all the boxes you told me matter, right?" &nbsp;/&nbsp; "On a scale of 1 to 10, how well does this fit your family's needs?" Then: "Is this the one you want to take home today?"</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Manager rollout: 15 minutes</h2>
+  <p class="sub">Run it in this week's sales meeting.</p>
+  <ul class="roll">
+    <li><span><b>Minutes 0 to 3.</b> Ask the room: when did a customer nod all the way through, then freeze at the paperwork? Read the 9%, 50 to 70% and 54% numbers.</span></li>
+    <li><span><b>Minutes 3 to 6.</b> Walk the ladder and the MICRO check. Everyone writes three yes questions in their own words (word-for-word scripts sound robotic).</span></li>
+    <li><span><b>Minutes 6 to 12.</b> Pairs role-play a guarded customer. The consultant climbs the ladder, then runs the bridge: anchor, story, big confirming question. The partner counts genuine yeses and flags any fake one. Swap.</span></li>
+    <li><span><b>Minutes 12 to 15.</b> Every consultant tallies the genuine yeses on their next customer and notes what put a smile on that customer's face, so it can be repeated with similar personalities.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Weekly inspection</h2>
+  <p class="sub">Inspect the yes habit, not the close rate. The close is the lagging number.</p>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Consultant</th><th>Customers worked</th><th>Genuine yeses tallied</th><th>Recap and story done</th><th>Big confirming question asked</th><th>Pulled back at the paperwork</th></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="blank"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Want this to run itself?</h2>
+  <p>AutoKnerd gives each rep a 5-minute daily practice rep on their weakest customer habit, and managers see it all in one dashboard. I'm opening a few one-store, 90-day pilots.</p>
+  <div class="cta-row">
+    <div class="cta-copy">
+      <p>See how the pilot works and book 20 minutes with me.</p>
+      <a class="cta-btn" href="https://www.autoknerd.com/pilot" target="_blank" rel="noopener">See the pilot</a>
+      <p style="margin-top:14px"><b>Andrew Sardone</b>, host of the AutoKnerd Podcast &middot; andrew@autoknerd.com</p>
+    </div>
+    <div class="cta-qr"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR code linking to the AutoKnerd pilot page" style="display:block;width:136px;height:136px" shape-rendering="crispEdges" viewBox="0 0 33 33"><path class="qrline" stroke="#12302c" d="M0 0.5h7m1 0h1m1 0h3m3 0h3m2 0h1m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h1m4 0h2m1 0h2m3 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m3 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h2m1 0h2m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m2 0h4m1 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h2m2 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m1 0h1m2 0h5m2 0h1m1 0h1m-24 1h1m3 0h1m1 0h5m5 0h2m1 0h1m1 0h1m2 0h6m2 0h1m-33 1h1m1 0h1m4 0h3m2 0h2m1 0h1m2 0h1m4 0h1m1 0h1m3 0h4m-33 1h4m1 0h6m1 0h1m2 0h1m1 0h1m3 0h5m3 0h1m1 0h1m-31 1h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h3m1 0h1m1 0h3m6 0h1m-33 1h1m3 0h5m1 0h1m2 0h2m3 0h5m2 0h2m1 0h2m1 0h1m-31 1h2m2 0h1m1 0h2m3 0h1m3 0h1m2 0h1m1 0h2m4 0h1m1 0h2m-25 1h1m1 0h1m2 0h3m2 0h1m1 0h2m3 0h1m1 0h3m1 0h3m-32 1h2m1 0h3m1 0h2m1 0h1m3 0h1m2 0h1m1 0h4m1 0h6m-29 1h1m1 0h1m1 0h3m4 0h2m1 0h3m3 0h2m3 0h1m1 0h2m1 0h1m-31 1h2m1 0h1m10 0h1m1 0h2m4 0h1m1 0h1m3 0h3m-31 1h1m2 0h3m2 0h1m2 0h2m1 0h1m2 0h1m1 0h6m1 0h1m1 0h1m1 0h1m-31 1h2m5 0h4m1 0h2m6 0h1m1 0h1m3 0h1m3 0h2m-33 1h1m1 0h2m1 0h2m3 0h1m1 0h1m1 0h3m2 0h3m2 0h1m1 0h4m1 0h2m-33 1h3m1 0h2m1 0h1m1 0h4m1 0h1m3 0h3m1 0h1m2 0h1m3 0h3m-29 1h1m2 0h3m1 0h6m1 0h1m3 0h3m3 0h1m1 0h1m1 0h1m-25 1h2m2 0h2m2 0h4m2 0h1m1 0h4m1 0h1m2 0h1m-32 1h3m1 0h3m2 0h5m3 0h1m1 0h4m1 0h5m1 0h3m-25 1h1m4 0h3m2 0h1m5 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h2m1 0h1m1 0h5m2 0h2m2 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m2 0h4m2 0h1m1 0h6m1 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h1m1 0h1m1 0h1m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h2m1 0h2m2 0h1m2 0h3m2 0h1m1 0h4m-30 1h1m1 0h3m1 0h1m4 0h3m2 0h1m4 0h2m1 0h1m1 0h5m-31 1h1m5 0h1m2 0h2m2 0h2m2 0h2m2 0h1m2 0h1m1 0h1m-27 1h7m1 0h1m1 0h1m4 0h3m2 0h2m1 0h3m6 0h1"/></svg><span>Scan to see the pilot</span></div>
+  </div>
+</section>
+
+<footer>Based on the AutoKnerd Podcast episodes on micro yeses and the mega commitment. Free to use and share inside your store.</footer>
+</main>
+
+</body></html>
