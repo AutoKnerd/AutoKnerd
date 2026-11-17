@@ -3,7 +3,7 @@ import Link from "next/link";
 import { readFeed } from "../_kia/feed";
 import { hasAccess } from "../_kia/gate";
 import { Gate } from "../_kia/PassGate";
-import { buildRunway, CONFIG, sampleSize, daysNeeded, type Bundle, type Runway, type UpRow, type PastRow, type EmailState, type Pill } from "./data";
+import { buildRunway, CONFIG, sampleSize, daysNeeded, type Bundle, type Runway, type UpRow, type PastRow, type Pill } from "./data";
 import { Tabs } from "./Tabs";
 import s from "./runway.module.css";
 
@@ -54,36 +54,15 @@ const hm = (et?: string | null) => (et ? `${md(et)} ${t12(et.slice(11, 16))}` : 
 const pct = (v: number, dp = 1) => (v * 100).toFixed(dp) + "%";
 const num = (n: number) => n.toLocaleString("en-US");
 const PILL: Record<Pill, string> = { hot: "Running hot", pace: "On pace", soft: "Soft", lag: "Lagging", early: "Too early" };
-const TYPE: Record<string, string> = { WELCOME: "welcome", ADVANCE: "advance", CATCHUP: "catch-up", NUDGE: "nudge" };
 
-function emailText(e: EmailState, today: string) {
-  const when = e.when_et ? (e.when_et.slice(0, 10) === today ? t12(e.when_et.slice(11, 16)) : `${dow(e.when_et).slice(0, 3)} ${t12(e.when_et.slice(11, 16))}`) : "";
-  const head = `${TYPE[e.type] || e.type.toLowerCase()}${e.bcc != null ? ` [Bcc ${e.bcc}]` : ""}: `;
-  switch (e.display) {
-    case "SENT": return head + `sent ${when}${e.exchange ? " (seen in Exchange Sent)" : ""}`;
-    case "PLANNED": return head + `planned ${when}`;
-    case "MISSED-WINDOW": return head + `NOT SENT, ${when} window missed`;
-    case "FAILED": return head + `FAILED ${when}`;
-    case "CANCELLED": return head + "cancelled";
-    case "STAGED": case "VERIFIED": return head + `queued for ${when}`;
-    case "STAGED-DUE-PASSED": case "VERIFIED-DUE-PASSED": return head + `queued for ${when}, delivery not confirmed yet`;
-    case "UNCERTAIN": return head + "send attempt not confirmed";
-    default: return head + e.display.toLowerCase() + (when ? ` ${when}` : "");
-  }
-}
-const bad = (e: EmailState) => ["MISSED-WINDOW", "FAILED", "UNCERTAIN"].includes(e.display);
 
 // ---------------- Upcoming ----------------
 function Upcoming({ d }: { d: Runway }) {
-  const T = d.upTotals, td = d.todayEmails;
+  const T = d.upTotals;
   const days = [...new Set(d.up.map((r) => r.date))];
   const pc = (v: number) => (Math.round((v / T.scale) * 200) / 2) + "%";
   return (
     <div className={s.panel}>
-      <p className={`${s.callout} ${td.missed || td.late ? "" : s.calm}`}>
-        <b>Today: {td.sent} of {td.items.length} emails sent{td.queued ? `, ${td.queued} queued` : ""}{td.planned ? `, ${td.planned} still planned` : ""}{td.missed ? `, ${td.missed} missed` : ""}{td.late ? `, ${td.late} late` : ", nothing late"}.</b>
-        {td.items.length > 0 && <> {td.items.map((e, i) => <span key={i} className={bad(e) ? s.badTxt : undefined}>{i ? "; " : ""}{emailText(e, d.today)}</span>)}.</>}
-      </p>
 
       <p className={s.label}>The window ahead &middot; {md(d.today)} &ndash; {md(d.up.length ? d.up[d.up.length - 1].date : d.today)} &middot; {T.sessions} sessions &middot; rosters read {hm(d.stamp.pull)} from Wingspan</p>
       <section className={s.strip}>
