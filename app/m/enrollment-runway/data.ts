@@ -196,7 +196,7 @@ export type UpRow = { event_id: string; title: string; code: string; welcome: bo
   enrolled: number; band: [number, number] | null; bandNote: string | null; proj: [number, number]; room: [number, number];
   pill: Pill; idx: string; emails: EmailState[] };
 
-function project(enrolled: number, daysOut: number, welcome: boolean): { band: [number, number] | null; note: string | null; proj: [number, number] } {
+export function project(enrolled: number, daysOut: number, welcome: boolean): { band: [number, number] | null; note: string | null; proj: [number, number] } {
   if (welcome && daysOut >= 3) {
     const [lo, hi] = CONFIG.bands.welcomeFarAbs;
     return { band: null, note: "range of recorded Welcome finishes", proj: [Math.max(enrolled, lo), Math.max(enrolled, hi)] };

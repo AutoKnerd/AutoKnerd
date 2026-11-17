@@ -1,4 +1,4 @@
-// Shared passcode for the private Kia pages (Team Show Rate, Enrollment Runway).
+// Shared passcode for the private Kia pages (/m/kia hub, Team Show Rate, the Enrollment Runways).
 // The passcode lives only in the Vercel env var KIA_PAGES_PASSCODE. After a correct entry the browser keeps a
 // cookie holding a hash of it (never the passcode itself) for 90 days; changing the passcode signs everyone out.
 import { createHash, timingSafeEqual } from "crypto";
@@ -28,5 +28,5 @@ export async function hasAccess() {
 
 /** Only allow redirects back to the private Kia pages. */
 export function safeNext(next: string | null | undefined) {
-  return next && /^\/m\/(kia|enrollment-runway|team-show-rate)(\/|$|\?|#)/.test(next) ? next : "/m/kia";
+  return next && /^\/m\/(kia|enrollment-runway|team-show-rate|runway\/(paul|anthony))(\/|$|\?|#)/.test(next) ? next : "/m/kia";
 }
