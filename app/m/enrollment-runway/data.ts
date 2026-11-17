@@ -182,7 +182,10 @@ function emailStates(b: Bundle, nowEt: string) {
     const es: EmailState = { type: String(it?.type || r0?.type || "EMAIL"), run_date: k.split("#")[0], seq: +k.split("#")[1],
       bcc: (it?.bcc_count ?? r0?.bcc_count) ?? null, state: best, display, when_et: best === "SENT" ? written || sched : sched,
       window_et: it?.window_closes_et || null, exchange };
-    for (const id of new Set([...(it?.event_ids || []), ...rows.flatMap((r) => r.event_ids || [])])) byEvent.set(id, [...(byEvent.get(id) || []), es]);
+    // earlier days: only outcomes (sent, missed, failed); an unfinished state from a past run was superseded by a later one
+    const pastRun = !!planDate && es.run_date < planDate;
+    const show = !pastRun || ["SENT", ...BAD].includes(best);
+    if (show) for (const id of new Set([...(it?.event_ids || []), ...rows.flatMap((r) => r.event_ids || [])])) byEvent.set(id, [...(byEvent.get(id) || []), es]);
     if (planDate && k.startsWith(planDate + "#")) today.push(es);
   }
   for (const v of byEvent.values()) v.sort((a, b) => (a.run_date + (a.when_et || "")).localeCompare(b.run_date + (b.when_et || "")));
