@@ -121,7 +121,6 @@ function UpRowView({ r, d, pc }: { r: UpRow; d: Runway; pc: (v: number) => strin
         <div className={s.meta}>
           <span>{t12(r.start_et.slice(11, 16))}</span>
           {r.code && <span className={s.code}>{r.code}</span>}
-          {r.emails.length ? r.emails.map((e, i) => <span key={i} className={bad(e) ? s.badTxt : undefined}>{emailText(e, d.today)}</span>) : <span className={s.faint}><em>no email recorded</em></span>}
         </div>
       </div>
       <div className={s.gaugeCol}>
