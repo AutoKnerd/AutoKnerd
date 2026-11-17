@@ -103,7 +103,7 @@ function Upcoming({ d }: { d: Runway }) {
         return (
           <div className={s.day} key={day}>
             <div className={s.dayhead}><b>{md(day)}</b> {dow(day)} <span className={s.out}>{out === 0 ? "today" : out === 1 ? "1 day out" : `${out} days out`}</span></div>
-            {rows.map((r) => <UpRowView key={r.event_id} r={r} d={d} pc={pc} />)}
+            {rows.map((r) => <UpRowView key={r.event_id} r={r} pc={pc} />)}
           </div>
         );
       })}
@@ -113,7 +113,7 @@ function Upcoming({ d }: { d: Runway }) {
 }
 const short = (t: string) => t.replace(/^20\d\d(MY)? /, "").replace(/ Product Workshop| Workshop/, "").replace(/ \(.*\)/, "");
 
-function UpRowView({ r, d, pc }: { r: UpRow; d: Runway; pc: (v: number) => string }) {
+function UpRowView({ r, pc }: { r: UpRow; pc: (v: number) => string }) {
   return (
     <div className={s.row}>
       <div className={s.who}>
