@@ -135,6 +135,12 @@ function Schedule({ D, asOf, who, cls, names }: { D: TrackerData["D"]; asOf: str
         })}
       </div>
 
+      <div className={s.pdfRow}>
+        <a className={s.pdf} href={"/m/vilt-tracker/pdf" + (who === "all" ? "" : "?who=" + who)} download>
+          Download PDF{who === "all" ? "" : ` · ${FULL[who]}`}
+        </a>
+      </div>
+
       {!rows.length ? <p className={s.empty}>No sessions match that filter.</p> : (
         <div className={s.list}>
           {[...days.entries()].map(([d, rs]) => {
