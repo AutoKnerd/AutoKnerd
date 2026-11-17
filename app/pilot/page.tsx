@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { spaceGrotesk as grotesk } from "../fonts";
 import s from "./pilot.module.css";
 import { DEMO, BOOK, ext } from "@/app/lib/links";
 import TrackedLink from "./TrackedLink";
 
-const grotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["500", "700"],
-  variable: "--font-grotesk",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Founding Dealer Pilot · AutoKnerd",

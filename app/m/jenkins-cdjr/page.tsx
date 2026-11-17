@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
-import { Manrope, JetBrains_Mono } from "next/font/google";
+import { manrope, jetbrainsMono as mono } from "../../fonts";
 import { CopyField } from "./CopyField";
 
 // Unlisted, link-only manager manual for Jenkins CDJR. Self-contained: it brings
 // its own fonts and styles and depends on nothing else in the app, so it can
 // ship to main and deploy on its own. Noindex and not linked anywhere, so it is
 // reachable only by its URL. The page carries no navigation or outbound links.
-const manrope = Manrope({ subsets: ["latin"], weight: ["400", "600", "700", "800"], display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["500", "700"], display: "swap" });
 
 export const metadata: Metadata = {
   title: "AutoKnerd Manager Manual",

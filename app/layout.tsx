@@ -1,32 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Outfit, Manrope } from "next/font/google";
+import { inter, jetbrainsMono, outfit, manrope } from "./fonts";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const GOOGLE_TAG_MANAGER_ID = "GTM-T3NB6CTV";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 export const metadata: Metadata = {
   title: "AutoKnerd | Dealership Customer Experience. Engineered.",
