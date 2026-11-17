@@ -12,6 +12,8 @@ import { SessionLinks } from "../../_kia/SessionLinks";
 import { Tracker, type TrackerData } from "../../vilt-tracker/Tracker";
 import { ClientOnly } from "../../_kia/ClientOnly";
 import { readFeed as readTracker, isTrackerData } from "../../_kia/feed";
+import { insights, ownBands, type HistoryRow } from "../../_kia/insights";
+import { PatternsPanel, UnmarkedNotice } from "../../_kia/Patterns";
 
 // Enrollment Runway for Paul and Anthony: the same roster runway and past-class view as Andrew's page, built from
 // the Wingspan session counts the extension pulls every hour. They send no reminder emails and their rosters
@@ -41,9 +43,12 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
   const key = (await params).who, w = WHO[key];
   if (!w) notFound();
   if (!(await hasAccess())) return <Gate title={`Enrollment Runway · ${w.full}`} next={`/m/runway/${key}`} wrong={!!(await searchParams).wrong} />;
-  const [feed, tr] = await Promise.all([readFeed<SessionsFeed>("sessions", isFeed, { from: "2026-08-31" }), readTracker<TrackerData>("tracker", isTrackerData)]);
+  const [feed, tr, hist] = await Promise.all([readFeed<SessionsFeed>("sessions", isFeed, { from: "2026-08-31" }), readTracker<TrackerData>("tracker", isTrackerData),
+    readTracker<{ rows: HistoryRow[] }>("history", (j) => !!j && Array.isArray((j as { rows?: unknown }).rows))]);
   const rows = (feed?.rows || []).filter((r) => r[1] === w.short && !/cancel|missing/i.test(r[5]));
   const today = etToday(), end = addDays(today, CONFIG.windowDays);
+  const ins = feed ? insights(feed.rows, w.short, today, feed.through) : null;
+  const own = feed && hist ? ownBands(hist.rows, feed.rows, w.short) : undefined;
   const done = rows.filter((r) => closed(r) && r[2] < today);
   const famRate = (welcome: boolean) => {
     const f = done.filter((r) => isWelcome(r[4]) === welcome);
@@ -53,7 +58,7 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
   const wel = famRate(true), wor = famRate(false);
   const up = rows.filter((r) => /^Active$/i.test(r[5]) && r[2] >= today && r[2] <= end).sort((a, b) => (a[2] + mins(a[3])).localeCompare(b[2] + mins(b[3]))).map((r) => {
     const welcome = isWelcome(r[4]), daysOut = Math.round((Date.parse(r[2] + "T12:00:00Z") - Date.parse(today + "T12:00:00Z")) / 864e5);
-    const p = project(r[6], daysOut, welcome), rate = welcome ? wel.rate : wor.rate;
+    const p = project(r[6], daysOut, welcome, own), rate = welcome ? wel.rate : wor.rate;
     let pill: Pill = "early", idx = "4+ days out, not paced";
     if (daysOut <= 3) {
       const comp = done.filter((d) => normCourse(d[4]) === normCourse(r[4])).sort((a, b) => b[2].localeCompare(a[2]))[0];
@@ -79,7 +84,9 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
             <p className={s.sub}>{w.full}&rsquo;s Kia University virtual classes: where each roster stands, where it should land, and how many turned up in the classes behind. Enrollment counts come from Wingspan every hour; {w.short} sends no reminder emails, so there is no email column.</p>
             <p className={s.stamp}>Wingspan sessions last pulled {feed.lastPull} ET &middot; attendance through {md(feed.through)} &middot; updates itself</p>
 
-            <Tabs tabs={[["runway", "Runway"], ["tracker", "vILT tracker"]]} panels={{
+            {ins && <UnmarkedNotice ins={ins} name={w.short} />}
+            <Tabs tabs={[["runway", "Runway"], ["patterns", "Patterns"], ["tracker", "vILT tracker"]]} panels={{
+              patterns: ins ? <PatternsPanel ins={ins} name={w.short} /> : null,
               runway: <div className={s.panel}>
             <p className={s.label}>The window ahead &middot; {md(today)} &ndash; {md(up.length ? up[up.length - 1].r[2] : today)} &middot; {up.length} sessions</p>
             <section className={s.strip}>
@@ -105,7 +112,7 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
                         <div className={s.segMax} style={{ left: pc(Math.max(u.proj[0], u.r[6])), width: pc(Math.max(0, u.proj[1] - Math.max(u.proj[0], u.r[6]))) }} />
                         <div className={s.pin} style={{ left: pc(u.proj[0]) }} />
                       </div>
-                      <div className={s.glabel}>{u.r[6]} enrolled &middot; {u.proj[0]}&ndash;{u.proj[1]} final &middot; &asymp; {u.room[0]}&ndash;{u.room[1]} in the room</div>
+                      <div className={s.glabel}>{u.r[6]} enrolled &middot; {u.proj[0]}&ndash;{u.proj[1]} final &middot; &asymp; {u.room[0]}&ndash;{u.room[1]} in the room{u.note ? <span className={s.faint}> &middot; {u.note}</span> : null}</div>
                     </div>
                     <div className={s.sig}><span className={`${s.pill} ${s[u.pill]}`}>{PILL[u.pill]}</span><span className={s.idx}>{u.idx}</span></div>
                     <SessionLinks id={u.r[0]} className={s.links} />
@@ -142,7 +149,7 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
               </div>
             ))}
             <div className={s.meth}>
-              <p><b>How it works.</b> Final enrollment uses the same locked growth bands as Andrew&rsquo;s page (they were measured on Andrew&rsquo;s classes, so treat them as a rough guide for {w.short}&rsquo;s courses). &ldquo;In the room&rdquo; applies {w.short}&rsquo;s own show rate since Sep 2 for that course family. Pace compares enrolled now with {w.short}&rsquo;s most recent finished run of the same course, three or fewer days out. Past-class labels compare a class with {w.short}&rsquo;s own family show rate.</p>
+              <p><b>How it works.</b> Final enrollment uses growth bands from {w.short}&rsquo;s own roster history once there are at least 8 finished classes for that course family and number of days out (the row then says &ldquo;own history&rdquo;); until then it uses the locked bands from Andrew&rsquo;s page, which were measured on Andrew&rsquo;s classes, so treat those as a rough guide. &ldquo;In the room&rdquo; applies {w.short}&rsquo;s own show rate since Sep 2 for that course family. Pace compares enrolled now with {w.short}&rsquo;s most recent finished run of the same course, three or fewer days out. Past-class labels compare a class with {w.short}&rsquo;s own family show rate.</p>
             </div>
               </div>,
               tracker: tr ? <ClientOnly><Tracker data={tr} only={w.short} /></ClientOnly> : <p className={s.note}>Couldn&rsquo;t load the tracker right now.</p>,

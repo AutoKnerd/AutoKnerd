@@ -1,3 +1,4 @@
+import type { OwnBands } from "../_kia/insights";
 // Enrollment Runway maths, pure. Input: the Apps Script "runway" bundle (no names, emails replaced by codes).
 // Ports kia_core.py (merge_record, headline, ledger_state, tymetrics) plus the page's locked rules.
 
@@ -199,7 +200,13 @@ export type UpRow = { event_id: string; title: string; code: string; welcome: bo
   enrolled: number; band: [number, number] | null; bandNote: string | null; proj: [number, number]; room: [number, number];
   pill: Pill; idx: string; emails: EmailState[] };
 
-export function project(enrolled: number, daysOut: number, welcome: boolean): { band: [number, number] | null; note: string | null; proj: [number, number] } {
+/** `own`: growth bands measured on this trainer's own roster history (used when there are enough samples). */
+export function project(enrolled: number, daysOut: number, welcome: boolean, own?: OwnBands): { band: [number, number] | null; note: string | null; proj: [number, number] } {
+  const mineBand = own?.[`${welcome ? "welcome" : "workshop"}|${Math.min(daysOut, 4)}`];
+  if (mineBand) {
+    const band: [number, number] = [Math.round(mineBand.lo * 100) / 100, Math.round(mineBand.hi * 100) / 100];
+    return { band, note: `own history (${mineBand.n} classes)`, proj: [Math.round(enrolled * band[0]), Math.round(enrolled * band[1])] };
+  }
   if (welcome && daysOut >= 3) {
     const [lo, hi] = CONFIG.bands.welcomeFarAbs;
     return { band: null, note: "range of recorded Welcome finishes", proj: [Math.max(enrolled, lo), Math.max(enrolled, hi)] };
@@ -211,7 +218,7 @@ export function project(enrolled: number, daysOut: number, welcome: boolean): { 
     proj: [Math.round(enrolled * band[0]), Math.round(enrolled * band[1])] };
 }
 
-function upcoming(b: Bundle, closed: RecSession[], rates: { welcome: number; workshop: number }, emails: Map<string, EmailState[]>, today: string) {
+function upcoming(b: Bundle, closed: RecSession[], rates: { welcome: number; workshop: number }, emails: Map<string, EmailState[]>, today: string, own?: OwnBands) {
   const end = addDays(today, CONFIG.windowDays);
   const rows: UpRow[] = [];
   const seen = new Set<string>();
@@ -224,7 +231,7 @@ function upcoming(b: Bundle, closed: RecSession[], rates: { welcome: number; wor
     const title = clean(rawTitle), welcome = isWelcome(title);
     const enrolled = isInt(r[5]) ? (r[5] as number) : r[7].filter((p) => p[2] === 1).length;
     const daysOut = dayDiff(date, today);
-    const { band, note, proj } = project(enrolled, daysOut, welcome);
+    const { band, note, proj } = project(enrolled, daysOut, welcome, own);
     const rate = welcome ? rates.welcome : rates.workshop;
     let pill: Pill = "early", idx = "4+ days out, not paced";
     if (daysOut <= 3) {
@@ -358,7 +365,7 @@ function thankyou(sessions: RecSession[], b: Bundle, today: string) {
 }
 
 // ---------------- everything ----------------
-export function buildRunway(b: Bundle, now: Date = new Date()) {
+export function buildRunway(b: Bundle, now: Date = new Date(), own?: OwnBands) {
   const nowEt = etOf(now), today = nowEt.slice(0, 10);
   const { sessions, index } = mergeRecord(b);
   extendRecord(b, sessions, index, today);
@@ -368,7 +375,7 @@ export function buildRunway(b: Bundle, now: Date = new Date()) {
   for (const r of [...(b.past_sessions || []), ...(b.pull?.c || []), ...(b.pull?.s || [])]) { const c = codeOf(r[1]); if (c) codes.set(normCourse(r[1]), c); }
   const em = emailStates(b, nowEt);
   const closed = sessions.filter(isClosed);
-  const up = upcoming(b, closed, rates, em.byEvent, today);
+  const up = upcoming(b, closed, rates, em.byEvent, today, own);
   const pastFrom = "2026-09-16";
   const pastRows = past(sessions, rates, codes, pastFrom, today);
   const paced = up.filter((r) => r.pill !== "early");

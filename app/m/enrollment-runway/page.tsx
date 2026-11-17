@@ -6,6 +6,9 @@ import { Gate } from "../_kia/PassGate";
 import { buildRunway, CONFIG, sampleSize, daysNeeded, type Bundle, type Runway, type UpRow, type PastRow, type Pill } from "./data";
 import { Tabs } from "./Tabs";
 import { SessionLinks } from "../_kia/SessionLinks";
+import { insights, ownBands, type HistoryRow } from "../_kia/insights";
+import { PatternsPanel, UnmarkedNotice } from "../_kia/Patterns";
+import type { SessionsFeed } from "../team-show-rate/stats";
 import { Tracker, type TrackerData } from "../vilt-tracker/Tracker";
 import { ClientOnly } from "../_kia/ClientOnly";
 import { isTrackerData } from "../_kia/feed";
@@ -21,9 +24,13 @@ const isBundle = (j: unknown) => !!j && typeof j === "object" && Array.isArray((
 
 export default async function RunwayPage({ searchParams }: { searchParams: Promise<{ wrong?: string }> }) {
   if (!(await hasAccess())) return <Gate title="Enrollment Runway" next="/m/enrollment-runway" wrong={!!(await searchParams).wrong} />;
-  const [b, tr] = await Promise.all([readFeed<Bundle>("runway", isBundle), readFeed<TrackerData>("tracker", isTrackerData)]);
+  const [b, tr, sf, hist] = await Promise.all([readFeed<Bundle>("runway", isBundle), readFeed<TrackerData>("tracker", isTrackerData),
+    readFeed<SessionsFeed>("sessions", (j) => !!j && Array.isArray((j as SessionsFeed).rows), { from: "2026-08-31" }),
+    readFeed<{ rows: HistoryRow[] }>("history", (j) => !!j && Array.isArray((j as { rows?: unknown }).rows))]);
+  const own = sf && hist ? ownBands(hist.rows, sf.rows, "Andrew") : undefined;
   let d: Runway | null = null;
-  try { d = b ? buildRunway(b) : null; } catch { d = null; }
+  try { d = b ? buildRunway(b, new Date(), own) : null; } catch { d = null; }
+  const ins = sf && d ? insights(sf.rows, "Andrew", d.today, sf.through) : null;
   return (
     <div className={s.page}>
       <div className={s.wrap}>
@@ -36,8 +43,9 @@ export default async function RunwayPage({ searchParams }: { searchParams: Promi
               Rosters read {hm(d.stamp.pull)} &middot; email plan {hm(d.stamp.plan)} &middot; engine checked in {hm(d.stamp.engine)}{d.stamp.engineMode ? ` (${d.stamp.engineMode})` : ""}
               {" "}&middot; attendance through {md(d.stamp.attendanceThrough)} &middot; data gathered {hm(d.stamp.generated)} &middot; updates itself
             </p>
-            <Tabs tabs={[["upcoming", "Upcoming"], ["past", "Past classes"], ["analysis", "Analysis & method"], ["tracker", "vILT tracker"]]}
-              panels={{ upcoming: <Upcoming d={d} />, past: <Past d={d} />, analysis: <Analysis d={d} />,
+            {ins && <UnmarkedNotice ins={ins} name="Andrew" />}
+            <Tabs tabs={[["upcoming", "Upcoming"], ["past", "Past classes"], ["patterns", "Patterns"], ["analysis", "Analysis & method"], ["tracker", "vILT tracker"]]}
+              panels={{ upcoming: <Upcoming d={d} />, past: <Past d={d} />, patterns: ins ? <PatternsPanel ins={ins} name="Andrew" /> : null, analysis: <Analysis d={d} />,
                 tracker: tr ? <ClientOnly><Tracker data={tr} only="Andrew" /></ClientOnly> : <p className={s.note}>Couldn&rsquo;t load the tracker right now.</p> }} />
           </>
         )}
@@ -275,7 +283,7 @@ function Analysis({ d }: { d: Runway }) {
       </div>
       <div className={s.meth}>
         <p><b>Show rate</b> is attended &divide; enrolled over every closed class on record, weighted by people. Welcome to Kia is kept separate because its rosters are several times larger. Classes Wingspan closed without attendance marks are held out.</p>
-        <p><b>Where the roster lands.</b> Final enrollment = enrolled now &times; a growth band for how many days are left (locked): workshops {band("workshop", 0)} on the day, {band("workshop", 1)} one day out, {band("workshop", 2)} two days out, {band("workshop", 4)} four or more. Welcome to Kia {band("welcome", 0)} on the day, {band("welcome", 1)} one day out, {band("welcome", 2)} two days out, and the range of recorded Welcome finishes ({CONFIG.bands.welcomeFarAbs.join("–")}) further out. There is no approved three-day band, so three-day rows are bracketed between the two-day low and the four-day high. &ldquo;In the room&rdquo; applies the family show rate to that range.</p>
+        <p><b>Where the roster lands.</b> Final enrollment = enrolled now &times; a growth band for how many days are left (locked): workshops {band("workshop", 0)} on the day, {band("workshop", 1)} one day out, {band("workshop", 2)} two days out, {band("workshop", 4)} four or more. Welcome to Kia {band("welcome", 0)} on the day, {band("welcome", 1)} one day out, {band("welcome", 2)} two days out, and the range of recorded Welcome finishes ({CONFIG.bands.welcomeFarAbs.join("–")}) further out. There is no approved three-day band, so three-day rows are bracketed between the two-day low and the four-day high. &ldquo;In the room&rdquo; applies the family show rate to that range. Once Andrew&rsquo;s own roster history has at least 8 finished classes for a course family and number of days out, that row uses the measured band instead and says &ldquo;own history&rdquo;.</p>
         <p><b>Pace</b> compares enrolled now with the most recent finished run of the same course (different model years are different courses): running hot at {CONFIG.pace.hot}&times; or more, on pace from {CONFIG.pace.pace}&times;, soft from {CONFIG.pace.soft}&times;, lagging below. Rows three or fewer days out are paced; further out is too early.{d.noComparator.length ? ` No earlier run to compare yet: ${d.noComparator.join(", ")}.` : ""}</p>
         <p><b>Past-class labels</b> compare a class with its family&rsquo;s show rate: above average at {CONFIG.showPill.hot}&times; or more, typical from {CONFIG.showPill.pace}&times;, below average from {CONFIG.showPill.soft}&times;, well below under that.</p>
         <p><b>Emails</b> come from the Kia engine&rsquo;s send ledger and today&rsquo;s plan. &ldquo;Sent&rdquo; means the engine saw it in Exchange Sent.</p>
