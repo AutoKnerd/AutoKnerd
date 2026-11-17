@@ -19,6 +19,19 @@
   }
 }
 .page *, .page *::before, .page *::after { box-sizing: border-box; }
+/* embedded in an Enrollment Runway: same colours, no page chrome, filter bar not sticky (the host tabs are) */
+.embed {
+  --surface: #ffffff; --fg: #14171c; --muted: #5b6370; --line: #dde1e7; --accent: #05141f;
+  --an: #1f5fbf; --to: #b4541a; --pa: #2c7a4b; --chip: #eef1f5;
+  --display: var(--font-outfit); --body: var(--font-inter); --mono: var(--font-jetbrains-mono);
+  padding-top: 16px;
+}
+@media (prefers-color-scheme: dark) {
+  .embed { --surface: #171b21; --fg: #e8ebef; --muted: #9aa3af; --line: #2a3039; --accent: #e8ebef; --an: #7aa8f0; --to: #f0a06a; --pa: #6fcf97; --chip: #222830; }
+}
+.embed .bar { position: static; }
+.embed .views button { font-family: var(--display), system-ui, sans-serif; font-weight: 700; font-size: 14px; color: var(--muted); background: none; border: 0; border-bottom: 3px solid transparent; padding: 8px 12px; margin-bottom: -1px; cursor: pointer; }
+.embed .views button[aria-current="page"] { color: var(--fg); border-bottom-color: var(--fg); }
 
 .wrap { max-width: 960px; margin: 0 auto; display: grid; gap: 20px; }
 .h1 { font-family: var(--display), system-ui, sans-serif; font-weight: 800; font-size: clamp(26px, 5vw, 38px); letter-spacing: -0.02em; margin: 0; text-wrap: balance; }

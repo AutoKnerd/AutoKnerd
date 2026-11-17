@@ -56,7 +56,7 @@
 .dayhead { font-size: 13px; color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--line); margin-bottom: 6px; }
 .dayhead b { color: var(--fg); font-family: var(--display), system-ui, sans-serif; font-size: 15px; margin-right: 4px; }
 .out { font-family: var(--mono), monospace; font-size: 11px; margin-left: 8px; color: var(--faint); }
-.row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) 150px; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; margin-bottom: 6px; }
+.row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) 150px auto; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; margin-bottom: 6px; }
 .who { min-width: 0; }
 .t { font-weight: 600; }
 .meta { display: flex; flex-wrap: wrap; gap: 3px 12px; font-size: 12px; color: var(--muted); margin-top: 3px; }
@@ -71,6 +71,10 @@
 .sig { display: grid; gap: 3px; justify-items: start; }
 .pill { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #fff; white-space: nowrap; }
 .hot { background: var(--hot); } .pace { background: var(--pace); } .soft { background: var(--soft); } .lag { background: var(--lag); } .early { background: var(--early); }
+.links { display: flex; gap: 6px; align-items: center; }
+.links a, .links button { font: inherit; font-size: 12px; font-weight: 600; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); border-radius: 5px; padding: 5px 9px; text-decoration: none; cursor: pointer; white-space: nowrap; }
+.links a:hover, .links button:hover { border-color: var(--accent); }
+.links a:focus-visible, .links button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .idx { font-family: var(--mono), monospace; font-size: 10.5px; color: var(--faint); }
 .lead { color: var(--muted); max-width: 78ch; margin: 6px 0 10px; }
 .note { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; color: var(--muted); }

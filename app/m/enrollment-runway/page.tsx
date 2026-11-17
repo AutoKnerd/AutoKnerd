@@ -5,6 +5,10 @@ import { hasAccess } from "../_kia/gate";
 import { Gate } from "../_kia/PassGate";
 import { buildRunway, CONFIG, sampleSize, daysNeeded, type Bundle, type Runway, type UpRow, type PastRow, type Pill } from "./data";
 import { Tabs } from "./Tabs";
+import { SessionLinks } from "../_kia/SessionLinks";
+import { Tracker, type TrackerData } from "../vilt-tracker/Tracker";
+import { ClientOnly } from "../_kia/ClientOnly";
+import { isTrackerData } from "../_kia/feed";
 import s from "./runway.module.css";
 
 // Enrollment Runway (ported from the claude.ai artifact, numbers only): Andrew's next 16 days of rosters and reminder
@@ -17,7 +21,7 @@ const isBundle = (j: unknown) => !!j && typeof j === "object" && Array.isArray((
 
 export default async function RunwayPage({ searchParams }: { searchParams: Promise<{ wrong?: string }> }) {
   if (!(await hasAccess())) return <Gate title="Enrollment Runway" next="/m/enrollment-runway" wrong={!!(await searchParams).wrong} />;
-  const b = await readFeed<Bundle>("runway", isBundle);
+  const [b, tr] = await Promise.all([readFeed<Bundle>("runway", isBundle), readFeed<TrackerData>("tracker", isTrackerData)]);
   let d: Runway | null = null;
   try { d = b ? buildRunway(b) : null; } catch { d = null; }
   return (
@@ -32,7 +36,9 @@ export default async function RunwayPage({ searchParams }: { searchParams: Promi
               Rosters read {hm(d.stamp.pull)} &middot; email plan {hm(d.stamp.plan)} &middot; engine checked in {hm(d.stamp.engine)}{d.stamp.engineMode ? ` (${d.stamp.engineMode})` : ""}
               {" "}&middot; attendance through {md(d.stamp.attendanceThrough)} &middot; data gathered {hm(d.stamp.generated)} &middot; updates itself
             </p>
-            <Tabs panels={{ upcoming: <Upcoming d={d} />, past: <Past d={d} />, analysis: <Analysis d={d} /> }} />
+            <Tabs tabs={[["upcoming", "Upcoming"], ["past", "Past classes"], ["analysis", "Analysis & method"], ["tracker", "vILT tracker"]]}
+              panels={{ upcoming: <Upcoming d={d} />, past: <Past d={d} />, analysis: <Analysis d={d} />,
+                tracker: tr ? <ClientOnly><Tracker data={tr} only="Andrew" /></ClientOnly> : <p className={s.note}>Couldn&rsquo;t load the tracker right now.</p> }} />
           </>
         )}
       </div>
@@ -112,6 +118,7 @@ function UpRowView({ r, pc }: { r: UpRow; pc: (v: number) => string }) {
         <div className={s.glabel}>{r.enrolled} enrolled &middot; {r.proj[0]}&ndash;{r.proj[1]} final &middot; &asymp; {r.room[0]}&ndash;{r.room[1]} in the room{r.bandNote ? <span className={s.faint}> &middot; {r.bandNote}</span> : null}</div>
       </div>
       <div className={s.sig}><span className={`${s.pill} ${s[r.pill]}`}>{PILL[r.pill]}</span><span className={s.idx}>{r.idx}</span></div>
+      <SessionLinks id={r.event_id} className={s.links} />
     </div>
   );
 }
@@ -157,6 +164,7 @@ function PastRowView({ r }: { r: PastRow }) {
         <div className={s.glabel}>{r.attended} of {r.enrolled} attended &middot; {r.enrolled - r.attended} no-show{r.enrolled - r.attended === 1 ? "" : "s"}</div>
       </div>
       <div className={s.sig}><span className={`${s.pill} ${s[r.pill]}`}>{Math.round(r.pct * 100)}% shown</span><span className={s.idx}>{r.label}</span></div>
+      {r.event_id ? <SessionLinks id={r.event_id} className={s.links} /> : <span />}
     </div>
   );
 }

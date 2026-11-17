@@ -29,40 +29,48 @@ const ym = (mdy: string) => mdy.slice(6, 10) + "-" + mdy.slice(0, 2);
 const n = (x: number) => x.toLocaleString("en-US");
 const cvar = (t: Trainer) => ({ "--c": COLOR[t] }) as CSSProperties;
 
-export function Tracker({ data }: { data: TrackerData }) {
+/** `only` shows one trainer (used inside each Enrollment Runway); without it this is the global tracker. */
+export function Tracker({ data, only }: { data: TrackerData; only?: Trainer }) {
   const { meta, D, H, M, TD, TDM, prev } = data;
-  const [who, setWho] = useState<"all" | Trainer>("all");
+  const names: Trainer[] = only ? [only] : NAMES;
+  const [who, setWho] = useState<"all" | Trainer>(only || "all");
   const [cls, setCls] = useState("");
   const [view, setView] = useState<"schedule" | "results">("schedule");
 
   useEffect(() => {
+    if (only) return; // embedded: views switch by button, the host page owns the URL hash
     const sync = () => setView(location.hash === "#results" ? "results" : "schedule");
     sync();
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
-  }, []);
+  }, [only]);
 
   const classes = useMemo(() => [...new Set(D.map((r) => r[5]))].sort(), [D]);
   const windowEnd = meta.windowLabel.split(" – ").pop();
 
   return (
-    <div className={s.wrap}>
-      <header>
+    <div className={`${s.wrap} ${only ? s.embed : ""}`}>
+      {!only && <header>
         <h1 className={s.h1}>vILT Live Tracker</h1>
         <p className={s.sub}>
           Kia University virtual classes taught by Andrew Sardone, Anthony Burkhardt and Paul Reilly: the schedule through {windowEnd} with
           registration links, and {meta.year} results so far.
         </p>
-      </header>
+      </header>}
 
       <nav className={s.views} aria-label="Views">
-        <a href="#schedule" aria-current={view === "schedule" ? "page" : undefined}>Upcoming schedule</a>
-        <a href="#results" aria-current={view === "results" ? "page" : undefined}>{meta.year} results</a>
+        {only ? <>
+          <button type="button" aria-current={view === "schedule" ? "page" : undefined} onClick={() => setView("schedule")}>Upcoming schedule</button>
+          <button type="button" aria-current={view === "results" ? "page" : undefined} onClick={() => setView("results")}>{meta.year} results</button>
+        </> : <>
+          <a href="#schedule" aria-current={view === "schedule" ? "page" : undefined}>Upcoming schedule</a>
+          <a href="#results" aria-current={view === "results" ? "page" : undefined}>{meta.year} results</a>
+        </>}
       </nav>
 
       <div className={s.bar} role="toolbar" aria-label="Filter sessions">
-        <button aria-pressed={who === "all"} onClick={() => setWho("all")}>Everyone</button>
-        {NAMES.map((t) => (
+        {!only && <button aria-pressed={who === "all"} onClick={() => setWho("all")}>Everyone</button>}
+        {!only && NAMES.map((t) => (
           <button key={t} aria-pressed={who === t} onClick={() => setWho(t)}>
             <i className={s.dot} style={{ background: COLOR[t] }} />
             {t}
@@ -78,8 +86,8 @@ export function Tracker({ data }: { data: TrackerData }) {
         )}
       </div>
 
-      {view === "schedule" ? <Schedule D={D} asOf={meta.asOf} who={who} cls={cls} /> : (
-        <Results meta={meta} H={H} M={M} TD={TD} TDM={TDM} prev={prev} who={who} />
+      {view === "schedule" ? <Schedule D={D} asOf={meta.asOf} who={who} cls={cls} names={names} /> : (
+        <Results meta={meta} H={H} M={M} TD={TD} TDM={TDM} prev={prev} who={who} names={names} />
       )}
 
       {meta.lastPull && <p className={s.stamp}>Last pulled from Kia University {meta.lastPull} ET</p>}
@@ -87,7 +95,7 @@ export function Tracker({ data }: { data: TrackerData }) {
   );
 }
 
-function Schedule({ D, asOf, who, cls }: { D: TrackerData["D"]; asOf: string; who: "all" | Trainer; cls: string }) {
+function Schedule({ D, asOf, who, cls, names }: { D: TrackerData["D"]; asOf: string; who: "all" | Trainer; cls: string; names: Trainer[] }) {
   const [copied, setCopied] = useState("");
   const mons = [...new Set(D.map((r) => ym(r[0])))].sort();
   const a = new Date(asOf);
@@ -108,7 +116,7 @@ function Schedule({ D, asOf, who, cls }: { D: TrackerData["D"]; asOf: string; wh
   return (
     <main className={s.main}>
       <div className={s.stats}>
-        {NAMES.map((t) => {
+        {names.map((t) => {
           const mine = D.filter((r) => r[4] === t);
           const inM = (m: string) => mine.filter((r) => ym(r[0]) === m);
           const now = inM(m0);
@@ -159,9 +167,9 @@ function Schedule({ D, asOf, who, cls }: { D: TrackerData["D"]; asOf: string; wh
   );
 }
 
-function Results({ meta, H, M, TD, TDM, prev, who }: Omit<TrackerData, "D"> & { who: "all" | Trainer }) {
+function Results({ meta, H, M, TD, TDM, prev, who, names }: Omit<TrackerData, "D"> & { who: "all" | Trainer; names: Trainer[] }) {
   const sum = (t: Trainer) => H.filter((r) => r[0] === t).reduce((a, r) => [a[0] + r[2], a[1] + r[3], a[2] + r[4]], [0, 0, 0]);
-  const ns = who === "all" ? NAMES : [who];
+  const ns = who === "all" ? names : [who];
   const months = [...new Set(M.map((r) => r[0]))];
   const mx = Math.max(1, ...M.map((r) => r[4]));
   const rows = H.filter((r) => who === "all" || r[0] === who).slice().sort((a, b) => b[4] - a[4]);
@@ -171,12 +179,12 @@ function Results({ meta, H, M, TD, TDM, prev, who }: Omit<TrackerData, "D"> & { 
       <p className={s.note}>{meta.note}</p>
       {prev && (
         <p className={s.note}>
-          {meta.year - 1} final: {NAMES.map((t) => `${FULL[t]} ${prev[t].sessions} sessions, ${n(prev[t].attended)} attended, ${prev[t].days} training days`).join(" · ")}
+          {meta.year - 1} final: {names.map((t) => `${FULL[t]} ${prev[t].sessions} sessions, ${n(prev[t].attended)} attended, ${prev[t].days} training days`).join(" · ")}
         </p>
       )}
 
       <div className={s.stats}>
-        {NAMES.map((t) => {
+        {names.map((t) => {
           const x = sum(t);
           return (
             <div key={t} className={`${s.stat} ${who !== "all" && who !== t ? s.dim : ""}`}>

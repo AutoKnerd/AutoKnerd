@@ -20,3 +20,9 @@ export async function readFeed<T>(feed: string, check: (j: unknown) => boolean, 
     return null;
   }
 }
+
+/** Shape check for the tracker feed (vilt-tracker-data.json). */
+export const isTrackerData = (j: unknown) => {
+  const x = j as { D?: unknown; meta?: unknown } | null;
+  return !!x && Array.isArray(x.D) && !!x.meta;
+};

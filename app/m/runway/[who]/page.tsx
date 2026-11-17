@@ -7,6 +7,11 @@ import { Gate } from "../../_kia/PassGate";
 import { CONFIG, project, normCourse, isWelcome, addDays, type Pill } from "../../enrollment-runway/data";
 import type { SessionsFeed, SessionRow } from "../../team-show-rate/stats";
 import s from "../../enrollment-runway/runway.module.css";
+import { Tabs } from "../../enrollment-runway/Tabs";
+import { SessionLinks } from "../../_kia/SessionLinks";
+import { Tracker, type TrackerData } from "../../vilt-tracker/Tracker";
+import { ClientOnly } from "../../_kia/ClientOnly";
+import { readFeed as readTracker, isTrackerData } from "../../_kia/feed";
 
 // Enrollment Runway for Paul and Anthony: the same roster runway and past-class view as Andrew's page, built from
 // the Wingspan session counts the extension pulls every hour. They send no reminder emails and their rosters
@@ -36,7 +41,7 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
   const key = (await params).who, w = WHO[key];
   if (!w) notFound();
   if (!(await hasAccess())) return <Gate title={`Enrollment Runway · ${w.full}`} next={`/m/runway/${key}`} wrong={!!(await searchParams).wrong} />;
-  const feed = await readFeed<SessionsFeed>("sessions", isFeed, { from: "2026-08-31" });
+  const [feed, tr] = await Promise.all([readFeed<SessionsFeed>("sessions", isFeed, { from: "2026-08-31" }), readTracker<TrackerData>("tracker", isTrackerData)]);
   const rows = (feed?.rows || []).filter((r) => r[1] === w.short && !/cancel|missing/i.test(r[5]));
   const today = etToday(), end = addDays(today, CONFIG.windowDays);
   const done = rows.filter((r) => closed(r) && r[2] < today);
@@ -74,6 +79,8 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
             <p className={s.sub}>{w.full}&rsquo;s Kia University virtual classes: where each roster stands, where it should land, and how many turned up in the classes behind. Enrollment counts come from Wingspan every hour; {w.short} sends no reminder emails, so there is no email column.</p>
             <p className={s.stamp}>Wingspan sessions last pulled {feed.lastPull} ET &middot; attendance through {md(feed.through)} &middot; updates itself</p>
 
+            <Tabs tabs={[["runway", "Runway"], ["tracker", "vILT tracker"]]} panels={{
+              runway: <div className={s.panel}>
             <p className={s.label}>The window ahead &middot; {md(today)} &ndash; {md(up.length ? up[up.length - 1].r[2] : today)} &middot; {up.length} sessions</p>
             <section className={s.strip}>
               <div><span>Sessions</span><b>{up.length}</b><small>Across {upDays.length} teaching days &middot; {up.filter((u) => u.daysOut === 0).length} today</small></div>
@@ -101,6 +108,7 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
                       <div className={s.glabel}>{u.r[6]} enrolled &middot; {u.proj[0]}&ndash;{u.proj[1]} final &middot; &asymp; {u.room[0]}&ndash;{u.room[1]} in the room</div>
                     </div>
                     <div className={s.sig}><span className={`${s.pill} ${s[u.pill]}`}>{PILL[u.pill]}</span><span className={s.idx}>{u.idx}</span></div>
+                    <SessionLinks id={u.r[0]} className={s.links} />
                   </div>
                 ))}
               </div>
@@ -127,6 +135,7 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
                       <div className={s.who}><div className={s.t}>{r[4]}</div><div className={s.meta}><span>{r[3]}</span></div></div>
                       <div className={s.gaugeCol}><div className={s.track}><div className={s.segNow} style={{ width: Math.round(p * 1000) / 10 + "%" }} /></div><div className={s.glabel}>{r[7]} of {r[6]} attended &middot; {r[6] - r[7]} no-show{r[6] - r[7] === 1 ? "" : "s"}</div></div>
                       <div className={s.sig}><span className={`${s.pill} ${s[pill]}`}>{Math.round(p * 100)}% shown</span><span className={s.idx}>{label}</span></div>
+                      <SessionLinks id={r[0]} className={s.links} />
                     </div>
                   );
                 })}
@@ -135,6 +144,9 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
             <div className={s.meth}>
               <p><b>How it works.</b> Final enrollment uses the same locked growth bands as Andrew&rsquo;s page (they were measured on Andrew&rsquo;s classes, so treat them as a rough guide for {w.short}&rsquo;s courses). &ldquo;In the room&rdquo; applies {w.short}&rsquo;s own show rate since Sep 2 for that course family. Pace compares enrolled now with {w.short}&rsquo;s most recent finished run of the same course, three or fewer days out. Past-class labels compare a class with {w.short}&rsquo;s own family show rate.</p>
             </div>
+              </div>,
+              tracker: tr ? <ClientOnly><Tracker data={tr} only={w.short} /></ClientOnly> : <p className={s.note}>Couldn&rsquo;t load the tracker right now.</p>,
+            }} />
           </>
         )}
       </div>
