@@ -1,26 +1,10 @@
 import s from "../enrollment-runway/runway.module.css";
-import { SessionLinks } from "./SessionLinks";
 import { CAP, SINCE, SMALL, rate, type Insights, type Tally } from "./insights";
 
-// Patterns tab (server-rendered) and the "waiting on attendance marks" warning, shared by all three runways.
+// Patterns tab (server-rendered), shared by all three runways.
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const md = (iso: string) => MON[+iso.slice(5, 7) - 1] + " " + +iso.slice(8, 10);
 const pct = (v: number) => Math.round(v * 100) + "%";
-
-export function UnmarkedNotice({ ins, name }: { ins: Insights; name: string }) {
-  if (!ins.unmarked.length) return null;
-  return (
-    <div className={s.callout}>
-      <b>{ins.unmarked.length} closed class{ins.unmarked.length === 1 ? " has" : "es have"} no attendance marked in Wingspan.</b>{" "}
-      Until {name} marks {ins.unmarked.length === 1 ? "it" : "them"}, {ins.unmarked.length === 1 ? "it is" : "they are"} left out of every show rate on these pages.
-      <ul className={s.marklist}>
-        {ins.unmarked.map((r) => (
-          <li key={r[0]}><span>{md(r[2])} &middot; {r[3]} &middot; {r[4]} &middot; {r[6]} enrolled</span><SessionLinks id={r[0]} className={s.links} /></li>
-        ))}
-      </ul>
-    </div>
-  );
-}
 
 function Rows({ rows, avg, label }: { rows: ({ k: string; rate: number } & Tally)[]; avg: number; label?: (k: string) => string }) {
   const max = Math.max(0.6, ...rows.map((r) => r.rate));

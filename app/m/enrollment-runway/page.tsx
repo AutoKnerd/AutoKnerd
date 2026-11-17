@@ -7,7 +7,7 @@ import { buildRunway, CONFIG, sampleSize, daysNeeded, type Bundle, type Runway, 
 import { Tabs } from "./Tabs";
 import { SessionLinks } from "../_kia/SessionLinks";
 import { insights, ownBands, type HistoryRow } from "../_kia/insights";
-import { PatternsPanel, UnmarkedNotice } from "../_kia/Patterns";
+import { PatternsPanel } from "../_kia/Patterns";
 import type { SessionsFeed } from "../team-show-rate/stats";
 import { Tracker, type TrackerData } from "../vilt-tracker/Tracker";
 import { ClientOnly } from "../_kia/ClientOnly";
@@ -43,7 +43,6 @@ export default async function RunwayPage({ searchParams }: { searchParams: Promi
               Rosters read {hm(d.stamp.pull)} &middot; email plan {hm(d.stamp.plan)} &middot; engine checked in {hm(d.stamp.engine)}{d.stamp.engineMode ? ` (${d.stamp.engineMode})` : ""}
               {" "}&middot; attendance through {md(d.stamp.attendanceThrough)} &middot; data gathered {hm(d.stamp.generated)} &middot; updates itself
             </p>
-            {ins && <UnmarkedNotice ins={ins} name="Andrew" />}
             <Tabs tabs={[["upcoming", "Upcoming"], ["past", "Past classes"], ["patterns", "Patterns"], ["analysis", "Analysis & method"], ["tracker", "vILT tracker"]]}
               panels={{ upcoming: <Upcoming d={d} />, past: <Past d={d} />, patterns: ins ? <PatternsPanel ins={ins} name="Andrew" /> : null, analysis: <Analysis d={d} />,
                 tracker: tr ? <ClientOnly><Tracker data={tr} only="Andrew" /></ClientOnly> : <p className={s.note}>Couldn&rsquo;t load the tracker right now.</p> }} />

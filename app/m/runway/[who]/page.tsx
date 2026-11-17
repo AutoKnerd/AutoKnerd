@@ -13,7 +13,7 @@ import { Tracker, type TrackerData } from "../../vilt-tracker/Tracker";
 import { ClientOnly } from "../../_kia/ClientOnly";
 import { readFeed as readTracker, isTrackerData } from "../../_kia/feed";
 import { insights, ownBands, type HistoryRow } from "../../_kia/insights";
-import { PatternsPanel, UnmarkedNotice } from "../../_kia/Patterns";
+import { PatternsPanel } from "../../_kia/Patterns";
 
 // Enrollment Runway for Paul and Anthony: the same roster runway and past-class view as Andrew's page, built from
 // the Wingspan session counts the extension pulls every hour. They send no reminder emails and their rosters
@@ -84,7 +84,6 @@ export default async function TrainerRunway({ params, searchParams }: { params: 
             <p className={s.sub}>{w.full}&rsquo;s Kia University virtual classes: where each roster stands, where it should land, and how many turned up in the classes behind. Enrollment counts come from Wingspan every hour; {w.short} sends no reminder emails, so there is no email column.</p>
             <p className={s.stamp}>Wingspan sessions last pulled {feed.lastPull} ET &middot; attendance through {md(feed.through)} &middot; updates itself</p>
 
-            {ins && <UnmarkedNotice ins={ins} name={w.short} />}
             <Tabs tabs={[["runway", "Runway"], ["patterns", "Patterns"], ["tracker", "vILT tracker"]]} panels={{
               patterns: ins ? <PatternsPanel ins={ins} name={w.short} /> : null,
               runway: <div className={s.panel}>
