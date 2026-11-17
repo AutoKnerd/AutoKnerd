@@ -22,7 +22,9 @@ const isFeed = (j: unknown) => !!j && typeof j === "object" && Array.isArray((j 
 export default async function TeamShowRatePage({ searchParams }: { searchParams: Promise<{ wrong?: string }> }) {
   if (!(await hasAccess())) return <Gate title="Team Show Rate" next="/m/team-show-rate" wrong={!!(await searchParams).wrong} />;
   const feed = await readFeed<SessionsFeed>("sessions", isFeed, { from: "2026-08-31" });
-  const d = feed && feed.rows.length ? build(feed) : null;
+  // Until the extension's one-time September backfill lands, the before-and-after has no "before" half.
+  const backfilled = !!feed && feed.rows.some((r) => r[2] < "2026-09-10");
+  const d = feed && backfilled ? build(feed) : null;
   return (
     <div className={s.page}>
       <div className={s.wrap}>
@@ -30,7 +32,9 @@ export default async function TeamShowRatePage({ searchParams }: { searchParams:
         {d && d.team.s ? <Report d={d} /> : (
           <>
             <h1 className={s.h1}>Team Show Rate</h1>
-            <p className={s.note}>Couldn&rsquo;t load the session data right now. Try again in a few minutes.</p>
+            <p className={s.note}>{feed && !backfilled
+              ? "Waiting for September's classes: the vILT Tracker Sync extension (version 1.3.0) sends them once, the first time it runs. This page fills in after that pull."
+              : "Couldn’t load the session data right now. Try again in a few minutes."}</p>
           </>
         )}
       </div>
