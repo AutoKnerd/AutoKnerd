@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Tracker, type TrackerData } from "./Tracker";
 import styles from "./tracker.module.css";
+import { FEED_TAG } from "../_kia/feed";
 
 // Unlisted, link-only vILT Live Tracker for the Kia University trainers.
 // The numbers come from the "vILT Tracker Receiver" Apps Script (fed hourly by
@@ -24,7 +25,7 @@ async function load(): Promise<TrackerData | null> {
     const u = new URL(url);
     u.searchParams.set("feed", "tracker");
     u.searchParams.set("key", key);
-    const r = await fetch(u, { next: { revalidate } });
+    const r = await fetch(u, { next: { revalidate, tags: [FEED_TAG] } });
     if (!r.ok) return null;
     const j = await r.json();
     if (!j || !Array.isArray(j.D) || !j.meta) return null;
