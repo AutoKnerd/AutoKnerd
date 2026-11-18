@@ -40,6 +40,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ token: 
 
   const rows = d.up.filter((r) => r.date === d.today);
   const best = (lo: number, hi: number) => Math.round((lo + hi) / 2);
+  const range = (lo: number, hi: number) => (lo === hi ? `${lo}` : `${lo}-${hi}`);
   const pull = d.stamp.pull;
   const out = [
     "Andrew Sardone - Kia University virtual classes today",
@@ -52,11 +53,11 @@ export async function GET(_req: Request, { params }: { params: Promise<{ token: 
   if (!rows.length) out.push("No Kia classes today.");
   for (const r of rows) {
     const end = ends.get(r.event_id);
-    out.push(`${t12(r.start_et.slice(11, 16))}${end ? " - " + end : ""} ET | ${r.title} | ${r.enrolled} enrolled | projected ${r.room[0]}-${r.room[1]} attending (best guess ${best(r.room[0], r.room[1])})`);
+    out.push(`${t12(r.start_et.slice(11, 16))}${end ? " - " + end : ""} ET | ${r.title} | ${r.enrolled} enrolled | projected ${range(r.room[0], r.room[1])} attending (best guess ${best(r.room[0], r.room[1])})`);
   }
   if (rows.length) {
     const e = rows.reduce((a, r) => a + r.enrolled, 0), lo = rows.reduce((a, r) => a + r.room[0], 0), hi = rows.reduce((a, r) => a + r.room[1], 0);
-    out.push("", `Total: ${rows.length} class${rows.length === 1 ? "" : "es"} | ${e} enrolled | projected ${lo}-${hi} attending (best guess ${best(lo, hi)})`);
+    out.push("", `Total: ${rows.length} class${rows.length === 1 ? "" : "es"} | ${e} enrolled | projected ${range(lo, hi)} attending (best guess ${best(lo, hi)})`);
   }
   out.push("", "Projected attending = projected final roster x Andrew's recorded show rate for that kind of class (Welcome to Kia or workshop), the same numbers as the Enrollment Runway.");
   return text(out.join("\n") + "\n");
